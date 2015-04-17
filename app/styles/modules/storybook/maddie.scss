@@ -1,0 +1,87 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+@import '../../base/mixins';
+
+/**
+ *  Constants.
+ */
+$ASSET_BACKGROUND: '../assets/storybook/background-maddie.jpg';
+$ASSET_MOBILE_BACKGROUND: '../assets/storybook/background-maddie-m.jpg';
+$ASSET_DIALOG_BACKGROUND: '../assets/storybook/maddie-flower.png';
+
+section.maddie
+{
+    .background-layer
+    {
+        @include background-fade-transition();
+
+        figure
+        {
+            &:nth-child(1)
+            {
+                @include background-fade-transition();
+                @include apply-mobile-background(url($ASSET_MOBILE_BACKGROUND));
+                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 200%, 0% 0%);
+            }
+
+            &:nth-child(2)
+            {
+                @include background-fade-transition();
+                @include apply-mobile-background(none);
+                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 200%, 0% 100%);
+            }
+        }
+    }
+
+    summary
+    {
+        top: 15%;
+        left: 20%;
+        text-align: left;
+        position: absolute;
+
+        header
+        {
+            h2
+            {
+                color: #fff;
+                text-align: left;
+            }
+
+            h3
+            {
+                color: #fff;
+                text-align: left;
+            }
+        }
+
+        aside
+        {
+            width: 70%;
+            text-align: left;
+
+            p
+            {
+                color: #666;
+                text-align: left;
+            }
+        }
+    }
+
+    dialog
+    {
+        @include dialog-fade-transition();
+
+        padding: 100px;
+        padding-right: 350px;
+        width: 800px;
+        background-image: url($ASSET_DIALOG_BACKGROUND);
+        background-position: right center;
+    }
+}

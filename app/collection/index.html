@@ -1,0 +1,111 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <title>Vestige: Collection</title>
+
+        <meta charset="utf-8">
+        <meta name="author" content="Vestige"/>
+        <meta name="description" content="The message within. Founded in Vancouver, we are a fashion house that gives casual premium a whole new meaning."/>
+        <meta name="keywords" content="vestige,vestige story,vestige canada,vestige vancouver,fashion,clothing,message in a bottle">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <meta property="og:url" content="http://vestigestory.com"/>
+        <meta property="og:image" content="/og-image.png"/>
+        <meta property="og:title" content="Vestige: Collection"/>
+        <meta property="og:description" content="The message within. Founded in Vancouver, we are a fashion house that gives casual premium a whole new meaning."/>
+
+        <!-- icons -->
+        <link rel="shortcut icon" href="/favicon.png"/>
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+
+        <!-- fonts -->
+        <link href='http://fonts.googleapis.com/css?family=EB+Garamond|Oswald:400,300' rel='stylesheet' type='text/css'>
+
+        <!-- styles -->
+        <!-- build:css /styles/main.css -->
+        <link rel="stylesheet" href="/styles/main.css">
+        <!-- endbuild -->
+
+        <!-- scripts -->
+        <!-- build:js /scripts/vendor.js -->
+        <script src="/bower_components/modernizr/modernizr.js"></script>
+        <!-- endbuild -->
+
+        <!-- ga -->
+        <script>(function(e,t,n,r,i,s){e.GoogleAnalyticsObject=r;e[r]||(e[r]=function(){(e[r].q=e[r].q||[]).push(arguments)});e[r].l=+(new Date);i=t.createElement(n);s=t.getElementsByTagName(n)[0];i.src="//www.google-analytics.com/analytics.js";s.parentNode.insertBefore(i,s)})(window,document,"script","ga");ga("create","UA-59176044-1");ga("send","pageview")</script>
+    </head>
+    <body ng-app="collection">
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!--#include virtual="/includes/header.html" -->
+        <header id="menu">
+            <h1 class="logo">VESTIGE</h1>
+            <nav>
+                <li data-type="story-book"><a href="/" target="_self">STORY BOOK</a></li>
+                <li data-type="about"><a href="/about" target="_self">VESTIGE</a></li>
+                <li data-type="collection"><a href="/collection" target="_self">COLLECTION</a></li>
+                <li data-type="journal"><a href="/journal" target="_self">JOURNAL</a></li>
+            </nav>
+        </header>
+        <header id="menu-compact">
+            <nav>
+                <li data-type="story-book"><a href="/" target="_self">STORY BOOK</a></li>
+                <li data-type="about"><a href="/about" target="_self">VESTIGE</a></li>
+                <li data-type="collection"><a href="/collection" target="_self">COLLECTION</a></li>
+                <li data-type="journal"><a href="/journal" target="_self">JOURNAL</a></li>
+                <h1 class="logo">VESTIGE</h1>
+            </nav>
+            <button class="menu"><span></span></button>
+        </header>
+
+        <main class="collection" ng-controller="CollectionController" ng-cloak>
+            <section class="products">
+                <nav id="product-nav" style="width:{{products.length*200}}px">
+                    <a class="thumbnail {{(activeIndex===$index) && 'state-active' || 'state-inactive'}}" ng-repeat="product in products" data-id="{{product.id}}" href="#{{product.id}}">
+                        <img ng-src="/{{product.thumbnail}}"/>
+                    </a>
+                </nav>
+                <summary>
+                    <article>
+                        <figure style="width:{{activeProduct.assets.length*100}}%;left:calc(-{{activePageIndex*(!touchEnabled && 100 || 0)}}% - {{(pageShift==='right') && 100 || ((pageShift==='left') && -100 || 0)}}px);">
+                            <div class="image-wrapper" ng-repeat="asset in activeProduct.assets">
+                                <img ng-src="/{{asset}}"/>
+                            </div>
+                        </figure>
+                        <nav>
+                            <button class="nav-node {{(activePageIndex===$index) && 'state-active' || 'state-inactive'}}" ng-repeat="asset in activeProduct.assets" ng-click="_onPageSelect($index)"></button>
+                        </nav>
+                    </article>
+                    <aside>
+                        <h2 data-type="name">{{activeProduct.name}}</h2>
+                        <h3 data-type="id">{{activeProduct.id}}</h3>
+                        <span data-type="description">{{activeProduct.description}}</span>
+                        <span data-type="description">{{activeProduct.materials}}</span>
+                        <span data-type="sizes">
+                            <span>
+                                <button ng-repeat="size in activeProduct.sizes" class="size {{size}}"></button>
+                            </span>
+                        </span>
+                        <span data-type="colors">
+                            <span>
+                                <button ng-repeat="color in activeProduct.colors" class="color {{color.name}}" ng-style="{'background-image':'url(/{{color.asset}})'}"></button>
+                            </span>
+                        </span>
+                    </aside>
+                    <button ng-if="(activePageIndex < (activeProduct.assets.length-1)) && !touchEnabled" class="next-slide" ng-click="_onNextPageSelect($event)" ng-mouseover="_onNextPageMouseOver($event)" ng-mouseout="_onNextPageMouseOut($event)"></button>
+                    <button ng-if="(activePageIndex > 0) && !touchEnabled" class="prev-slide" ng-click="_onPrevPageSelect($event)" ng-mouseover="_onPrevPageMouseOver($event)" ng-mouseout="_onPrevPageMouseOut($event)"></button>
+                    <button class="info"></button>
+                </summary>
+            </section>
+        </main>
+
+        <!-- scripts -->
+        <!-- build:js /scripts/collection.js -->
+        <script src="/scripts/collection.js"></script>
+        <!-- endbuild -->
+    </body>
+</html>

@@ -1,0 +1,11 @@
+node_modules
+bower_components
+include
+bin
+lib
+concept
+build
+.tmp
+.DS_STORE
+*.sublime-project
+*.sublime-workspace

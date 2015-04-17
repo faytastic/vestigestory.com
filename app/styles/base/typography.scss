@@ -1,0 +1,133 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+$FONT_FAMILY_CONTENT: 'EB Garamond', serif;
+$FONT_FAMILY_HEADER: 'Oswald', sans-serif;
+$FONT_FAMILY_SUB_HEADER: 'Helvetica Neue', sans-serif;
+$FONT_WEIGHT_SERIF_NORMAL: 400;
+$FONT_WEIGHT_SANS_SERIF_LIGHT: 300;
+$FONT_WEIGHT_SANS_SERIF_NORMAL: 400;
+
+$base-path: '../../' !default;
+
+span,
+p,
+li,
+em,
+h1,
+h2,
+h3,
+h4,
+h5,
+button
+{
+    font-style: normal;
+    text-align: inherit;
+    list-style: none;
+    color: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+span,
+p,
+li
+{
+    font-family: $FONT_FAMILY_CONTENT;
+    font-weight: $FONT_WEIGHT_SERIF_NORMAL;
+    font-size: 18px;
+    line-height: 28px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5
+{
+    font-family: $FONT_FAMILY_HEADER;
+}
+
+p
+{
+    & + p
+    {
+        margin-top: 20px;
+    }
+}
+
+em
+{
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+h1
+{
+    font-size: 56px;
+    font-weight: $FONT_WEIGHT_SANS_SERIF_LIGHT;
+    color: #333333;
+}
+
+h2
+{
+    font-size: 30px;
+    font-weight: $FONT_WEIGHT_SANS_SERIF_LIGHT;
+    text-align: center;
+    line-height: 1.2em;
+
+    @media only screen and (min-width: 1024px)
+    {
+        font-size: 50px;
+    }
+}
+
+h3
+{
+    font-weight: $FONT_WEIGHT_SANS_SERIF_LIGHT;
+    font-size: 24px;
+    text-align: center;
+    line-height: 1.2em;
+
+    @media only screen and (min-width: 1024px)
+    {
+        font-size: 24px;
+    }
+}
+
+h4
+{
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: $FONT_WEIGHT_SANS_SERIF_LIGHT;
+}
+
+h5
+{
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: $FONT_WEIGHT_SANS_SERIF_LIGHT;
+    text-align: center;
+}
+
+a
+{
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    text-align: inherit;
+    line-height: inherit;
+    color: #000;
+    text-decoration: none;
+}
+
+a:hover
+{
+    text-decoration: none;
+}

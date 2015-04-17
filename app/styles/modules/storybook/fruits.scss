@@ -1,0 +1,96 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+@import '../../base/mixins';
+
+/**
+ *  Constants.
+ */
+$ASSET_BACKGROUND: '../assets/storybook/background-fruits.jpg';
+$ASSET_MOBILE_BACKGROUND: '../assets/storybook/background-fruits-m.jpg';
+$ASSET_SKIRTS: '../assets/storybook/fruits-skirts.png';
+
+section.fruits
+{
+    @include hide-for-mobile;
+
+    .background-layer
+    {
+        @include background-fade-transition();
+
+        figure
+        {
+            &:nth-child(1)
+            {
+                @include background-fade-transition();
+                @include apply-mobile-background(none);
+                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 200%, 0% 0%);
+            }
+
+            &:nth-child(2)
+            {
+                @include background-fade-transition();
+                @include apply-mobile-background(none);
+                @include apply-desktop-background(url($ASSET_SKIRTS), 100% 300%, 0% 0%);
+            }
+
+            &:nth-child(3)
+            {
+                @include background-fade-transition();
+                @include apply-mobile-background(none);
+                @include apply-desktop-background(url($ASSET_SKIRTS), 100% 300%, 0% 50%);
+            }
+
+            &:nth-child(4)
+            {
+                @include background-fade-transition();
+                @include apply-mobile-background(none);
+                @include apply-desktop-background(url($ASSET_SKIRTS), 100% 300%, 0% 100%);
+            }
+
+            &:nth-child(5)
+            {
+                @include background-fade-transition();
+                @include apply-mobile-background(none);
+                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 200%, 0% 100%);
+            }
+        }
+    }
+
+    summary
+    {
+        top: 30%;
+        right: 15%;
+        text-align: right;
+        position: absolute;
+
+        header
+        {
+            h2
+            {
+                text-align: left;
+            }
+
+            h3
+            {
+                text-align: right;
+            }
+        }
+
+        aside
+        {
+            width: 70%;
+            text-align: left;
+
+            p
+            {
+                text-align: left;
+            }
+        }
+    }
+}

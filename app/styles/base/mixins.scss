@@ -1,0 +1,256 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+$base-path: '../../' !default;
+
+$DEFAULT_Z_INDEX: 0;
+
+// Story Book (0-40)
+$STORY_BOOK_BACKGROUND_LAYER_Z_INDEX: 0;
+$STORY_BOOK_BACKGROUND_FIGURE_Z_INDEX: 1;
+$STORY_BOOK_CONTENT_LAYER_Z_INDEX: 10;
+$STORY_BOOK_OVERLAY_LAYER_Z_INDEX: 20;
+$STORY_BOOK_VIDEO_Z_INDEX: 30;
+$STORY_BOOK_NAV_Z_INDEX: 40;
+
+$HEADER_Z_INDEX: 100;
+$PRELOADER_Z_INDEX: 110;
+
+@mixin mobile
+{
+    @media only screen and (max-width: 1024px)
+    {
+        .touch &
+        {
+            @content;
+        }
+    }
+}
+
+@mixin desktop
+{
+    @media only screen and (max-width: 1024px)
+    {
+        .no-touch &
+        {
+            @content;
+        }
+    }
+
+    @media only screen and (min-width: 1025px)
+    {
+        @content;
+    }
+}
+
+@mixin hide-for-mobile
+{
+    @include mobile
+    {
+        pointer-events: none;
+        display: none;
+    }
+}
+
+@mixin apply-mobile-background($image:none, $size:cover, $position:center, $repeat:no-repeat)
+{
+    @include mobile
+    {
+        background-image: $image;
+        background-size: $size;
+        background-position: $position;
+        background-repeat: $repeat;
+    }
+}
+
+@mixin apply-desktop-background($image:none, $size:cover, $position:center, $repeat:no-repeat)
+{
+    @include desktop
+    {
+        background-image: $image;
+        background-size: $size;
+        background-position: $position;
+        background-repeat: $repeat;
+    }
+}
+
+@mixin summary-fade-transition()
+{
+    @include desktop
+    {
+        .csstransitions &
+        {
+            transition-property: opacity;
+            transition-delay: 0.0s;
+            transition-timing-function: ease-out;
+        }
+
+        &,
+        &.state-hidden
+        {
+            opacity: 0.0;
+            transition-duration: 0.5s;
+        }
+
+        &.state-visible
+        {
+            opacity: 1.0;
+            transition-duration: 2.0s;
+        }
+    }
+}
+
+@mixin dialog-fade-transition()
+{
+    @include desktop
+    {
+        .csstransitions &
+        {
+            @extend .vs-animate;
+
+            transition-property: bottom, opacity;
+            transition-duration: 0.4s;
+            transition-delay: 0.0s;
+            transition-timing-function: ease-out;
+        }
+
+        &,
+        &.state-hidden
+        {
+            bottom: -20px;
+            opacity: 0.0;
+            pointer-events: none;
+        }
+
+        &.state-visible
+        {
+            bottom: 0px;
+            opacity: 1.0;
+            pointer-events: auto;
+        }
+    }
+}
+
+@mixin button-fade-transition()
+{
+    @include desktop
+    {
+        .csstransitions &
+        {
+            opacity: 1.0;
+            transition-property: bottom, opacity;
+            transition-duration: 0.4s;
+            transition-timing-function: ease-out;
+        }
+
+        &,
+        &.state-hidden
+        {
+            transition-delay: 0.0s, 0.0s;
+            bottom: -40px;
+            pointer-events: none;
+        }
+
+        &.state-visible
+        {
+            bottom: 40px;
+            transition-delay: 0.6s, 0.0s;
+            pointer-events: auto;
+        }
+
+        &:hover
+        {
+            opacity: 0.6;
+        }
+    }
+}
+
+@mixin background-fade-transition($duration:1s, $delay:0s)
+{
+    @include desktop
+    {
+        .csstransitions &
+        {
+            @extend .vs-animate;
+
+            transition-property: opacity;
+            transition-duration: $duration;
+            transition-delay: $delay;
+            transition-timing-function: ease-out;
+        }
+
+        &,
+        &.state-hidden
+        {
+            opacity: 0.0;
+        }
+
+        &.state-visible
+        {
+            opacity: 1.0;
+        }
+    }
+}
+
+@mixin background-zoom-transition($duration:0.4s, $delay:0s)
+{
+    @include desktop
+    {
+        .csstransitions &
+        {
+            @extend .vs-animate;
+
+            transition-property: opacity, transform;
+            transition-duration: $duration;
+            transition-delay: $delay;
+            transition-timing-function: ease-out;
+        }
+
+        &,
+        &.state-hidden
+        {
+            opacity: 0.0;
+            transform: scale(1.2);
+        }
+
+        &.state-visible
+        {
+            opacity: 1.0;
+            transform: scale(1.0);
+        }
+    }
+}
+
+@mixin background-nudge-transition($x:0px, $y:0px, $duration:1s, $delay:0s)
+{
+    @include desktop
+    {
+        .csstransitions &
+        {
+            @extend .vs-animate;
+
+            transition-property: transform, opacity;
+            transition-duration: $duration;
+            transition-delay: $delay;
+            transition-timing-function: ease-out;
+        }
+
+        &,
+        &.state-hidden
+        {
+            transform: translateX($x) translateY($y);
+            opacity: 0.0;
+        }
+
+        &.state-visible
+        {
+            transform: translateX(0px) translateY(0px);
+            opacity: 1.0;
+        }
+    }
+}

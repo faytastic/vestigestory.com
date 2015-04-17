@@ -1,0 +1,364 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+@import '../base/mixins';
+@import '../base/typography';
+
+$ASSET_ICON_TOGGLES: '../assets/components/icons/icon-toggles.png';
+$ICON_TOGGLES_TOTAL: 2;
+$ICON_TOGGLES_WIDTH: 26px;
+$ICON_TOGGLES_HEIGHT: 26px;
+$ICON_TOGGLES_DIALOG_POSITION: 0px 0px;
+$ICON_TOGGLES_BACKGROUND_POSITION: -($ICON_TOGGLES_WIDTH) 0px;
+
+$ASSET_GARMENT_TOGGLES: '../assets/components/icons/garment-toggles.jpg';
+$GARMENT_TOGGLES_TOTAL: 3;
+$GARMENT_TOGGLES_WIDTH: 40px;
+$GARMENT_TOGGLES_HEIGHT: 40px;
+$GARMENT_TOGGLES_BEIGE_POSITION: 0px 0px;
+$GARMENT_TOGGLES_NAVY_POSITION: -($GARMENT_TOGGLES_WIDTH) 0px;
+$GARMENT_TOGGLES_GREY_POSITION: -($GARMENT_TOGGLES_WIDTH*2) 0px;
+
+$ASSET_VIDEO_TOGGLE: '../assets/components/icons/icon-play.png';
+$ASSET_SCROLL_DOWN: '../assets/components/icons/icon-arrow.png';
+
+$base-path: '../../' !default;
+
+button.menu
+{
+    width: 30px;
+    height: 20px;
+    background: transparent;
+
+    span
+    {
+        top: 8px;
+        left: 0px;
+        width: 30px;
+        height: 4px;
+        border-radius: 1px;
+        background: #333;
+        display: block;
+        content: '';
+        position: absolute;
+        transition: all 500ms ease-in-out;
+
+        &:before
+        {
+            top: -8px;
+            left: 0px;
+            width: 30px;
+            height: 4px;
+            border-radius: 1px;
+            background: #333;
+            display: block;
+            content: '';
+            position: absolute;
+            transition: all 500ms ease-in-out;
+        }
+
+        &:after
+        {
+            left: 0px;
+            bottom: -8px;
+            width: 30px;
+            height: 4px;
+            border-radius: 1px;
+            background: #333;
+            display: block;
+            content: '';
+            position: absolute;
+            transition: all 500ms ease-in-out;
+
+        }
+    }
+
+    &.state-active
+    {
+        span
+        {
+            &
+            {
+                background: transparent;
+            }
+
+            &:before
+            {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            &:after
+            {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+        }
+    }
+}
+
+button.info
+{
+    padding-bottom: 5px;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    display: block;
+    font-family: $FONT_FAMILY_SUB_HEADER;
+    font-weight: $FONT_WEIGHT_SANS_SERIF_LIGHT;
+    font-size: 30px;
+    color: #999;
+    text-align: center;
+    line-height: 20px;
+
+    &:after
+    {
+        content: '\2139';
+    }
+
+    &.state-active
+    {
+        border-color: #333;
+        color: #333;
+    }
+
+    .csstransitions &
+    {
+        transition-property: color;
+        transition-duration: 0.4s;
+        transition-timing-function: ease-out;
+    }
+}
+
+button.toggle-dialog
+{
+    width: $ICON_TOGGLES_WIDTH;
+    height: $ICON_TOGGLES_HEIGHT;
+
+    .csstransitions &
+    {
+        opacity: 1.0;
+        transition: opacity 0.3s linear;
+    }
+
+    .no-touch &
+    {
+        &:hover
+        {
+            opacity: 0.5;
+        }
+    }
+
+    @include desktop
+    {
+        background: url($ASSET_ICON_TOGGLES) no-repeat;
+        background-size: $ICON_TOGGLES_WIDTH*$ICON_TOGGLES_TOTAL;
+        background-position: $ICON_TOGGLES_DIALOG_POSITION;
+        display: inline-block;
+    }
+
+    @include mobile
+    {
+        background: none;
+        display: none;
+    }
+}
+
+button.toggle-background
+{
+    width: $ICON_TOGGLES_WIDTH;
+    height: $ICON_TOGGLES_HEIGHT;
+
+    .csstransitions &
+    {
+        opacity: 1.0;
+        transition: opacity 0.3s linear;
+    }
+
+    .no-touch &
+    {
+        &:hover
+        {
+            opacity: 0.5;
+        }
+    }
+
+    @include desktop
+    {
+        background: url($ASSET_ICON_TOGGLES) no-repeat;
+        background-size: $ICON_TOGGLES_WIDTH*$ICON_TOGGLES_TOTAL;
+        background-position: $ICON_TOGGLES_BACKGROUND_POSITION;
+        display: inline-block;
+    }
+
+    @include mobile
+    {
+        background: none !important;
+        display: none;
+    }
+}
+
+button.toggle-garment
+{
+    width: 40px;
+    height: 40px;
+    font-size: 0px;
+
+    &.toggle-garment[data-target="beige"]
+    {
+        background-position: $GARMENT_TOGGLES_BEIGE_POSITION;
+    }
+
+    &.toggle-garment[data-target="navy"]
+    {
+        background-position: $GARMENT_TOGGLES_NAVY_POSITION;
+    }
+
+    &.toggle-garment[data-target="grey"]
+    {
+        background-position: $GARMENT_TOGGLES_GREY_POSITION;
+    }
+
+    .csstransitions &
+    {
+        opacity: 1.0;
+        transition: opacity 0.3s linear;
+    }
+
+    .no-touch &
+    {
+        &:hover
+        {
+            opacity: 0.5;
+        }
+    }
+
+    @include desktop
+    {
+        background: url($ASSET_GARMENT_TOGGLES) no-repeat;
+        background-size: $GARMENT_TOGGLES_WIDTH*$GARMENT_TOGGLES_TOTAL $GARMENT_TOGGLES_HEIGHT;
+        background-repeat: no-repeat;
+        display: inline-block;
+    }
+
+    @include mobile
+    {
+        background: none;
+        display: none;
+    }
+}
+
+button.toggle-video
+{
+    width: 50px;
+    height: 50px;
+    background-image: url($ASSET_VIDEO_TOGGLE);
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    display: inline-block;
+
+    .csstransitions &
+    {
+        opacity: 1.0;
+        transition: opacity 0.3s linear;
+    }
+
+    .no-touch &
+    {
+        &:hover
+        {
+            opacity: 0.5;
+        }
+    }
+}
+
+button.scroll-down
+{
+    width: 40px;
+    height: 40px;
+    background-image: url($ASSET_SCROLL_DOWN);
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+button.dismiss
+{
+    top: 15px;
+    right: 15px;
+    padding: 8px 15px;
+    font-size: 14px;
+    background: transparent;
+    border: 1px #ddd solid;
+    color: #ddd;
+    position: absolute;
+
+    &:after
+    {
+        content: 'close';
+    }
+
+    .no-touch &
+    {
+        &:hover
+        {
+            border-color: #666;
+            color: #666;
+        }
+    }
+
+    .csstransitions &
+    {
+        transition: all 0.2s ease-out;
+    }
+}
+
+button.nav-node
+{
+    width: 8px;
+    height: 8px;
+    border-radius: 5px;
+    background-color: rgba(170, 170, 170, 0.6);
+    opacity: 0.5;
+    display: inline-block;
+    position: relative;
+
+    .csstransitions &
+    {
+        transition: all 0.4s ease-out;
+    }
+
+    .no-touch &:hover,
+    &.state-active
+    {
+        opacity: 1.0;
+        background-color: #333;
+    }
+}
+
+button.next-slide
+{
+    top: 0px;
+    right: 0px;
+    width: 100px;
+    height: 100%;
+    background-color: transparent;
+    opacity: 0.0;
+    position: absolute;
+}
+
+button.prev-slide
+{
+    top: 0px;
+    left: 0px;
+    width: 100px;
+    height: 100%;
+    background-color: transparent;
+    opacity: 0.0;
+    position: absolute;
+}

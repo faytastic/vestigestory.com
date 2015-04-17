@@ -1,0 +1,110 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+@import '../../base/mixins';
+
+/**
+ *  Constants.
+ */
+$ASSET_BACKGROUND_1: '../assets/storybook/origin-background-shirt.jpg';
+$ASSET_BACKGROUND_2: '../assets/storybook/origin-background-bottle.jpg';
+$ASSET_MOBILE_BACKGROUND: '../assets/storybook/background-origin-m.jpg';
+$ASSET_DIALOG_BACKGROUND: '../assets/storybook/origin-bottle.png';
+
+section.origin
+{
+    @include hide-for-mobile;
+
+    .background-layer
+    {
+        @include background-fade-transition();
+
+        figure
+        {
+            top: auto;
+            left: auto;
+            height: 90%;
+
+            &:nth-child(1)
+            {
+                right: 0px;
+                bottom: 0px;
+                width: 35%;
+
+                @include background-nudge-transition(20px, 20px);
+                @include apply-mobile-background(none);
+                @include apply-desktop-background(url($ASSET_BACKGROUND_2), contain, right bottom);
+            }
+
+            &:nth-child(2)
+            {
+                left: 0px;
+                bottom: 0px;
+                width: 65%;
+
+                @include background-nudge-transition(-20px, 20px);
+                @include apply-mobile-background(none);
+                @include apply-desktop-background(url($ASSET_BACKGROUND_1), contain, left bottom);
+            }
+        }
+    }
+
+    summary
+    {
+        left: 0px;
+        right: 0px;
+        margin: 5% auto;
+        text-align: right;
+        position: absolute;
+
+        header
+        {
+            h2
+            {
+                width: 100%;
+                text-align: left;
+            }
+
+            h3
+            {
+                text-align: right;
+            }
+        }
+
+        aside
+        {
+            margin-left: 10%;
+            width: 90%;
+            text-align: right;
+        }
+
+        button.dismiss
+        {
+            display: block;
+        }
+
+        @media only screen and (min-width: 321px)
+        {
+            width: 300px;
+        }
+
+        @media only screen and (min-width: 481px)
+        {
+            width: 400px;
+        }
+    }
+
+    dialog
+    {
+        @include dialog-fade-transition();
+
+        padding-left: 200px;
+        background-image: url($ASSET_DIALOG_BACKGROUND);
+        background-position: 50px 50%;
+    }
+}

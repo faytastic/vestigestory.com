@@ -1,0 +1,136 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+@import '../../base/mixins';
+
+$ASSET_BACKGROUND: '../assets/storybook/background-video.jpg';
+
+section.video
+{
+    z-index: $STORY_BOOK_VIDEO_Z_INDEX;
+
+    .background-layer
+    {
+        position: absolute !important;
+
+        video
+        {
+            bottom: 50%;
+            right: 50%;
+            width: auto;
+            height: auto;
+            min-width: 100%;
+            min-height: 100%;
+            transform: translateX(50%) translateY(50%);
+            overflow: hidden;
+            position: absolute;
+        }
+
+        figure
+        {
+            &:nth-child(1)
+            {
+                background-image: url($ASSET_BACKGROUND);
+            }
+        }
+    }
+
+    .content-layer
+    {
+        width: 100%;
+
+        @include desktop
+        {
+            background-color: rgba(0, 0, 0, 0.25);
+        }
+
+        summary
+        {
+            text-align: center;
+            vertical-align: middle;
+
+            aside
+            {
+                display: block;
+            }
+        }
+
+        figure.title
+        {
+            width: 200px;
+            height: auto;
+            display: inline-block;
+            position: relative;
+
+            @media only screen and (min-width: 321px)
+            {
+                width: 250px;
+            }
+
+            img
+            {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        button.scroll-down
+        {
+            @include button-fade-transition();
+
+            left: 0px;
+            right: 0px;
+            bottom: 40px;
+            margin: 0px auto;
+            display: inline-block;
+            position: absolute;
+
+            @media only screen and (max-width: 1024px)
+            {
+                .touch &
+                {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .overlay-layer
+    {
+        @include background-fade-transition();
+
+        background-color: rgba(0, 0, 0, 0.6);
+
+        &.state-visible
+        {
+            pointer-events: auto;
+        }
+
+        dialog
+        {
+            @include dialog-fade-transition();
+
+            padding: 0px;
+            background-color: transparent;
+            overflow: hidden;
+
+            iframe
+            {
+                margin: auto;
+                top: 0px;
+                left: 0px;
+                bottom: 0px;
+                right: 0px;
+                width: 100%;
+                height: 100%;
+                display: block;
+                position: absolute;
+            }
+        }
+    }
+}

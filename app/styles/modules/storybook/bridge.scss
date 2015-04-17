@@ -1,0 +1,92 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+@import "../../base/mixins";
+
+/**
+ *  Constants.
+ */
+$ASSET_BACKGROUND: "../assets/storybook/background-bridge.png";
+$ASSET_MOBILE_BACKGROUND: "../assets/storybook/background-bridge-m.jpg";
+$ASSET_DIALOG_BACKGROUND: "../assets/storybook/bridge-water.png";
+
+section.bridge
+{
+    @include hide-for-mobile;
+
+    .background-layer
+    {
+        @include background-fade-transition();
+
+        figure
+        {
+            &:nth-child(1)
+            {
+                @include background-nudge-transition(-50px);
+                @include apply-mobile-background(none);
+                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 300%, 0% 0%);
+            }
+
+            &:nth-child(2)
+            {
+                @include background-fade-transition(1.0s, 0.5s);
+                @include apply-mobile-background(none);
+                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 300%, 0% 50%);
+            }
+
+            &:nth-child(3)
+            {
+                @include background-nudge-transition(50px);
+                @include apply-mobile-background(none);
+                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 300%, 0% 100%);
+            }
+        }
+    }
+
+    summary
+    {
+        top: 25%;
+        left: 50%;
+        text-align: right;
+        position: absolute;
+
+        header
+        {
+            h2
+            {
+                text-align: left;
+            }
+
+            h3
+            {
+                text-align: right;
+            }
+        }
+
+        aside
+        {
+            width: 100%;
+            text-align: right;
+
+            p
+            {
+                text-align: right;
+            }
+        }
+    }
+
+    dialog
+    {
+        @include dialog-fade-transition();
+
+        padding-bottom: 250px;
+        width: 800px;
+        background-image: url($ASSET_DIALOG_BACKGROUND);
+        background-position: left bottom;
+    }
+}

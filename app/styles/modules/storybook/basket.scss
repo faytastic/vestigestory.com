@@ -1,0 +1,40 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+@import '../../base/mixins';
+
+/**
+ *  Constants.
+ */
+$ASSET_BACKGROUND: '../assets/storybook/background-basket.jpg';
+$ASSET_MOBILE_BACKGROUND: '../assets/storybook/background-basket-m.jpg';
+
+section.basket
+{
+    .background-layer
+    {
+        @include background-fade-transition();
+
+        figure
+        {
+            &:nth-child(1)
+            {
+                @include background-fade-transition();
+                @include apply-mobile-background(url($ASSET_MOBILE_BACKGROUND));
+                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 200%, 0% 0%);
+            }
+
+            &:nth-child(2)
+            {
+                @include background-fade-transition();
+                @include apply-mobile-background(none);
+                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 200%, 0% 100%);
+            }
+        }
+    }
+}

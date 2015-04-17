@@ -1,0 +1,29 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+$base-path: '../../' !default;
+
+html,
+body
+{
+    width: 100%;
+    height: 100%;
+    background-color: #eeeeec;
+}
+
+main
+{
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    @media only screen and (min-width: 980px)
+    {
+        min-width: 980px;
+    }
+}
