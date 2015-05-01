@@ -48,6 +48,11 @@ main.collection
                 overflow-y: hidden;
                 white-space: nowrap;
                 -webkit-overflow-scrolling: touch;
+
+                &::-webkit-scrollbar
+                {
+                    display: none;
+                }
             }
 
             // Thumbnail.
@@ -164,6 +169,11 @@ main.collection
                         overflow-y: hidden;
                         white-space: nowrap;
                         -webkit-overflow-scrolling: touch;
+
+                        &::-webkit-scrollbar
+                        {
+                            display: none;
+                        }
                     }
 
                     .csstransitions &
