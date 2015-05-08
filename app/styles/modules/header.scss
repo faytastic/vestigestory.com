@@ -31,7 +31,7 @@ header#menu
         z-index: $HEADER_Z_INDEX;
     }
 
-    .csstransitions &
+    .csstransitions &.auto-hide
     {
         transition: transform 0.4s ease-out;
 

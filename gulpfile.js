@@ -87,19 +87,32 @@ gulp.task('styles', function()
 gulp.task('scripts', function()
 {
     var browserify = require('browserify');
-    var transform = require('vinyl-transform');
-    var browserified = transform(function(filename)
-    {
-        var b = browserify(filename);
-        return b.bundle();
-    });
+    var source = require('vinyl-source-stream');
+    var buffer = require('vinyl-buffer');
+    var globby = require('globby');
+    var reactify = require('reactify');
+    var es = require('event-stream');
 
-    return gulp.src(['app/**/*.'+SCRIPTS_PATTERN])
-        .pipe($.jshint())
-        .pipe($.jshint.reporter('jshint-stylish'))
-        .pipe(browserified)
-        .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-uglify'], $.uglify()))
-        .pipe(gulp.dest('.tmp'));
+    return globby(['./app/**/*.'+SCRIPTS_PATTERN], function(err, files)
+    {
+        var tasks = files.map(function(entry)
+        {
+            return browserify({
+                entries: [entry],
+                debug: true,
+                transform: [reactify]
+            })
+            .bundle()
+            .pipe(source(entry.replace('app/', '')))
+            .pipe(buffer())
+            .pipe($.sourcemaps.init({ loadMaps: true }))
+            .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-uglify'], $.uglify())).on('error', $.util.log)
+            .pipe($.sourcemaps.write('./'))
+            .pipe(gulp.dest('.tmp'));
+        });
+
+        return es.merge.apply(null, tasks);
+    });
 });
 
 /**
@@ -128,6 +141,11 @@ gulp.task('static', ['images', 'videos', 'fonts', 'styles', 'scripts', 'extras']
 gulp.task('templates', function()
 {
     return gulp.src(['app/**/*.'+TEMPLATES_PATTERN])
+        .pipe($.fileInclude(
+        {
+            prefix: '@@',
+            basepath: 'app/'
+        }))
         .pipe(gulp.dest('.tmp'));
 });
 
