@@ -5,25 +5,35 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
+
 'use strict';
 
 var $ = require('jquery');
+var vars = require('vars');
+
+vars.module((function() {
+
 var Header = require('./controllers/header');
 var About = require('./controllers/about');
 
 /**
- * @class
- * View model of the Main module.
+ * @constructor
+ * Creates a new Main instance.
  */
-(function(global) {
+function Main(init)
+{
+    vars.Element.call(this, init);
+} var parent = vars.inherit(Main, vars.Element);
 
 /**
- * Ready DOM.
+ * @inheritDoc
  */
-$(document).ready(function()
+Main.prototype.init = function()
 {
-    var header = new Header(null, 'about');
-    var about = new About($('main.about'));
-});
+    this.addVirtualChild(new Header({ activeTarget: 'about' }), 'header');
+    this.addVirtualChild(new About($('main.about').get(0)));
 
-}(window));
+    parent.prototype.init.call(this);
+};
+
+return Main; }()));

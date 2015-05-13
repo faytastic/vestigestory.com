@@ -5,129 +5,110 @@
  *  This software is released under the MIT License:
  *  http://www.opensource.org/licenses/mit-license.php
  */
+
 'use strict';
 
 var $ = require('jquery');
 var vars = require('vars');
+
+vars.module((function() {
+
 var Header = require('./controllers/header');
+var DynamicBackground = require('./controllers/dynamicbackground');
 var StoryBook = require('./controllers/storybook');
 var utils = require('./utils/utils');
+var backgrounds = require('./data/storybook/backgrounds');
 
 /**
- * @class
- * View model of the Main module.
+ * @constructor
+ * Creates a new Main instance.
  */
-(function(global) {
-
-/**
- * Ready DOM.
- */
-$(document).ready(function()
+function Main(init)
 {
-    // Add class to indicate whether device is a touch device.
-    if (utils.forceTouch)
+    vars.Element.call(this, init);
+} var parent = vars.inherit(Main, vars.Element);
+
+/**
+ * @property
+ * Child elements.
+ * @type {Object}
+ */
+Object.defineProperty(Main.prototype, 'children', { value: {}, writable: false });
+
+/**
+ * @inheritDoc
+ */
+Main.prototype.init = function()
+{
+    this.updateDelegate.responsive = true;
+    this.updateDelegate.refreshRate = 20.0;
+    this.updateDelegate.transmissive = vars.DirtyType.POSITION|vars.DirtyType.SIZE;
+
+    this.children.storyBook = $('main.story-book').get(0);
+    this.children.dynamicBackground = $('main.background').get(0);
+    this.children.preloader = $('#preloader').get(0);
+    this.children.progressBar = $(this.children.preloader).find('.progress-bar').get(0);
+
+    this._preloader = new vars.AssetLoader();
+    this._preloader.enqueue.apply(this._preloader, (utils.isMobileVersion() ? backgrounds.mobile : backgrounds.desktop));
+    this._preloader.addEventListener(vars.EventType.OBJECT.PROGRESS, this._onPreloadProgress.bind(this));
+    this._preloader.addEventListener(vars.EventType.OBJECT.LOAD, this._onPreloadComplete.bind(this));
+    this._preloader.init();
+
+    parent.prototype.init.call(this);
+};
+
+/**
+ * @private
+ * Handler invoked when the preloader is in progress.
+ * @param  {Object} event
+ */
+Main.prototype._onPreloadProgress = function(event)
+{
+    vars.transform(this.children.progressBar, { width: vars.getViewportRect().width * this._preloader.progress });
+    $(this.children.progressBar).css('opacity', this._preloader.progress);
+};
+
+/**
+ * @private
+ * Handler invoked when the preloader is complete.
+ * @param  {Object} event
+ */
+Main.prototype._onPreloadComplete = function(event)
+{
+    var self = this;
+
+    if (event.detail.pending === 0)
     {
-        $('html').removeClass('no-touch');
-        $('html').addClass('touch');
-    }
+        utils.changeChildState(self.children.storyBook, 'state-loaded');
+        utils.changeChildState(self.children.preloader, 'state-hidden');
 
-    var desktopImages =
-    [
-        'assets/storybook/amanda-swallow.png',
-        'assets/storybook/amanda-tree.png',
-        'assets/storybook/background-amanda.jpg',
-        'assets/storybook/background-basket.jpg',
-        'assets/storybook/background-bridge.png',
-        'assets/storybook/background-credits.jpg',
-        'assets/storybook/background-destiny.jpg',
-        'assets/storybook/background-fruits.jpg',
-        'assets/storybook/background-maddie.jpg',
-        'assets/storybook/background-mountain.jpg',
-        'assets/storybook/background-pants.jpg',
-        'assets/storybook/background-princess.jpg',
-        'assets/storybook/background-video.jpg',
-        'assets/storybook/bridge-water.png',
-        'assets/storybook/destiny-crane.png',
-        'assets/storybook/destiny-island.png',
-        'assets/storybook/fruits-skirts.png',
-        'assets/storybook/maddie-flower.png',
-        'assets/storybook/mountain-mountains.png',
-        'assets/storybook/origin-background-bottle.jpg',
-        'assets/storybook/origin-background-shirt.jpg',
-        'assets/storybook/origin-bottle.png',
-        'assets/storybook/pants-cloud.png',
-        'assets/storybook/pants-wheat.png',
-        'assets/storybook/pass-bottle.jpg',
-        'assets/storybook/pass-tee.jpg',
-        'assets/storybook/princess-petal.png',
-        'assets/storybook/video-title-black.png',
-        'assets/storybook/video-title-white.png'
-    ];
+        var header = new Header({ activeTarget: 'story-book' });
+        var dynamicBackground;
 
-    var mobileImages =
-    [
-        'assets/storybook/amanda-swallow.png',
-        'assets/storybook/background-amanda-m.jpg',
-        'assets/storybook/background-basket-m.jpg',
-        'assets/storybook/background-credits.jpg',
-        'assets/storybook/background-destiny-m.jpg',
-        'assets/storybook/background-maddie-m.jpg',
-        'assets/storybook/background-mountain-m.jpg',
-        'assets/storybook/background-pass-m.jpg',
-        'assets/storybook/background-princess-m.jpg',
-        'assets/storybook/background-video.jpg',
-        'assets/storybook/destiny-crane.png',
-        'assets/storybook/mountain-mountains.png',
-        'assets/storybook/pants-wheat.png',
-        'assets/storybook/princess-petal.png',
-        'assets/storybook/video-title-black.png',
-        'assets/storybook/video-title-white.png'
-    ];
-
-    var preloader = new vars.AssetLoader();
-    var sMain = $('main.story-book');
-    var sPreloader = $('#preloader');
-    var sProgressBar = sPreloader.find('.progress-bar');
-
-    if (utils.isMobileVersion())
-    {
-        preloader.enqueue.apply(preloader, mobileImages);
-    }
-    else
-    {
-        preloader.enqueue.apply(preloader, desktopImages);
-    }
-
-    preloader.addEventListener(vars.EventType.OBJECT.LOAD,
-        function(event)
+        if (utils.isMobileVersion())
         {
-            if (event.detail.pending === 0)
+            self.children.dynamicBackground.remove();
+        }
+        else
+        {
+            dynamicBackground = new DynamicBackground(self.children.dynamicBackground);
+        }
+
+        var storyBook = new StoryBook({ element: self.children.storyBook, dynamicBackground: dynamicBackground });
+
+        self.addVirtualChild(header, 'header');
+        self.addVirtualChild(dynamicBackground, 'dynamicBackground');
+        self.addVirtualChild(storyBook, 'storyBook');
+
+        setTimeout(
+            function()
             {
-                utils.changeChildState(sMain, 'state-loaded');
-                utils.changeChildState(sPreloader, 'state-hidden');
+                self.children.preloader.remove();
+                self._preloader.destroy();
+                self._preloader = null;
+            }, 500);
+    }
+};
 
-                var header = new Header(null, 'story-book');
-                var storyBook = new StoryBook($('main.story-book'));
-
-                setTimeout(
-                    function()
-                    {
-                        sPreloader.remove();
-                        preloader.destroy();
-                        preloader = null;
-                    }, 500);
-
-            }
-        });
-
-    preloader.addEventListener(vars.EventType.OBJECT.PROGRESS,
-        function(event)
-        {
-            vars.transform(sProgressBar, { width: vars.getViewportRect().width * preloader.progress });
-            sProgressBar.css('opacity', preloader.progress);
-        });
-
-    preloader.init();
-});
-
-}(window));
+return Main; }()));

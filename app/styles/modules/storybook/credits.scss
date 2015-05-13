@@ -14,81 +14,71 @@
  */
 $ASSET_BACKGROUND: '../assets/storybook/background-credits.jpg';
 
-section.credits
+main.story-book
 {
-    .background-layer
+    section.credits
     {
-        @include background-fade-transition();
+        @include apply-mobile-background(url($ASSET_BACKGROUND));
 
-        figure
+        .content-layer
         {
-            &:nth-child(1)
+            summary
             {
-                @include background-fade-transition();
-                @include apply-mobile-background(url($ASSET_BACKGROUND));
-                @include apply-desktop-background(url($ASSET_BACKGROUND));
+                text-align: center;
+                vertical-align: middle;
+                position: relative;
+
+                header
+                {
+                    h2
+                    {
+                        text-align: center;
+                    }
+
+                    h3
+                    {
+                        text-align: center;
+                    }
+                }
+
+                aside
+                {
+                    width: 100%;
+                    text-align: center;
+
+                    p
+                    {
+                        text-align: center;
+                    }
+                }
             }
         }
-    }
 
-    .content-layer
-    {
-        summary
+        dialog
         {
-            text-align: center;
-            vertical-align: middle;
-            position: relative;
+            @include dialog-fade-transition();
 
-            header
-            {
-                h2
-                {
-                    text-align: center;
-                }
-
-                h3
-                {
-                    text-align: center;
-                }
-            }
+            width: 700px;
 
             aside
             {
-                width: 100%;
-                text-align: center;
-
                 p
                 {
                     text-align: center;
-                }
-            }
-        }
-    }
 
-    dialog
-    {
-        @include dialog-fade-transition();
+                    &:first-child::first-letter
+                    {
+                        font-size: 14px;
+                        float: none;
+                        line-height: 20px;
+                        padding-right: 0px;
+                    }
 
-        width: 700px;
-
-        aside
-        {
-            p
-            {
-                text-align: center;
-
-                &:first-child::first-letter
-                {
-                    font-size: 14px;
-                    float: none;
-                    line-height: 20px;
-                    padding-right: 0px;
-                }
-
-                em
-                {
-                    font-family: $FONT_FAMILY_HEADER;
-                    color: #333;
+                    em
+                    {
+                        font-family: $FONT_FAMILY_HEADER;
+                        color: #333;
+                    }
                 }
             }
         }

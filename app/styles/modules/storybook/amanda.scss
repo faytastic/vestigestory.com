@@ -11,73 +11,55 @@
 /**
  *  Constants.
  */
-$ASSET_BACKGROUND: '../assets/storybook/background-amanda.jpg';
 $ASSET_MOBILE_BACKGROUND: '../assets/storybook/background-amanda-m.jpg';
 $ASSET_DIALOG_BACKGROUND: '../assets/storybook/amanda-tree.png';
 
-section.amanda
+main.story-book
 {
-    .background-layer
+    section.amanda
     {
-        @include background-fade-transition();
+        @include apply-mobile-background(url($ASSET_MOBILE_BACKGROUND));
 
-        figure
+        summary
         {
-            &:nth-child(1)
+            top: 14%;
+            right: 15%;
+            text-align: right;
+            position: absolute;
+
+            header
             {
-                @include background-fade-transition();
-                @include apply-mobile-background(url($ASSET_MOBILE_BACKGROUND));
-                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 200%, 0% 0%);
+                h2
+                {
+                    text-align: right;
+                }
+
+                h3
+                {
+                    text-align: right;
+                }
             }
 
-            &:nth-child(2)
+            aside
             {
-                @include background-fade-transition();
-                @include apply-mobile-background(none);
-                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 200%, 0% 100%);
-            }
-        }
-    }
-
-    summary
-    {
-        top: 14%;
-        right: 15%;
-        text-align: right;
-        position: absolute;
-
-        header
-        {
-            h2
-            {
-                text-align: left;
-            }
-
-            h3
-            {
+                width: 70%;
                 text-align: right;
+
+                p
+                {
+                    text-align: right;
+                }
             }
         }
 
-        aside
+        dialog
         {
-            width: 70%;
-            text-align: left;
+            @include dialog-fade-transition();
 
-            p
-            {
-                text-align: left;
-            }
+            padding-right: 400px;
+            width: 850px;
+            background-image: url($ASSET_DIALOG_BACKGROUND);
+            background-position: right bottom;
         }
-    }
-
-    dialog
-    {
-        @include dialog-fade-transition();
-
-        padding-right: 400px;
-        width: 850px;
-        background-image: url($ASSET_DIALOG_BACKGROUND);
-        background-position: right bottom;
     }
 }

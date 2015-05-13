@@ -11,77 +11,59 @@
 /**
  *  Constants.
  */
-$ASSET_BACKGROUND: '../assets/storybook/background-maddie.jpg';
 $ASSET_MOBILE_BACKGROUND: '../assets/storybook/background-maddie-m.jpg';
 $ASSET_DIALOG_BACKGROUND: '../assets/storybook/maddie-flower.png';
 
-section.maddie
+main.story-book
 {
-    .background-layer
+    section.maddie
     {
-        @include background-fade-transition();
+        @include apply-mobile-background(url($ASSET_MOBILE_BACKGROUND));
 
-        figure
+        summary
         {
-            &:nth-child(1)
-            {
-                @include background-fade-transition();
-                @include apply-mobile-background(url($ASSET_MOBILE_BACKGROUND));
-                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 200%, 0% 0%);
-            }
-
-            &:nth-child(2)
-            {
-                @include background-fade-transition();
-                @include apply-mobile-background(none);
-                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 200%, 0% 100%);
-            }
-        }
-    }
-
-    summary
-    {
-        top: 15%;
-        left: 20%;
-        text-align: left;
-        position: absolute;
-
-        header
-        {
-            h2
-            {
-                color: #fff;
-                text-align: left;
-            }
-
-            h3
-            {
-                color: #fff;
-                text-align: left;
-            }
-        }
-
-        aside
-        {
-            width: 70%;
+            top: 15%;
+            left: 20%;
             text-align: left;
+            position: absolute;
 
-            p
+            header
             {
-                color: #666;
+                h2
+                {
+                    color: #fff;
+                    text-align: left;
+                }
+
+                h3
+                {
+                    color: #fff;
+                    text-align: left;
+                }
+            }
+
+            aside
+            {
+                width: 70%;
                 text-align: left;
+
+                p
+                {
+                    color: #666;
+                    text-align: left;
+                }
             }
         }
-    }
 
-    dialog
-    {
-        @include dialog-fade-transition();
+        dialog
+        {
+            @include dialog-fade-transition();
 
-        padding: 100px;
-        padding-right: 350px;
-        width: 800px;
-        background-image: url($ASSET_DIALOG_BACKGROUND);
-        background-position: right center;
+            padding: 100px;
+            padding-right: 350px;
+            width: 800px;
+            background-image: url($ASSET_DIALOG_BACKGROUND);
+            background-position: right center;
+        }
     }
 }

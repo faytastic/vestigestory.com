@@ -11,74 +11,56 @@
 /**
  *  Constants.
  */
-$ASSET_BACKGROUND: '../assets/storybook/background-mountain.jpg';
 $ASSET_MOBILE_BACKGROUND: '../assets/storybook/background-mountain-m.jpg';
 
-section.mountain
+main.story-book
 {
-    .background-layer
+    section.mountain
     {
-        @include background-fade-transition();
+        @include apply-mobile-background(url($ASSET_MOBILE_BACKGROUND));
 
-        figure
+        summary
         {
-            &:nth-child(1)
-            {
-                @include background-fade-transition();
-                @include apply-mobile-background(url($ASSET_MOBILE_BACKGROUND));
-                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 200%, 0% 0%);
-            }
+            background-image: url('../assets/storybook/mountain-mountains.png');
+            background-size: contain;
+            background-repeat: no-repeat;
 
-            &:nth-child(2)
-            {
-                @include background-fade-transition();
-                @include apply-mobile-background(none);
-                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 200%, 0% 100%);
-            }
-        }
-    }
-
-    summary
-    {
-        background-image: url('../assets/storybook/mountain-mountains.png');
-        background-size: contain;
-        background-repeat: no-repeat;
-
-        top: 15%;
-        left: 10%;
-        padding: 50px 100px 100px;
-        width: 600px;
-        text-align: left;
-        position: absolute;
-
-        @include mobile
-        {
-            padding: 0px;
-            width: 50%;
-            background-image: none;
-        }
-
-        header
-        {
-            h2
-            {
-                text-align: left;
-            }
-
-            h3
-            {
-                text-align: right;
-            }
-        }
-
-        aside
-        {
-            width: 70%;
+            top: 15%;
+            left: 10%;
+            padding: 50px 100px 100px;
+            width: 600px;
             text-align: left;
+            position: absolute;
 
-            p
+            @include mobile
             {
+                padding: 0px;
+                width: 50%;
+                background-image: none;
+            }
+
+            header
+            {
+                h2
+                {
+                    text-align: left;
+                }
+
+                h3
+                {
+                    text-align: right;
+                }
+            }
+
+            aside
+            {
+                width: 70%;
                 text-align: left;
+
+                p
+                {
+                    text-align: left;
+                }
             }
         }
     }

@@ -11,59 +11,40 @@
 /**
  *  Constants.
  */
-$ASSET_BACKGROUND_1: '../assets/storybook/pass-bottle.jpg';
-$ASSET_BACKGROUND_2: '../assets/storybook/pass-tee.jpg';
 $ASSET_MOBILE_BACKGROUND: '../assets/storybook/background-pass-m.jpg';
 
-section.pass
+main.story-book
 {
-    .background-layer
+    section.pass
     {
-        @include background-fade-transition();
+        @include apply-mobile-background(url($ASSET_MOBILE_BACKGROUND));
 
-        figure
+        summary
         {
-            &:nth-child(1)
+            text-align: right;
+
+            header
             {
-                @include background-nudge-transition(0px, -40px);
-                @include apply-mobile-background(url($ASSET_MOBILE_BACKGROUND));
-                @include apply-desktop-background(url($ASSET_BACKGROUND_1), contain, left top);
+                h2
+                {
+                    text-align: center;
+                }
+
+                h3
+                {
+                    text-align: center;
+                }
             }
 
-            &:nth-child(2)
+            aside
             {
-                @include background-nudge-transition(0px, 40px);
-                @include apply-mobile-background(none);
-                @include apply-desktop-background(url($ASSET_BACKGROUND_2), contain, left bottom);
-            }
-        }
-    }
-
-    summary
-    {
-        text-align: right;
-
-        header
-        {
-            h2
-            {
+                width: 100%;
                 text-align: center;
-            }
 
-            h3
-            {
-                text-align: center;
-            }
-        }
-
-        aside
-        {
-            width: 100%;
-            text-align: center;
-
-            p
-            {
-                text-align: center;
+                p
+                {
+                    text-align: center;
+                }
             }
         }
     }

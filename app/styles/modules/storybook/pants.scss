@@ -8,99 +8,79 @@
 
 @import '../../base/mixins';
 
-$ASSET_BACKGROUND: '../assets/storybook/background-pants.jpg';
 $ASSET_MOBILE_BACKGROUND: '../assets/storybook/background-pants-m.jpg';
 $ASSET_DIALOG_BACKGROUND: '../assets/storybook/pants-cloud.png';
 
-section.pants
+main.story-book
 {
-    @include hide-for-mobile;
-
-    .background-layer
+    section.pants
     {
-        @include background-fade-transition();
+        @include hide-for-mobile;
 
-        figure
+        .content-layer
         {
-            &:nth-child(1)
+            summary
             {
-                @include background-fade-transition();
-                @include apply-mobile-background(none);
-                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 200%, 0% 0%);
-            }
-
-            &:nth-child(2)
-            {
-                @include background-fade-transition();
-                @include apply-mobile-background(none);
-                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 200%, 0% 100%);
-            }
-        }
-    }
-
-    .content-layer
-    {
-        summary
-        {
-            top: 17%;
-            left: 10%;
-            text-align: right;
-            position: absolute;
-
-            header
-            {
-                h2
-                {
-                    text-align: left;
-                }
-
-                h3
-                {
-                    text-align: right;
-                }
-            }
-
-            aside
-            {
-                width: 70%;
-                text-align: left;
-
-                p
-                {
-                    text-align: left;
-                }
-            }
-
-            @include mobile
-            {
+                top: 17%;
                 left: 10%;
-                text-align: left;
+                text-align: right;
+                position: absolute;
+
+                header
+                {
+                    h2
+                    {
+                        text-align: left;
+                    }
+
+                    h3
+                    {
+                        text-align: right;
+                    }
+                }
+
+                aside
+                {
+                    width: 70%;
+                    text-align: left;
+
+                    p
+                    {
+                        text-align: left;
+                    }
+                }
+
+                @include mobile
+                {
+                    left: 10%;
+                    text-align: left;
+                }
             }
-        }
 
-        figure
-        {
-            @include summary-fade-transition();
-
-            left: 5%;
-            bottom: 0px;
-            position: absolute;
-
-            @include mobile
+            figure
             {
-                display: none;
+                @include summary-fade-transition();
+
+                left: 5%;
+                bottom: 0px;
+                position: absolute;
+
+                @include mobile
+                {
+                    display: none;
+                }
             }
         }
-    }
 
-    dialog
-    {
-        @include dialog-fade-transition();
+        dialog
+        {
+            @include dialog-fade-transition();
 
-        padding: 100px;
-        width: 700px;
-        background-image: url($ASSET_DIALOG_BACKGROUND);
-        background-size: cover;
-        background-position: center;
+            padding: 100px;
+            width: 700px;
+            background-image: url($ASSET_DIALOG_BACKGROUND);
+            background-size: cover;
+            background-position: center;
+        }
     }
 }

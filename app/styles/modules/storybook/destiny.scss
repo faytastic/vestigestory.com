@@ -11,39 +11,28 @@
 /**
  *  Constants.
  */
-$ASSET_BACKGROUND: '../assets/storybook/background-destiny.jpg';
 $ASSET_MOBILE_BACKGROUND: '../assets/storybook/background-destiny-m.jpg';
 $ASSET_DIALOG_BACKGROUND: '../assets/storybook/destiny-island.png';
 
-section.destiny
+main.story-book
 {
-    .background-layer
+    section.destiny
     {
-        @include background-fade-transition();
+        @include apply-mobile-background(url($ASSET_MOBILE_BACKGROUND));
 
-        figure
+        summary
         {
-            &:nth-child(1)
-            {
-                @include background-fade-transition();
-                @include apply-mobile-background(url($ASSET_MOBILE_BACKGROUND));
-                @include apply-desktop-background(url($ASSET_BACKGROUND));
-            }
+            text-align: center;
         }
-    }
 
-    summary
-    {
-        text-align: center;
-    }
+        dialog
+        {
+            @include dialog-fade-transition();
 
-    dialog
-    {
-        @include dialog-fade-transition();
-
-        padding-bottom: 250px;
-        width: 700px;
-        background-image: url($ASSET_DIALOG_BACKGROUND);
-        background-position: 20% 100%;
+            padding-bottom: 250px;
+            width: 700px;
+            background-image: url($ASSET_DIALOG_BACKGROUND);
+            background-position: 20% 100%;
+        }
     }
 }

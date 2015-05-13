@@ -11,85 +11,44 @@
 /**
  *  Constants.
  */
-$ASSET_BACKGROUND: '../assets/storybook/background-fruits.jpg';
 $ASSET_MOBILE_BACKGROUND: '../assets/storybook/background-fruits-m.jpg';
-$ASSET_SKIRTS: '../assets/storybook/fruits-skirts.png';
 
-section.fruits
+main.story-book
 {
-    @include hide-for-mobile;
-
-    .background-layer
+    section.fruits
     {
-        @include background-fade-transition();
+        @include hide-for-mobile;
+        @include apply-mobile-background(none);
 
-        figure
+        summary
         {
-            &:nth-child(1)
+            top: 30%;
+            right: 15%;
+            text-align: right;
+            position: absolute;
+
+            header
             {
-                @include background-fade-transition();
-                @include apply-mobile-background(none);
-                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 200%, 0% 0%);
+                h2
+                {
+                    text-align: left;
+                }
+
+                h3
+                {
+                    text-align: right;
+                }
             }
 
-            &:nth-child(2)
+            aside
             {
-                @include background-fade-transition();
-                @include apply-mobile-background(none);
-                @include apply-desktop-background(url($ASSET_SKIRTS), 100% 300%, 0% 0%);
-            }
-
-            &:nth-child(3)
-            {
-                @include background-fade-transition();
-                @include apply-mobile-background(none);
-                @include apply-desktop-background(url($ASSET_SKIRTS), 100% 300%, 0% 50%);
-            }
-
-            &:nth-child(4)
-            {
-                @include background-fade-transition();
-                @include apply-mobile-background(none);
-                @include apply-desktop-background(url($ASSET_SKIRTS), 100% 300%, 0% 100%);
-            }
-
-            &:nth-child(5)
-            {
-                @include background-fade-transition();
-                @include apply-mobile-background(none);
-                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 200%, 0% 100%);
-            }
-        }
-    }
-
-    summary
-    {
-        top: 30%;
-        right: 15%;
-        text-align: right;
-        position: absolute;
-
-        header
-        {
-            h2
-            {
+                width: 70%;
                 text-align: left;
-            }
 
-            h3
-            {
-                text-align: right;
-            }
-        }
-
-        aside
-        {
-            width: 70%;
-            text-align: left;
-
-            p
-            {
-                text-align: left;
+                p
+                {
+                    text-align: left;
+                }
             }
         }
     }

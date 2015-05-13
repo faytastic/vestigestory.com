@@ -8,107 +8,57 @@
 
 @import '../../base/mixins';
 
-$ASSET_BACKGROUND: '../assets/storybook/background-video.jpg';
+$ASSET_MOBILE_BACKGROUND: '../assets/storybook/background-video.jpg';
 
-section.video
+main.story-book
 {
-    z-index: $STORY_BOOK_VIDEO_Z_INDEX;
-
-    .background-layer
+    section.video
     {
-        position: absolute !important;
+        @include apply-mobile-background(url($ASSET_MOBILE_BACKGROUND));
 
-        video
+        .content-layer
         {
-            bottom: 50%;
-            right: 50%;
-            width: auto;
-            height: auto;
-            min-width: 100%;
-            min-height: 100%;
-            transform: translateX(50%) translateY(50%);
-            overflow: hidden;
-            position: absolute;
-        }
+            width: 100%;
 
-        figure
-        {
-            &:nth-child(1)
+            summary
             {
-                background-image: url($ASSET_BACKGROUND);
-            }
-        }
-    }
+                text-align: center;
+                vertical-align: middle;
 
-    .content-layer
-    {
-        width: 100%;
-
-        @include desktop
-        {
-            background-color: rgba(0, 0, 0, 0.25);
-        }
-
-        summary
-        {
-            text-align: center;
-            vertical-align: middle;
-
-            aside
-            {
-                display: block;
-            }
-        }
-
-        figure.title
-        {
-            width: 200px;
-            height: auto;
-            display: inline-block;
-            position: relative;
-
-            @media only screen and (min-width: 321px)
-            {
-                width: 250px;
-            }
-
-            img
-            {
-                width: 100%;
-                height: auto;
-            }
-        }
-
-        button.scroll-down
-        {
-            @include button-fade-transition();
-
-            left: 0px;
-            right: 0px;
-            bottom: 40px;
-            margin: 0px auto;
-            display: inline-block;
-            position: absolute;
-
-            @media only screen and (max-width: 1024px)
-            {
-                .touch &
+                aside
                 {
-                    display: none;
+                    display: block;
+                }
+            }
+
+            figure.title
+            {
+                width: 200px;
+                height: auto;
+                display: inline-block;
+                position: relative;
+
+                @media only screen and (min-width: 321px)
+                {
+                    width: 250px;
+                }
+
+                img
+                {
+                    width: 100%;
+                    height: auto;
                 }
             }
         }
-    }
 
-    .overlay-layer
-    {
-        @include background-fade-transition();
-
-        background-color: rgba(0, 0, 0, 0.6);
-
-        &.state-visible
+        .overlay-layer
         {
-            pointer-events: auto;
+            @include background-fade-transition();
+
+            &.state-visible
+            {
+                pointer-events: auto;
+            }
         }
 
         dialog

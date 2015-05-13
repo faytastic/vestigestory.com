@@ -9,10 +9,9 @@
 @import "../../base/mixins";
 @import "../../base/typography";
 
+$BASE_PATH: "../../" !default;
 $NAV_NODE_WIDTH: 8px;
 $NAV_NODE_HEIGHT: $NAV_NODE_WIDTH;
-
-$base-path: "../../" !default;
 
 main.story-book
 {
@@ -156,45 +155,6 @@ main.story-book
         }
     }
 
-    .background-layer
-    {
-        @extend .vs-fluid-block;
-
-        top: 0px;
-        left: 0px;
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        background-color: transparent;
-        pointer-events: none;
-        position: fixed;
-        z-index: $STORY_BOOK_BACKGROUND_LAYER_Z_INDEX;
-
-        @media only screen and (max-width: 1024px)
-        {
-            .touch &
-            {
-                position: absolute;
-            }
-        }
-
-        figure
-        {
-            top: 0px;
-            left: 0px;
-            width: 100%;
-            height: 100%;
-            line-height: 0px;
-            background-color: transparent;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-            display: inline-block;
-            position: absolute;
-            z-index: $STORY_BOOK_BACKGROUND_FIGURE_Z_INDEX;
-        }
-    }
-
     .content-layer
     {
         @extend .vs-fluid-block;
@@ -242,11 +202,6 @@ main.story-book
 
     summary
     {
-        @include desktop
-        {
-            @include summary-fade-transition();
-        }
-
         width: 250px;
         text-align: left;
         vertical-align: middle;
@@ -367,7 +322,7 @@ main.story-book
         font-size: 60px;
         line-height: 60px;
         letter-spacing: 5px;
-        color: #c2c2c2;
+        color: #777;
 
         @media only screen and (min-width: 481px)
         {
@@ -410,5 +365,26 @@ main.story-book
     {
         font-style: italic;
         letter-spacing: 2px;
+    }
+
+    button.scroll-down
+    {
+        @include button-fade-transition();
+
+        left: 0px;
+        right: 0px;
+        bottom: 40px;
+        margin: 0px auto;
+        display: inline-block;
+        z-index: 100;
+        position: fixed;
+
+        @media only screen and (max-width: 1024px)
+        {
+            .touch &
+            {
+                display: none;
+            }
+        }
     }
 }

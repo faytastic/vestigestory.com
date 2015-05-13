@@ -11,100 +11,68 @@
 /**
  *  Constants.
  */
-$ASSET_BACKGROUND_1: '../assets/storybook/origin-background-shirt.jpg';
-$ASSET_BACKGROUND_2: '../assets/storybook/origin-background-bottle.jpg';
 $ASSET_MOBILE_BACKGROUND: '../assets/storybook/background-origin-m.jpg';
 $ASSET_DIALOG_BACKGROUND: '../assets/storybook/origin-bottle.png';
 
-section.origin
+main.story-book
 {
-    @include hide-for-mobile;
-
-    .background-layer
+    section.origin
     {
-        @include background-fade-transition();
+        @include hide-for-mobile;
+        @include apply-mobile-background(url($ASSET_MOBILE_BACKGROUND));
 
-        figure
+        summary
         {
-            top: auto;
-            left: auto;
-            height: 90%;
+            left: 0px;
+            right: 0px;
+            margin: 5% auto;
+            text-align: right;
+            position: absolute;
 
-            &:nth-child(1)
+            header
             {
-                right: 0px;
-                bottom: 0px;
-                width: 35%;
+                h2
+                {
+                    width: 100%;
+                    text-align: left;
+                }
 
-                @include background-nudge-transition(20px, 20px);
-                @include apply-mobile-background(none);
-                @include apply-desktop-background(url($ASSET_BACKGROUND_2), contain, right bottom);
+                h3
+                {
+                    text-align: right;
+                }
             }
 
-            &:nth-child(2)
+            aside
             {
-                left: 0px;
-                bottom: 0px;
-                width: 65%;
-
-                @include background-nudge-transition(-20px, 20px);
-                @include apply-mobile-background(none);
-                @include apply-desktop-background(url($ASSET_BACKGROUND_1), contain, left bottom);
-            }
-        }
-    }
-
-    summary
-    {
-        left: 0px;
-        right: 0px;
-        margin: 5% auto;
-        text-align: right;
-        position: absolute;
-
-        header
-        {
-            h2
-            {
-                width: 100%;
-                text-align: left;
-            }
-
-            h3
-            {
+                margin-left: 10%;
+                width: 90%;
                 text-align: right;
             }
+
+            button.dismiss
+            {
+                display: block;
+            }
+
+            @media only screen and (min-width: 321px)
+            {
+                width: 300px;
+            }
+
+            @media only screen and (min-width: 481px)
+            {
+                width: 400px;
+            }
         }
 
-        aside
+        dialog
         {
-            margin-left: 10%;
-            width: 90%;
-            text-align: right;
+            @include dialog-fade-transition();
+
+            padding-left: 200px;
+            background-image: url($ASSET_DIALOG_BACKGROUND);
+            background-position: 50px 50%;
         }
-
-        button.dismiss
-        {
-            display: block;
-        }
-
-        @media only screen and (min-width: 321px)
-        {
-            width: 300px;
-        }
-
-        @media only screen and (min-width: 481px)
-        {
-            width: 400px;
-        }
-    }
-
-    dialog
-    {
-        @include dialog-fade-transition();
-
-        padding-left: 200px;
-        background-image: url($ASSET_DIALOG_BACKGROUND);
-        background-position: 50px 50%;
     }
 }

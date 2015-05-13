@@ -11,30 +11,12 @@
 /**
  *  Constants.
  */
-$ASSET_BACKGROUND: '../assets/storybook/background-basket.jpg';
 $ASSET_MOBILE_BACKGROUND: '../assets/storybook/background-basket-m.jpg';
 
-section.basket
+main.story-book
 {
-    .background-layer
-    {
-        @include background-fade-transition();
-
-        figure
-        {
-            &:nth-child(1)
-            {
-                @include background-fade-transition();
-                @include apply-mobile-background(url($ASSET_MOBILE_BACKGROUND));
-                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 200%, 0% 0%);
-            }
-
-            &:nth-child(2)
-            {
-                @include background-fade-transition();
-                @include apply-mobile-background(none);
-                @include apply-desktop-background(url($ASSET_BACKGROUND), 100% 200%, 0% 100%);
-            }
-        }
-    }
 }
+    section.basket
+    {
+        @include apply-mobile-background(url($ASSET_MOBILE_BACKGROUND));
+    }

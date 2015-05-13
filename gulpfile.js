@@ -31,8 +31,11 @@ var sequence = require('run-sequence');
  */
 gulp.task('images', function()
 {
+    var debug = $.util.env['debug'] || $.util.env['d'];
+    var skipImageMin = $.util.env['skip-imagemin'] || debug;
+
     return gulp.src(['app/**/*'+IMAGES_PATTERN])
-        .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-imagemin'], $.cache($.imagemin({
+        .pipe($.if(!skipImageMin, $.cache($.imagemin({
             progressive: true,
             interlaced: true,
             svgoPlugins: [{cleanupIDs: false}]
@@ -60,8 +63,7 @@ gulp.task('fonts', function()
 
 /**
  * Processes all CSS files if preprocessed CSS languages are used (i.e. Stylus, Sass). Copies the processed
- * files to a temporary directory to be iterated on in subsequent tasks. If --debug is specified, minification
- * will be skipped.
+ * files to a temporary directory to be iterated on in subsequent tasks. Minification is done in the main 'build' task.
  */
 gulp.task('styles', function()
 {
@@ -75,44 +77,36 @@ gulp.task('styles', function()
         }))
         .pipe($.postcss([require('autoprefixer-core')({ browsers: ['last 2 version', 'ie 9'] })]))
         .pipe($.sourcemaps.write())
-        .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-csso'], $.csso()))
         .pipe(gulp.dest('.tmp'));
 });
 
 /**
  * Processes and lints all JavaScript files. If Browserify is included this task will bundle up all associated files. Processed
- * JavaScript files are copied to a temporary directory to be iterated on in subsequent tasks. If --debug is specified, uglification
- * will be skipped.
+ * JavaScript files are copied to a temporary directory to be iterated on in subsequent tasks. Uglification is done in the main
+ * 'build' task.
  */
 gulp.task('scripts', function()
 {
     var browserify = require('browserify');
-    var source = require('vinyl-source-stream');
-    var buffer = require('vinyl-buffer');
-    var globby = require('globby');
     var reactify = require('reactify');
-    var es = require('event-stream');
+    var through = require('through2');
 
-    return globby(['./app/**/*.'+SCRIPTS_PATTERN], function(err, files)
-    {
-        var tasks = files.map(function(entry)
+    return gulp.src(['./app/scripts/*.'+SCRIPTS_PATTERN])
+        .pipe($.jshint())
+        .pipe($.jshint.reporter('jshint-stylish'))
+        .pipe(through.obj(function(file, enc, next)
         {
-            return browserify({
-                entries: [entry],
-                debug: true,
-                transform: [reactify]
-            })
-            .bundle()
-            .pipe(source(entry.replace('app/', '')))
-            .pipe(buffer())
-            .pipe($.sourcemaps.init({ loadMaps: true }))
-            .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-uglify'], $.uglify())).on('error', $.util.log)
-            .pipe($.sourcemaps.write('./'))
-            .pipe(gulp.dest('.tmp'));
-        });
-
-        return es.merge.apply(null, tasks);
-    });
+            browserify({ entries: [file.path], debug: true, transform: [reactify] })
+                .bundle(function(err, res)
+                {
+                    if (err) console.log(err.toString());
+                    file.contents = res;
+                    next(null, file);
+                });
+        }))
+        .pipe($.sourcemaps.init({ loadMaps: true }))
+        .pipe($.sourcemaps.write('./'))
+        .pipe(gulp.dest('.tmp/scripts'));
 });
 
 /**
@@ -176,17 +170,23 @@ gulp.task('clean', require('del').bind(null, ['.tmp', 'build']));
  */
 gulp.task('build', ['static', 'templates'], function()
 {
+    var debug = $.util.env['debug'] || $.util.env['d'];
+    var skipCSSO = $.util.env['skip-csso'] || debug;
+    var skipUglify = $.util.env['skip-uglify'] || debug;
+    var skipRev = $.util.env['skip-rev'] || debug;
+    var skipMinifyHTML = $.util.env['skip-minify-html'] || debug;
+
     var assets = $.useref.assets({searchPath: ['.tmp', '.']});
 
     return gulp.src(['.tmp/**/*.'+TEMPLATES_PATTERN])
         .pipe(assets)
-        .pipe($.if('*.'+STYLES_PATTERN, $.if(!$.util.env['debug'] && !$.util.env['skip-csso'], $.csso())))
-        .pipe($.if('*.'+SCRIPTS_PATTERN, $.if(!$.util.env['debug'] && !$.util.env['skip-uglify'], $.uglify())))
-        .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-rev'], $.rev()))
+        .pipe($.if(!skipCSSO, $.if('*.css', $.csso())))
+        .pipe($.if(!skipUglify, $.if('*.js', $.uglify()))).on('error', $.util.log)
+        .pipe($.if(!skipRev, $.rev()))
         .pipe(assets.restore())
         .pipe($.useref())
-        .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-rev'], $.revReplace()))
-        .pipe($.if(!$.util.env['debug'] && !$.util.env['skip-minify-html'], $.if('*.html', $.minifyHtml({empty: true, conditionals: true, loose: true }))))
+        .pipe($.if(!skipRev, $.revReplace()))
+        .pipe($.if(!skipMinifyHTML, $.if('*.html', $.minifyHtml({empty: true, conditionals: true, loose: true }))))
         .pipe(gulp.dest('build'))
         .pipe($.size({ title: 'build', gzip: true }));
 });
@@ -197,14 +197,15 @@ gulp.task('build', ['static', 'templates'], function()
  */
 gulp.task('serve', function()
 {
-    var debug = $.util.env['debug'];
+    var debug = $.util.env['debug'] || $.util.env['d'];
+    var port = $.util.env['port'] || $.util.env['p'];
     var baseDir = (debug) ? '.tmp' : 'build';
     var browserSync = require('browser-sync');
 
     browserSync(
     {
         notify: false,
-        port: 9000,
+        port: (typeof port === 'number') ? port : 9000,
         server:
         {
             baseDir: [baseDir],
@@ -249,5 +250,12 @@ gulp.task('serve', function()
  */
 gulp.task('default', function(callback)
 {
-    sequence('build', 'serve', callback);
+    var debug = $.util.env['debug'] || $.util.env['d'];
+    var serve = $.util.env['serve'] || $.util.env['s'];
+
+    var seq = (debug) ? ['build'] : ['clean', 'build'];
+    if (serve) seq.push('serve');
+    seq.push(callback);
+
+    sequence.apply(null, seq);
 });

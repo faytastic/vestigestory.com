@@ -35,7 +35,7 @@ function Collection($scope, $location)
 {
     var self = this;
 
-    vars.Element.call(self, $('main.collection'));
+    vars.Element.call(self, $('main.collection').get(0));
 
     // Confiture location provider.
     $scope.$watch

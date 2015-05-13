@@ -3,6 +3,7 @@
     @@include('includes/_head.html', { "title": "Vestige" })
     <body>
         @@include('includes/_header.html', { "class": "auto-hide" })
+        @@include('includes/storybook/_dynamicbackground.html')
 
         <main class="story-book">
             <div id="preloader">
@@ -10,9 +11,9 @@
                 <h1 class="logo">Vestige</h1>
             </div>
 
+            <button class="scroll-down"></button>
+
             <section id="video" class="video">
-                <div class="background-layer">
-                </div>
                 <div class="content-layer">
                     <summary data-type="basic-transition">
                         <figure class="title">
@@ -24,15 +25,10 @@
                             </div>
                         </aside>
                     </summary>
-                    <button class="scroll-down"></button>
                 </div>
             </section>
 
             <section id="origin" class="origin">
-                <div class="background-layer" data-type="basic-transition">
-                    <figure data-type="basic-transition"></figure>
-                    <figure data-type="basic-transition"></figure>
-                </div>
                 <div class="content-layer">
                     <summary data-type="basic-transition">
                         <header>
@@ -50,9 +46,6 @@
             </section>
 
             <section id="destiny" class="destiny">
-                <div class="background-layer" data-type="basic-transition">
-                    <figure data-type="basic-transition"></figure>
-                </div>
                 <div class="content-layer">
                     <summary data-type="basic-transition">
                         <header>
@@ -73,10 +66,6 @@
             </section>
 
             <section id="amanda" class="amanda">
-                <div class="background-layer" data-type="hover-transition">
-                    <figure></figure>
-                    <figure></figure>
-                </div>
                 <div class="content-layer">
                     <summary data-type="basic-transition">
                         <header>
@@ -97,17 +86,9 @@
             </section>
 
             <section id="basket" class="basket">
-                <div class="background-layer" data-type="hover-transition">
-                    <figure></figure>
-                    <figure></figure>
-                </div>
             </section>
 
             <section id="pants" class="pants">
-                <div class="background-layer" data-type="hover-transition">
-                    <figure></figure>
-                    <figure></figure>
-                </div>
                 <div class="content-layer">
                     <figure data-type="basic-transition">
                         <img src="assets/storybook/pants-wheat.png"/>
@@ -124,10 +105,6 @@
             </section>
 
             <section id="princess" class="princess">
-                <div class="background-layer" data-type="basic-transition">
-                    <figure data-type="basic-transition"></figure>
-                    <figure data-type="toggle-transition"></figure>
-                </div>
                 <div class="content-layer">
                     <figure data-type="basic-transition">
                         <img src="assets/storybook/princess-petal.png"/>
@@ -148,14 +125,6 @@
             </section>
 
             <section id="fruits" class="fruits">
-                <div class="background-layer" data-type="basic-transition">
-                    <figure data-type="basic-transition"></figure>
-                    <figure data-type="garment-transition" data-target="beige"></figure>
-                    <figure data-type="garment-transition" data-target="navy"></figure>
-                    <figure data-type="garment-transition" data-target="grey"></figure>
-                    <figure data-type="toggle-transition"></figure>
-                </div>
-                </div>
                 <div class="content-layer">
                     <summary data-type="basic-transition">
                         <aside>
@@ -174,10 +143,6 @@
             </section>
 
             <section id="mountain" class="mountain">
-                <div class="background-layer" data-type="basic-transition">
-                    <figure data-type="basic-transition"></figure>
-                    <figure data-type="toggle-transition"></figure>
-                </div>
                 <div class="content-layer">
                     <summary data-type="basic-transition">
                         <aside>
@@ -191,10 +156,6 @@
             </section>
 
             <section id="pass" class="pass">
-                <div class="background-layer" data-type="basic-transition">
-                    <figure data-type="basic-transition"></figure>
-                    <figure data-type="basic-transition"></figure>
-                </div>
                 <div class="content-layer">
                     <summary data-type="basic-transition">
                         <header>
@@ -209,11 +170,6 @@
             </section>
 
             <section id="bridge" class="bridge">
-                <div class="background-layer" data-type="basic-transition">
-                    <figure data-type="basic-transition"></figure>
-                    <figure data-type="basic-transition"></figure>
-                    <figure data-type="basic-transition"></figure>
-                </div>
                 <div class="content-layer">
                     <summary data-type="basic-transition">
                         <aside>
@@ -227,10 +183,6 @@
             </section>
 
             <section id="maddie" class="maddie">
-                <div class="background-layer" data-type="hover-transition">
-                    <figure></figure>
-                    <figure></figure>
-                </div>
                 <div class="content-layer">
                     <summary data-type="basic-transition">
                         <header>
@@ -248,9 +200,6 @@
             </section>
 
             <section id="credits" class="credits">
-                <div class="background-layer" data-type="basic-transition">
-                    <figure data-type="basic-transition"></figure>
-                </div>
                 <div class="content-layer">
                     <summary data-type="basic-transition">
                         <aside>

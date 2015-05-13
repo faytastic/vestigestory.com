@@ -6,13 +6,14 @@
  *  http://www.opensource.org/licenses/mit-license.php
  */
 
-$base-path: '../' !default;
+$BASE_PATH: '../' !default;
 
 @import 'base/normalize';
 @import 'base/typography';
 @import 'base/layout';
 @import 'components/buttons';
 @import 'modules/header';
+@import 'modules/storybook/dynamicbackground';
 @import 'modules/storybook/storybook';
 @import 'modules/storybook/video';
 @import 'modules/storybook/origin';

@@ -6,13 +6,14 @@
  *  http://www.opensource.org/licenses/mit-license.php
  */
 
-$base-path: '../../' !default;
+$BASE_PATH: '../../' !default;
 
 $DEFAULT_Z_INDEX: 0;
 
 // Story Book (0-40)
 $STORY_BOOK_BACKGROUND_LAYER_Z_INDEX: 0;
 $STORY_BOOK_BACKGROUND_FIGURE_Z_INDEX: 1;
+$STORY_BOOK_BACKGROUND_FILTER_Z_INDEX: 40;
 $STORY_BOOK_CONTENT_LAYER_Z_INDEX: 10;
 $STORY_BOOK_OVERLAY_LAYER_Z_INDEX: 20;
 $STORY_BOOK_VIDEO_Z_INDEX: 30;

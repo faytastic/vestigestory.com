@@ -13,56 +13,13 @@ var vars = require('vars');
 var Dialog = require('./common/dialog');
 var Dialogs = require('../data/dialogs');
 var utils = require('../utils/utils');
+var Directory = require('../data/storybook/directory');
 
 /**
  * @class
  * View model of the Story Book section.
  */
 module.exports = (function(global) {
-
-/**
- * @constant
- * Directory of ordered sections in the Story Book.
- * @type {Enum}
- */
-var DIRECTORY =
-{
-    VIDEO:    0,
-    ORIGIN:   1,
-    DESTINY:  2,
-    AMANDA:   3,
-    BASKET:   4,
-    PANTS:    5,
-    PRINCESS: 6,
-    FRUITS:   7,
-    MOUNTAIN: 8,
-    PASS:     9,
-    BRIDGE:   10,
-    MADDIE:   11,
-    CREDITS:  12
-};
-
-/**
- * @constant
- * Directory of ordered sections in the Story Book.
- * @type {Array}
- */
-var DIRECTORY_ARRAY =
-[
-    'video',
-    'origin',
-    'destiny',
-    'amanda',
-    'basket',
-    'pants',
-    'princess',
-    'fruits',
-    'mountain',
-    'pass',
-    'bridge',
-    'maddie',
-    'credits'
-];
 
 /**
  * @constant
@@ -75,9 +32,9 @@ var VIMEO_URL = 'player.vimeo.com/video/118499561?title=0byline=0portrait=0&auto
  * @constructor
  * Creates a new StoryBook instance.
  */
-function StoryBook(element)
+function StoryBook(init)
 {
-    vars.Element.call(this, element);
+    vars.Element.call(this, init);
 } var parent = vars.inherit(StoryBook, vars.Element);
 
 /**
@@ -86,6 +43,13 @@ function StoryBook(element)
  * @type {Object}
  */
 Object.defineProperty(StoryBook.prototype, 'children', { value: {}, writable: false });
+
+/**
+ * @property
+ * Dynamic background instance.
+ * @type {Object}
+ */
+Object.defineProperty(StoryBook.prototype, 'dynamicBackground', { value: null, writable: true });
 
 /**
  * @property
@@ -107,7 +71,11 @@ Object.defineProperty(StoryBook.prototype, 'lightboxEnabled',
 
         if (value)
         {
-            video.trigger('pause');
+            if (this.dynamicBackground)
+            {
+                this.dynamicBackground.pause();
+                this.dynamicBackground.lightboxEnabled = true;
+            }
 
             var vimeo = $('<iframe id="vimeo" src="//'+VIMEO_URL+'" frameborder="0" portrait="0" title="0" webkitallowfullscreen mozallowfullscreen allowfullscreen/>');
             dialog.append(vimeo);
@@ -119,7 +87,11 @@ Object.defineProperty(StoryBook.prototype, 'lightboxEnabled',
         }
         else
         {
-            video.trigger('play');
+            if (this.dynamicBackground)
+            {
+                this.dynamicBackground.play();
+                this.dynamicBackground.lightboxEnabled = false;
+            }
 
             utils.changeChildState(layer, 'state-hidden');
             utils.changeChildState(dialog, 'state-hidden');
@@ -136,7 +108,7 @@ Object.defineProperty(StoryBook.prototype, 'lightboxEnabled',
  */
 StoryBook.prototype.init = function()
 {
-    this.responsive = !utils.isMobileVersion();
+    this.updateDelegate.receptive = vars.DirtyType.POSITION|vars.DirtyType.SIZE;
 
     // Set up selectors.
     this.children.sections = $(this.element).find('> section');
@@ -166,12 +138,12 @@ StoryBook.prototype.initNav = function()
 
     var nav = document.createElement('nav');
 
-    var arrlen = vars.sizeOf(DIRECTORY_ARRAY);
+    var arrlen = vars.sizeOf(Directory.names);
 
     for (var i = 0; i < arrlen; i++)
     {
         var node = document.createElement('a');
-        node.setAttribute('href', '#'+DIRECTORY_ARRAY[i]);
+        node.setAttribute('href', '#'+Directory.names[i]);
         nav.appendChild(node);
         $(node).click(this._onNavNodeClick);
     }
@@ -191,9 +163,6 @@ StoryBook.prototype.initMobile = function()
     var sNotice = document.createElement('p');
     sNotice.textContent = 'For full experience please visit the desktop version.';
 
-    // Set up the video section depending on the current device.
-    $(this.children.sections[DIRECTORY.VIDEO]).find('.background-layer').append(document.createElement('figure'));
-
     // Set up the scroll button.
     $(this.children.scrollButton).click(self._onScrollButtonClick.bind(self));
 
@@ -201,7 +170,7 @@ StoryBook.prototype.initMobile = function()
     $(this.children.videoToggles).each(function() { $(this).click(self._onVideoToggleClick.bind(self)); });
 
     // Set up notice.
-    $(this.children.sections[DIRECTORY.VIDEO]).find('.content-layer summary aside').append(sNotice);
+    $(this.children.sections[Directory.enums.VIDEO]).find('.content-layer summary aside').append(sNotice);
 };
 
 /**
@@ -220,14 +189,14 @@ StoryBook.prototype.initDesktop = function()
     layer.className = 'overlay-layer';
     layer.appendChild(lightbox);
 
-    $(this.children.sections[DIRECTORY.VIDEO]).append(layer);
+    $(this.children.sections[Directory.enums.VIDEO]).append(layer);
 
     // Set up dialogs.
-    var arrlen = DIRECTORY_ARRAY.length;
+    var arrlen = Directory.names.length;
 
     for (var i = 0; i < arrlen; i++)
     {
-        var target = DIRECTORY_ARRAY[i];
+        var target = Directory.names[i];
         var data = Dialogs[target];
 
         if (data)
@@ -247,15 +216,6 @@ StoryBook.prototype.initDesktop = function()
 
     // Selectors.
     var sDialogDismissButtons = $(self.element).find('dialog button.dismiss');
-
-    // Set up the video section depending on the current device.
-    var eVideoBackground = new vars.Video();
-    eVideoBackground.class = 'preview';
-    eVideoBackground.source = [{ src: 'assets/videos/preview.mp4' }, { src: 'assets/videos/preview.ogv', type: 'video/ogg' }];
-    eVideoBackground.autoplay = true;
-    eVideoBackground.loop = true;
-
-    $(this.children.sections[DIRECTORY.VIDEO]).find('.background-layer').append(eVideoBackground.element);
 
     // Set up the scroll button.
     $(this.children.scrollButton).click(self._onScrollButtonClick.bind(self));
@@ -277,7 +237,6 @@ StoryBook.prototype.initDesktop = function()
     // Set up dialog dismiss buttons.
     sDialogDismissButtons.each(function() { $(this).click(self._onDialogDismissButtonClick.bind(self)); });
 
-    $(document).mousemove(self._onDocumentMouseMove.bind(self));
     $(document).click(self._onDocumentClick.bind(self));
 };
 
@@ -342,69 +301,54 @@ StoryBook.prototype._updatePages = function()
     if (!this.children.sections) return;
 
     var viewportRect = vars.getViewportRect();
-    var sVideo = $('video.preview');
 
-    for (var key in DIRECTORY)
+    for (var key in Directory.enums)
     {
-        var section = $(this.children.sections[DIRECTORY[key]]);
-        var elements = section.find('[data-type="basic-transition"], [data-type="hover-transition"]');
+        var section = $(this.children.sections[Directory.enums[key]]);
+        var elements = section.find('[data-type="basic-transition"]');
         var nElements = elements.length;
+        var sectionIsVisible = (vars.getIntersectRect(section).height > viewportRect.height*0.5);
+
+        if (sectionIsVisible)
+        {
+            if (this.dynamicBackground) this.dynamicBackground.index = Directory.enums[key];
+        }
 
         for (var i = 0; i < nElements; i++)
         {
             var element = elements[i];
-            var figures = $(element).find('figure');
-            var isHoverTransition = ($(element).attr('data-type') === 'hover-transition');
 
-            if (vars.getIntersectRect(section).height > viewportRect.height*0.5)
+            if (sectionIsVisible)
             {
                 utils.changeChildState(element, 'state-visible');
-
-                if (isHoverTransition)
-                {
-                    if (figures.length === 2 && !$(figures[1]).hasClass('state-visible'))
-                    {
-                        utils.changeChildState(figures[0], 'state-visible');
-                        utils.changeChildState(figures[1], 'state-hidden');
-                    }
-                }
             }
             else
             {
                 utils.changeChildState(element, 'state-hidden');
-
-                if (isHoverTransition)
-                {
-                    if (figures.length === 2)
-                    {
-                        utils.changeChildState(figures[0], 'state-hidden');
-                        utils.changeChildState(figures[1], 'state-hidden');
-                    }
-                }
             }
         }
 
-        if (DIRECTORY[key] === DIRECTORY.VIDEO)
+        if (Directory.enums[key] === Directory.enums.VIDEO)
         {
             if (vars.getIntersectRect(section).height > viewportRect.height*0.5 && !this.lightboxEnabled)
             {
-                sVideo.trigger('play');
+                if (this.dynamicBackground) this.dynamicBackground.play();
             }
             else
             {
-                sVideo.trigger('pause');
+                if (this.dynamicBackground) this.dynamicBackground.pause();
             }
         }
     }
 
-    if ($(window).scrollTop() > viewportRect.height*0.5)
-        {
-            utils.changeChildState(this.children.scrollButton, 'state-hidden');
-        }
-        else
-        {
-            utils.changeChildState(this.children.scrollButton, 'state-visible');
-        }
+    if ($(window).scrollTop() === 0)
+    {
+        utils.changeChildState(this.children.scrollButton, 'state-visible');
+    }
+    else
+    {
+        utils.changeChildState(this.children.scrollButton, 'state-hidden');
+    }
 };
 
 /**
@@ -417,24 +361,7 @@ StoryBook.prototype._updateBackgroundSizes = function()
     if (utils.isMobileVersion()) return;
 
     var viewportRect = vars.getViewportRect();
-    var backgrounds = $(this.element).find('.background-layer figure');
     var vimeo = $('dialog[data-target="lightbox"]');
-
-    $(backgrounds).each
-    (
-        function()
-        {
-            var type = $(this).css('background-size');
-
-            if (type !== 'cover' && type !== 'contain')
-            {
-                var size = vars.transform(this, { width: viewportRect.width, height: viewportRect.height, aspectRatio: 1920/1080, type: 'cover' }, { type: 'cover' });
-                var position = { left: (viewportRect.width - size.width)/2, top: (viewportRect.height - size.height)/2 };
-
-                vars.translate(this, { left: position.left, top: position.top });
-            }
-        }
-    );
 
     vars.transform(vimeo, { width: viewportRect.width, height: viewportRect.height, aspectRatio: 1280/720, type: 'cover' }, { width: viewportRect.width*0.8, height: viewportRect.height*0.8 });
 };
@@ -461,10 +388,9 @@ StoryBook.prototype._onNavNodeClick = function(event)
  */
 StoryBook.prototype._onBackgroundToggleMouseOver = function(event)
 {
-    var section = $(event.currentTarget).closest('section');
-    var background = $(section).find('[data-type="toggle-transition"]');
+    if (!this.dynamicBackground) return;
 
-    utils.changeChildState(background, 'state-visible');
+    this.dynamicBackground.showToggleBackground();
 };
 
 /**
@@ -474,10 +400,9 @@ StoryBook.prototype._onBackgroundToggleMouseOver = function(event)
  */
 StoryBook.prototype._onBackgroundToggleMouseOut = function(event)
 {
-    var section = $(event.currentTarget).closest('section');
-    var background = $(section).find('[data-type="toggle-transition"]');
+    if (!this.dynamicBackground) return;
 
-    utils.changeChildState(background, 'state-hidden');
+    this.dynamicBackground.hideToggleBackground();
 };
 
 /**
@@ -487,11 +412,10 @@ StoryBook.prototype._onBackgroundToggleMouseOut = function(event)
  */
 StoryBook.prototype._onGarmentToggleMouseOver = function(event)
 {
-    var section = $(event.currentTarget).closest('section');
-    var target = $(event.currentTarget).attr('data-target');
-    var background = $(section).find('[data-type="garment-transition"][data-target="'+target+'"]');
+    if (!this.dynamicBackground) return;
 
-    utils.changeChildState(background, 'state-visible');
+    var target = $(event.currentTarget).attr('data-target');
+    this.dynamicBackground.showGarmentBackground(target);
 };
 
 /**
@@ -501,11 +425,10 @@ StoryBook.prototype._onGarmentToggleMouseOver = function(event)
  */
 StoryBook.prototype._onGarmentToggleMouseOut = function(event)
 {
-    var section = $(event.currentTarget).closest('section');
-    var target = $(event.currentTarget).attr('data-target');
-    var background = $(section).find('[data-type="garment-transition"][data-target="'+target+'"]');
+    if (!this.dynamicBackground) return;
 
-    utils.changeChildState(background, 'state-hidden');
+    var target = $(event.currentTarget).attr('data-target');
+    this.dynamicBackground.hideGarmentBackground(target);
 };
 
 /**
@@ -573,49 +496,6 @@ StoryBook.prototype._onDialogDismissButtonClick = function(event)
 
 /**
  * @private
- * Handler invoked when mouse moves.
- * @param  {Object} event
- */
-StoryBook.prototype._onDocumentMouseMove = function(event)
-{
-    var viewportRect = vars.getViewportRect();
-
-    // Set up background transitions that rely on mouse position.
-    for (var key in DIRECTORY)
-    {
-        var section = $(this.children.sections[DIRECTORY[key]]);
-        var elements = section.find('[data-type="hover-transition"]');
-        var nElements = elements.length;
-
-        if (vars.getIntersectRect(section).height > viewportRect.height*0.5)
-        {
-            for (var i = 0; i < nElements; i++)
-            {
-                var element = elements[i];
-                var figures = $(element).find('figure');
-
-                if (figures.length === 2)
-                {
-                    var mouseX = (event) ? event.pageX : 0;
-
-                    if (mouseX > viewportRect.width*0.5)
-                    {
-                        utils.changeChildState(figures[0], 'state-hidden');
-                        utils.changeChildState(figures[1], 'state-visible');
-                    }
-                    else
-                    {
-                        utils.changeChildState(figures[0], 'state-visible');
-                        utils.changeChildState(figures[1], 'state-hidden');
-                    }
-                }
-            }
-        }
-    }
-};
-
-/**
- * @private
  * Handler invoked when the window is clicked.
  * @param  {Object} event
  */
@@ -627,8 +507,8 @@ StoryBook.prototype._onDocumentClick = function(event)
     }
     else
     {
-        this.element.find('dialog').each(function() { utils.changeChildState(this, 'state-hidden'); });
-        this.element.find('.overlay-layer').each(function() { utils.changeChildState(this, 'state-hidden'); });
+        $(this.element).find('dialog').each(function() { utils.changeChildState(this, 'state-hidden'); });
+        $(this.element).find('.overlay-layer').each(function() { utils.changeChildState(this, 'state-hidden'); });
 
         if (this.lightboxEnabled)
         {

@@ -1,4 +1,4 @@
-/**
+ /**
  *  vestigestory.com
  *  (c) Vestige <http://vestigestory.com>
  *
@@ -8,25 +8,34 @@
 'use strict';
 
 var $ = require('jquery');
+var vars = require('vars');
 var Header = require('./controllers/header');
 var Collection = require('./controllers/collection');
 var angular = require('angular');
 
-/**
- * @class
- * View model of the Main module.
- */
-(function(global) {
+vars.module((function(global) {
 
 /**
- * Ready DOM.
+ * @constructor
+ * Creates a new Main instance.
  */
-$(document).ready(function()
+function Main(init)
 {
-    var header = new Header(null, 'collection');
-    var app = angular.module('collection', []);
-    app.controller('CollectionController', ['$scope', '$location', Collection]);
-    app.config(['$locationProvider', function($locationProvider) { $locationProvider.html5Mode({ enabled: true, requireBase: false }); }]);
-});
+    vars.Element.call(this, init);
+} var parent = vars.inherit(Main, vars.Element);
 
-}(window));
+/**
+ * @inheritDoc
+ */
+Main.prototype.init = function()
+{
+    this.addVirtualChild(new Header({ activeTarget: 'collection' }));
+
+    parent.prototype.init.call(this);
+};
+
+return Main; }(window)));
+
+var app = angular.module('collection', []);
+app.controller('CollectionController', ['$scope', '$location', Collection]);
+app.config(['$locationProvider', function($locationProvider) { $locationProvider.html5Mode({ enabled: true, requireBase: false }); }]);

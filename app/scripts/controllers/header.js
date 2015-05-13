@@ -23,11 +23,9 @@ module.exports = (function(global) {
  * Creates a new About instance.
  * @param {String} activeTarget
  */
-function Header(element, activeTarget)
+function Header(init)
 {
-    this.activeTarget = activeTarget;
-
-    vars.Element.call(this, element);
+    vars.Element.call(this, init);
 } var parent = vars.inherit(Header, vars.Element);
 
 /**
@@ -52,8 +50,8 @@ Header.prototype.init = function()
     this.responsive = true;
 
     // Set up child elements.
-    this.children.menu = $('header#menu');
-    this.children.compactMenu = $('header#menu-compact');
+    this.children.menu = $('header#menu').get(0);
+    this.children.compactMenu = $('header#menu-compact').get(0);
 
     if (this.activeTarget)
     {
