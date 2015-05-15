@@ -1,220 +1,218 @@
-<!doctype html>
-<html class="no-js">
-    @@include('includes/_head.html', { "title": "Vestige" })
-    <body>
-        @@include('includes/_header.html', { "class": "auto-hide" })
-        @@include('includes/storybook/_dynamicbackground.html')
+---
+title: 'Vestige'
+---
 
-        <main class="story-book">
-            <div id="preloader">
-                <div class="progress-bar"></div>
-                <h1 class="logo">Vestige</h1>
-            </div>
+{% include header.html class="auto-hide" %}
+{% include storybook/dynamicbackground.html %}
 
-            <button class="scroll-down"></button>
+<main class="story-book">
+    <div id="preloader">
+        <div class="progress-bar"></div>
+        <h1 class="logo">Vestige</h1>
+    </div>
 
-            <section id="video" class="video">
-                <div class="content-layer">
-                    <summary data-type="basic-transition">
-                        <figure class="title">
-                            <img src="assets/storybook/video-title-white.png"/>
-                        </figure>
-                        <aside>
-                            <div class="controls">
-                                <button class="toggle-video" data-target="lightbox"></button>
-                            </div>
-                        </aside>
-                    </summary>
-                </div>
-            </section>
+    <button class="scroll-down"></button>
 
-            <section id="origin" class="origin">
-                <div class="content-layer">
-                    <summary data-type="basic-transition">
-                        <header>
-                            <h2>PRELUDE</h2>
-                            <h3>THE ORIGIN</h3>
-                        </header>
-                        <aside>
-                            <p>People say wisdom comes naturally with time. Others believe it is through a vigorous accumulation of worldly knowledge. But I say true wisdom cannot be gained without one thing – an open heart.</p>
-                            <div class="controls">
-                                <button class="toggle-dialog" data-target="origin"></button>
-                            </div>
-                        </aside>
-                    </summary>
-                </div>
-            </section>
+    <section id="video" class="video">
+        <div class="content-layer">
+            <summary data-type="basic-transition">
+                <figure class="title">
+                    <img src="assets/images/storybook/video-title-white.png"/>
+                </figure>
+                <aside>
+                    <div class="controls">
+                        <button class="toggle-video" data-target="lightbox"></button>
+                    </div>
+                </aside>
+            </summary>
+        </div>
+    </section>
 
-            <section id="destiny" class="destiny">
-                <div class="content-layer">
-                    <summary data-type="basic-transition">
-                        <header>
-                            <h2>BOOK I</h2>
-                            <h3>DESTINY</h3>
-                        </header>
-                        <aside>
-                            <p>A cold splash woke me with a start. How long did I sleep? The sun’s touch felt genuine and gentle. Basked in its soothing warmth, I rocked back and forth, back and forth, in tune to the rhythm of the waves. Then the rocking stopped. I was back on shore again.</p>
-                            <div class="controls">
-                                <button class="toggle-dialog" data-target="destiny"></button>
-                            </div>
-                        </aside>
-                        <figure>
-                            <img src="assets/storybook/destiny-crane.png"/>
-                        </figure>
-                    </summary>
-                </div>
-            </section>
+    <section id="origin" class="origin">
+        <div class="content-layer">
+            <summary data-type="basic-transition">
+                <header>
+                    <h2>PRELUDE</h2>
+                    <h3>THE ORIGIN</h3>
+                </header>
+                <aside>
+                    <p>People say wisdom comes naturally with time. Others believe it is through a vigorous accumulation of worldly knowledge. But I say true wisdom cannot be gained without one thing – an open heart.</p>
+                    <div class="controls">
+                        <button class="toggle-dialog" data-target="origin"></button>
+                    </div>
+                </aside>
+            </summary>
+        </div>
+    </section>
 
-            <section id="amanda" class="amanda">
-                <div class="content-layer">
-                    <summary data-type="basic-transition">
-                        <header>
-                            <h2>BOOK II</h2>
-                            <h3>AMANDA'S STORY</h3>
-                        </header>
-                        <aside>
-                            <p>It is never easy to be yourself. How many can claim to have discovered their inner sense of self? How many can answer with clarity when asked the simple question – who are you?</p>
-                            <div class="controls">
-                                <button class="toggle-dialog" data-target="amanda"></button>
-                            </div>
-                        </aside>
-                        <figure>
-                            <img src="assets/storybook/amanda-swallow.png"/>
-                        </figure>
-                    </summary>
-                </div>
-            </section>
+    <section id="destiny" class="destiny">
+        <div class="content-layer">
+            <summary data-type="basic-transition">
+                <header>
+                    <h2>BOOK I</h2>
+                    <h3>DESTINY</h3>
+                </header>
+                <aside>
+                    <p>A cold splash woke me with a start. How long did I sleep? The sun’s touch felt genuine and gentle. Basked in its soothing warmth, I rocked back and forth, back and forth, in tune to the rhythm of the waves. Then the rocking stopped. I was back on shore again.</p>
+                    <div class="controls">
+                        <button class="toggle-dialog" data-target="destiny"></button>
+                    </div>
+                </aside>
+                <figure>
+                    <img src="assets/images/storybook/destiny-crane.png"/>
+                </figure>
+            </summary>
+        </div>
+    </section>
 
-            <section id="basket" class="basket">
-            </section>
+    <section id="amanda" class="amanda">
+        <div class="content-layer">
+            <summary data-type="basic-transition">
+                <header>
+                    <h2>BOOK II</h2>
+                    <h3>AMANDA'S STORY</h3>
+                </header>
+                <aside>
+                    <p>It is never easy to be yourself. How many can claim to have discovered their inner sense of self? How many can answer with clarity when asked the simple question – who are you?</p>
+                    <div class="controls">
+                        <button class="toggle-dialog" data-target="amanda"></button>
+                    </div>
+                </aside>
+                <figure>
+                    <img src="assets/images/storybook/amanda-swallow.png"/>
+                </figure>
+            </summary>
+        </div>
+    </section>
 
-            <section id="pants" class="pants">
-                <div class="content-layer">
-                    <figure data-type="basic-transition">
-                        <img src="assets/storybook/pants-wheat.png"/>
-                    </figure>
-                    <summary data-type="basic-transition">
-                        <aside>
-                            <p>This is why I love to observe the sky. It is boundless – it knows no limit. No one has ever seen the edge of its endless blue. The vast canvas is nature’s theatre. At times it is a clear, clean slate. At times it morphs into a raging, passionate tempest.</p>
-                            <div class="controls">
-                                <button class="toggle-dialog" data-target="pants"></button>
-                            </div>
-                        </aside>
-                    </summary>
-                </div>
-            </section>
+    <section id="basket" class="basket">
+    </section>
 
-            <section id="princess" class="princess">
-                <div class="content-layer">
-                    <figure data-type="basic-transition">
-                        <img src="assets/storybook/princess-petal.png"/>
-                    </figure>
-                    <summary data-type="basic-transition">
-                        <header>
-                            <h2>BOOK III</h2>
-                            <h3>DREAMS</h3>
-                        </header>
-                        <aside>
-                            <p>The white bird speaks of a princess clad in pristine gowns. Her favorite is a luxurious lace made by a fine craftsman from an exotic land. She is a generous soul who rules with righteousness and kindness.</p>
-                            <div class="controls">
-                                <button class="toggle-background"></button>
-                            </div>
-                        </aside>
-                    </summary>
-                </div>
-            </section>
+    <section id="pants" class="pants">
+        <div class="content-layer">
+            <figure data-type="basic-transition">
+                <img src="assets/images/storybook/pants-wheat.png"/>
+            </figure>
+            <summary data-type="basic-transition">
+                <aside>
+                    <p>This is why I love to observe the sky. It is boundless – it knows no limit. No one has ever seen the edge of its endless blue. The vast canvas is nature’s theatre. At times it is a clear, clean slate. At times it morphs into a raging, passionate tempest.</p>
+                    <div class="controls">
+                        <button class="toggle-dialog" data-target="pants"></button>
+                    </div>
+                </aside>
+            </summary>
+        </div>
+    </section>
 
-            <section id="fruits" class="fruits">
-                <div class="content-layer">
-                    <summary data-type="basic-transition">
-                        <aside>
-                            <div class="controls">
-                                <button class="toggle-garment" data-target="beige"></button>
-                                <button class="toggle-garment" data-target="navy"></button>
-                                <button class="toggle-garment" data-target="grey"></button>
-                            </div>
-                            <p>The grey bird chirps about an orchard of honey peaches, where the sweetest fruits ever tasted by man can be found. It is a pastoral paradise only populated by animals that share the divine pink harvest.</p>
-                            <div class="controls">
-                                <button class="toggle-background"></button>
-                            </div>
-                        </aside>
-                    </summary>
-                </div>
-            </section>
+    <section id="princess" class="princess">
+        <div class="content-layer">
+            <figure data-type="basic-transition">
+                <img src="assets/images/storybook/princess-petal.png"/>
+            </figure>
+            <summary data-type="basic-transition">
+                <header>
+                    <h2>BOOK III</h2>
+                    <h3>DREAMS</h3>
+                </header>
+                <aside>
+                    <p>The white bird speaks of a princess clad in pristine gowns. Her favorite is a luxurious lace made by a fine craftsman from an exotic land. She is a generous soul who rules with righteousness and kindness.</p>
+                    <div class="controls">
+                        <button class="toggle-background"></button>
+                    </div>
+                </aside>
+            </summary>
+        </div>
+    </section>
 
-            <section id="mountain" class="mountain">
-                <div class="content-layer">
-                    <summary data-type="basic-transition">
-                        <aside>
-                            <p>The grey bird tells me of majestic mountains, where cliffs are so jagged only the bravest souls dared to challenge its folds. It is nature’s test of courage, awarded only to men pure and courageous enough to deserve its recognition.</p>
-                            <div class="controls">
-                                <button class="toggle-background"></button>
-                            </div>
-                        </aside>
-                    </summary>
-                </div>
-            </section>
+    <section id="fruits" class="fruits">
+        <div class="content-layer">
+            <summary data-type="basic-transition">
+                <aside>
+                    <div class="controls">
+                        <button class="toggle-garment" data-target="beige"></button>
+                        <button class="toggle-garment" data-target="navy"></button>
+                        <button class="toggle-garment" data-target="grey"></button>
+                    </div>
+                    <p>The grey bird chirps about an orchard of honey peaches, where the sweetest fruits ever tasted by man can be found. It is a pastoral paradise only populated by animals that share the divine pink harvest.</p>
+                    <div class="controls">
+                        <button class="toggle-background"></button>
+                    </div>
+                </aside>
+            </summary>
+        </div>
+    </section>
 
-            <section id="pass" class="pass">
-                <div class="content-layer">
-                    <summary data-type="basic-transition">
-                        <header>
-                            <h2>BOOK IV</h2>
-                            <h3>THE PASS</h3>
-                        </header>
-                        <aside>
-                            <p>Today it is Amanda’s birthday. The community celebrated the day with an extra steamed bun on her plate. Her worn but delicate face beamed in a polite smile, nodding in appreciation for those who blessed her with courteous words. It was all an act. I knew how lonely she felt.</p>
-                        </aside>
-                    </summary>
-                </div>
-            </section>
+    <section id="mountain" class="mountain">
+        <div class="content-layer">
+            <summary data-type="basic-transition">
+                <aside>
+                    <p>The grey bird tells me of majestic mountains, where cliffs are so jagged only the bravest souls dared to challenge its folds. It is nature’s test of courage, awarded only to men pure and courageous enough to deserve its recognition.</p>
+                    <div class="controls">
+                        <button class="toggle-background"></button>
+                    </div>
+                </aside>
+            </summary>
+        </div>
+    </section>
 
-            <section id="bridge" class="bridge">
-                <div class="content-layer">
-                    <summary data-type="basic-transition">
-                        <aside>
-                            <p>"Deliver my dreams to a kindred spirit. Live another life in place of me," she said with a smile.</p>
-                            <div class="controls">
-                                <button class="toggle-dialog" data-target="bridge"></button>
-                            </div>
-                        </aside>
-                    </summary>
-                </div>
-            </section>
+    <section id="pass" class="pass">
+        <div class="content-layer">
+            <summary data-type="basic-transition">
+                <header>
+                    <h2>BOOK IV</h2>
+                    <h3>THE PASS</h3>
+                </header>
+                <aside>
+                    <p>Today it is Amanda’s birthday. The community celebrated the day with an extra steamed bun on her plate. Her worn but delicate face beamed in a polite smile, nodding in appreciation for those who blessed her with courteous words. It was all an act. I knew how lonely she felt.</p>
+                </aside>
+            </summary>
+        </div>
+    </section>
 
-            <section id="maddie" class="maddie">
-                <div class="content-layer">
-                    <summary data-type="basic-transition">
-                        <header>
-                            <h2>BOOK V</h2>
-                            <h3>MADDIE'S STORY</h3>
-                        </header>
-                        <aside>
-                            <p>Cranes are said to bring people hope. Where did it come from?</p>
-                            <div class="controls">
-                                <button class="toggle-dialog" data-target="maddie"></button>
-                            </div>
-                        </aside>
-                    </summary>
-                </div>
-            </section>
+    <section id="bridge" class="bridge">
+        <div class="content-layer">
+            <summary data-type="basic-transition">
+                <aside>
+                    <p>"Deliver my dreams to a kindred spirit. Live another life in place of me," she said with a smile.</p>
+                    <div class="controls">
+                        <button class="toggle-dialog" data-target="bridge"></button>
+                    </div>
+                </aside>
+            </summary>
+        </div>
+    </section>
 
-            <section id="credits" class="credits">
-                <div class="content-layer">
-                    <summary data-type="basic-transition">
-                        <aside>
-                            <p>Maddie’s story to be continued in Fall Winter 2015...</p>
-                            <div class="controls">
-                                <button class="toggle-dialog" data-target="credits"></button>
-                            </div>
-                        </aside>
-                    </summary>
-                </div>
-            </section>
-        </main>
+    <section id="maddie" class="maddie">
+        <div class="content-layer">
+            <summary data-type="basic-transition">
+                <header>
+                    <h2>BOOK V</h2>
+                    <h3>MADDIE'S STORY</h3>
+                </header>
+                <aside>
+                    <p>Cranes are said to bring people hope. Where did it come from?</p>
+                    <div class="controls">
+                        <button class="toggle-dialog" data-target="maddie"></button>
+                    </div>
+                </aside>
+            </summary>
+        </div>
+    </section>
 
-        <!-- build:js /scripts/storybook.js -->
-        <script src="/scripts/storybook.js"></script>
-        <!-- endbuild -->
-    </body>
-</html>
+    <section id="credits" class="credits">
+        <div class="content-layer">
+            <summary data-type="basic-transition">
+                <aside>
+                    <p>Maddie’s story to be continued in Fall Winter 2015...</p>
+                    <div class="controls">
+                        <button class="toggle-dialog" data-target="credits"></button>
+                    </div>
+                </aside>
+            </summary>
+        </div>
+    </section>
+</main>
+
+<!-- build:js /assets/js/storybook.js -->
+<script src="/assets/js/storybook.js"></script>
+<!-- endbuild -->

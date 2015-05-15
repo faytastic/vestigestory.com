@@ -4,8 +4,10 @@ include
 bin
 lib
 concept
-build
+public
+vendor
 .tmp
 .DS_STORE
+.jekyll-metadata
 *.sublime-project
 *.sublime-workspace

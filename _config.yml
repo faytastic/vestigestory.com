@@ -1,0 +1,23 @@
+source: app
+destination: public
+
+include: [.htaccess]
+exclude: [_assets]
+keep_files: [assets]
+
+permalink: pretty
+highlighter: pygments
+
+defaults:
+    -
+        scope:
+            path: ""
+            type: "posts"
+        values:
+            layout: "journal/post"
+    -
+        scope:
+            path: ""
+            type: "pages"
+        values:
+            layout: "default"

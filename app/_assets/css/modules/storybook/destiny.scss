@@ -1,0 +1,37 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+@import '../../base/mixins';
+
+$base-path: '../../' !default;
+
+$asset-mobile-background: $base-path+'images/storybook/background-destiny-m.jpg';
+$asset-dialog-background: $base-path+'images/storybook/destiny-island.png';
+
+main.story-book
+{
+    section.destiny
+    {
+        @include apply-mobile-background(url($asset-mobile-background));
+
+        summary
+        {
+            text-align: center;
+        }
+
+        dialog
+        {
+            @include dialog-fade-transition();
+
+            padding-bottom: 250px;
+            width: 700px;
+            background-image: url($asset-dialog-background);
+            background-position: 20% 100%;
+        }
+    }
+}

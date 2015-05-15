@@ -1,56 +1,50 @@
-<!doctype html>
-<html class="no-js">
-    @@include('includes/_head.html',
-    {
-        "title": "Vestige: Collection"
-    })
-    <body ng-app="collection">
-        @@include('includes/_header.html')
+---
+title: 'Vestige: Collection'
+---
 
-        <main class="collection" ng-controller="CollectionController" ng-cloak>
-            <section class="products">
-                <nav id="product-nav" style="width:{{products.length*200}}px">
-                    <a class="thumbnail {{(activeIndex===$index) && 'state-active' || 'state-inactive'}}" ng-repeat="product in products" data-id="{{product.id}}" href="#{{product.id}}">
-                        <img ng-src="/{{product.thumbnail}}"/>
-                    </a>
+{% include header.html %}
+
+<main ng-app="collection" class="collection" ng-controller="CollectionController" ng-cloak>
+    <section class="products">
+        <nav id="product-nav" style="width:[[products.length*200]]px">
+            <a class="thumbnail [[(activeIndex===$index) && 'state-active' || 'state-inactive']]" ng-repeat="product in products" data-id="[[product.id]]" href="#[[product.id]]">
+                <img ng-src="/[[product.thumbnail]]"/>
+            </a>
+        </nav>
+        <summary>
+            <article>
+                <figure style="width:[[activeProduct.assets.length*100]]%;left:calc(-[[activePageIndex*(!touchEnabled && 100 || 0)]]% - [[(pageShift==='right') && 100 || ((pageShift==='left') && -100 || 0)]]px);">
+                    <div class="image-wrapper" ng-repeat="asset in activeProduct.assets">
+                        <img ng-src="/[[asset]]"/>
+                    </div>
+                </figure>
+                <nav>
+                    <button class="nav-node [[(activePageIndex===$index) && 'state-active' || 'state-inactive']]" ng-repeat="asset in activeProduct.assets" ng-click="_onPageSelect($index)"></button>
                 </nav>
-                <summary>
-                    <article>
-                        <figure style="width:{{activeProduct.assets.length*100}}%;left:calc(-{{activePageIndex*(!touchEnabled && 100 || 0)}}% - {{(pageShift==='right') && 100 || ((pageShift==='left') && -100 || 0)}}px);">
-                            <div class="image-wrapper" ng-repeat="asset in activeProduct.assets">
-                                <img ng-src="/{{asset}}"/>
-                            </div>
-                        </figure>
-                        <nav>
-                            <button class="nav-node {{(activePageIndex===$index) && 'state-active' || 'state-inactive'}}" ng-repeat="asset in activeProduct.assets" ng-click="_onPageSelect($index)"></button>
-                        </nav>
-                    </article>
-                    <aside>
-                        <h2 data-type="name">{{activeProduct.name}}</h2>
-                        <h3 data-type="id">{{activeProduct.id}}</h3>
-                        <span data-type="description">{{activeProduct.description}}</span>
-                        <span data-type="description">{{activeProduct.materials}}</span>
-                        <span data-type="sizes">
-                            <span>
-                                <button ng-repeat="size in activeProduct.sizes" class="size {{size}}"></button>
-                            </span>
-                        </span>
-                        <span data-type="colors">
-                            <span>
-                                <button ng-repeat="color in activeProduct.colors" class="color {{color.name}}" ng-style="{'background-image':'url(/{{color.asset}})'}"></button>
-                            </span>
-                        </span>
-                    </aside>
-                    <button ng-if="(activePageIndex < (activeProduct.assets.length-1)) && !touchEnabled" class="next-slide" ng-click="_onNextPageSelect($event)" ng-mouseover="_onNextPageMouseOver($event)" ng-mouseout="_onNextPageMouseOut($event)"></button>
-                    <button ng-if="(activePageIndex > 0) && !touchEnabled" class="prev-slide" ng-click="_onPrevPageSelect($event)" ng-mouseover="_onPrevPageMouseOver($event)" ng-mouseout="_onPrevPageMouseOut($event)"></button>
-                    <button class="info"></button>
-                </summary>
-            </section>
-        </main>
+            </article>
+            <aside>
+                <h2 data-type="name">[[activeProduct.name]]</h2>
+                <h3 data-type="id">[[activeProduct.id]]</h3>
+                <span data-type="description">[[activeProduct.description]]</span>
+                <span data-type="description">[[activeProduct.materials]]</span>
+                <span data-type="sizes">
+                    <span>
+                        <button ng-repeat="size in activeProduct.sizes" class="size [[size]]"></button>
+                    </span>
+                </span>
+                <span data-type="colors">
+                    <span>
+                        <button ng-repeat="color in activeProduct.colors" class="color [[color.name]]" ng-style="{'background-image':'url(/[[color.asset]])'}"></button>
+                    </span>
+                </span>
+            </aside>
+            <button ng-if="(activePageIndex < (activeProduct.assets.length-1)) && !touchEnabled" class="next-slide" ng-click="_onNextPageSelect($event)" ng-mouseover="_onNextPageMouseOver($event)" ng-mouseout="_onNextPageMouseOut($event)"></button>
+            <button ng-if="(activePageIndex > 0) && !touchEnabled" class="prev-slide" ng-click="_onPrevPageSelect($event)" ng-mouseover="_onPrevPageMouseOver($event)" ng-mouseout="_onPrevPageMouseOut($event)"></button>
+            <button class="info"></button>
+        </summary>
+    </section>
+</main>
 
-        <!-- scripts -->
-        <!-- build:js /scripts/collection.js -->
-        <script src="/scripts/collection.js"></script>
-        <!-- endbuild -->
-    </body>
-</html>
+<!-- build:js /assets/js/collection.js -->
+<script src="/assets/js/collection.js"></script>
+<!-- endbuild -->

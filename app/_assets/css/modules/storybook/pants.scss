@@ -1,0 +1,88 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+@import '../../base/mixins';
+
+$base-path: '../../' !default;
+
+$asset-mobile-background: $base-path+'images/storybook/background-pants-m.jpg';
+$asset-dialog-background: $base-path+'images/storybook/pants-cloud.png';
+
+main.story-book
+{
+    section.pants
+    {
+        @include hide-for-mobile;
+
+        .content-layer
+        {
+            summary
+            {
+                top: 17%;
+                left: 10%;
+                text-align: right;
+                position: absolute;
+
+                header
+                {
+                    h2
+                    {
+                        text-align: left;
+                    }
+
+                    h3
+                    {
+                        text-align: right;
+                    }
+                }
+
+                aside
+                {
+                    width: 70%;
+                    text-align: left;
+
+                    p
+                    {
+                        text-align: left;
+                    }
+                }
+
+                @include mobile
+                {
+                    left: 10%;
+                    text-align: left;
+                }
+            }
+
+            figure
+            {
+                @include summary-fade-transition();
+
+                left: 5%;
+                bottom: 0px;
+                position: absolute;
+
+                @include mobile
+                {
+                    display: none;
+                }
+            }
+        }
+
+        dialog
+        {
+            @include dialog-fade-transition();
+
+            padding: 100px;
+            width: 700px;
+            background-image: url($asset-dialog-background);
+            background-size: cover;
+            background-position: center;
+        }
+    }
+}

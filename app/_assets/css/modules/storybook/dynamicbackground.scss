@@ -1,0 +1,308 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+@import '../../base/mixins';
+
+$base-path: '../../../' !default;
+
+$origin-background-1: $base-path+'images/storybook/origin-background-shirt.jpg';
+$origin-background-2: $base-path+'images/storybook/origin-background-bottle.jpg';
+$destiny-background: $base-path+'images/storybook/background-destiny.jpg';
+$amanda-background: $base-path+'images/storybook/background-amanda.jpg';
+$basket-background: $base-path+'images/storybook/background-basket.jpg';
+$pants-background: $base-path+'images/storybook/background-pants.jpg';
+$princess-background: $base-path+'images/storybook/background-princess.jpg';
+$fruits-background-1: $base-path+'images/storybook/background-fruits.jpg';
+$fruits-background-2: $base-path+'images/storybook/fruits-skirts.png';
+$mountain-background: $base-path+'images/storybook/background-mountain.jpg';
+$pass-background-1: $base-path+'images/storybook/pass-bottle.jpg';
+$pass-background-2: $base-path+'images/storybook/pass-tee.jpg';
+$bridge-background: $base-path+'images/storybook/background-bridge.png';
+$maddie-background: $base-path+'images/storybook/background-maddie.jpg';
+$credits-background: $base-path+'images/storybook/background-credits.jpg';
+
+main.background
+{
+    @include hide-for-mobile;
+
+    overflow: hidden;
+    position: fixed;
+
+    div.filter
+    {
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.25);
+        display: inline-block;
+        position: absolute;
+    }
+
+    & > div.filter
+    {
+        @include background-fade-transition();
+
+        background-color: rgba(0, 0, 0, 0.60);
+        z-index: $story-book-background-filter-z-index;
+    }
+
+    & > section
+    {
+        @extend .vs-fluid-block;
+        @include background-fade-transition();
+
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        background-color: transparent;
+        pointer-events: none;
+        position: absolute;
+
+        video
+        {
+            bottom: 50%;
+            right: 50%;
+            width: auto;
+            height: auto;
+            min-width: 100%;
+            min-height: 100%;
+            transform: translateX(50%) translateY(50%);
+            overflow: hidden;
+            position: absolute;
+        }
+
+        figure
+        {
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            line-height: 0px;
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            display: inline-block;
+            position: absolute;
+        }
+
+        &.video
+        {
+            z-index: $story-book-video-z-index;
+        }
+
+        &.origin figure
+        {
+            top: auto;
+            left: auto;
+            height: 90%;
+
+            &:nth-child(1)
+            {
+                right: 0px;
+                bottom: 0px;
+                width: 35%;
+
+                @include background-nudge-transition(20px, 20px);
+                @include apply-desktop-background(url($origin-background-2), contain, right bottom);
+            }
+
+            &:nth-child(2)
+            {
+                left: 0px;
+                bottom: 0px;
+                width: 65%;
+
+                @include background-nudge-transition(-20px, 20px);
+                @include apply-desktop-background(url($origin-background-1), contain, left bottom);
+            }
+        }
+
+        &.destiny figure
+        {
+            &:nth-child(1)
+            {
+                @include background-fade-transition();
+                @include apply-desktop-background(url($destiny-background));
+            }
+        }
+
+        &.amanda figure
+        {
+            &:nth-child(1)
+            {
+                @include background-fade-transition();
+                @include apply-desktop-background(url($amanda-background), 100% 200%, 0% 0%);
+            }
+
+            &:nth-child(2)
+            {
+                @include background-fade-transition();
+                @include apply-desktop-background(url($amanda-background), 100% 200%, 0% 100%);
+            }
+        }
+
+        &.basket figure
+        {
+            &:nth-child(1)
+            {
+                @include background-fade-transition();
+                @include apply-desktop-background(url($basket-background), 100% 200%, 0% 0%);
+            }
+
+            &:nth-child(2)
+            {
+                @include background-fade-transition();
+                @include apply-desktop-background(url($basket-background), 100% 200%, 0% 100%);
+            }
+        }
+
+        &.pants figure
+        {
+            &:nth-child(1)
+            {
+                @include background-fade-transition();
+                @include apply-mobile-background(none);
+                @include apply-desktop-background(url($pants-background), 100% 200%, 0% 0%);
+            }
+
+            &:nth-child(2)
+            {
+                @include background-fade-transition();
+                @include apply-mobile-background(none);
+                @include apply-desktop-background(url($pants-background), 100% 200%, 0% 100%);
+            }
+        }
+
+        &.princess figure
+        {
+            &:nth-child(1)
+            {
+                @include background-fade-transition();
+                @include apply-desktop-background(url($princess-background), 100% 200%, 0% 0%);
+            }
+
+            &:nth-child(2)
+            {
+                @include background-fade-transition();
+                @include apply-desktop-background(url($princess-background), 100% 200%, 0% 100%);
+            }
+        }
+
+        &.fruits figure
+        {
+            &:nth-child(1)
+            {
+                @include background-fade-transition();
+                @include apply-desktop-background(url($fruits-background-1), 100% 200%, 0% 0%);
+            }
+
+            &:nth-child(2)
+            {
+                @include background-fade-transition();
+                @include apply-desktop-background(url($fruits-background-2), 100% 300%, 0% 0%);
+            }
+
+            &:nth-child(3)
+            {
+                @include background-fade-transition();
+                @include apply-desktop-background(url($fruits-background-2), 100% 300%, 0% 50%);
+            }
+
+            &:nth-child(4)
+            {
+                @include background-fade-transition();
+                @include apply-desktop-background(url($fruits-background-2), 100% 300%, 0% 100%);
+            }
+
+            &:nth-child(5)
+            {
+                @include background-fade-transition();
+                @include apply-desktop-background(url($fruits-background-1), 100% 200%, 0% 100%);
+            }
+        }
+
+        &.mountain figure
+        {
+            &:nth-child(1)
+            {
+                @include background-fade-transition();
+                @include apply-desktop-background(url($mountain-background), 100% 200%, 0% 0%);
+            }
+
+            &:nth-child(2)
+            {
+                @include background-fade-transition();
+                @include apply-desktop-background(url($mountain-background), 100% 200%, 0% 100%);
+            }
+        }
+
+        &.pass figure
+        {
+            &:nth-child(1)
+            {
+                @include background-nudge-transition(0px, -40px);
+                @include apply-desktop-background(url($pass-background-1), contain, left top);
+            }
+
+            &:nth-child(2)
+            {
+                @include background-nudge-transition(0px, 40px);
+                @include apply-desktop-background(url($pass-background-2), contain, left bottom);
+            }
+        }
+
+        &.bridge figure
+        {
+            &:nth-child(1)
+            {
+                @include background-nudge-transition(-50px);
+                @include apply-desktop-background(url($bridge-background), 100% 300%, 0% 0%);
+            }
+
+            &:nth-child(2)
+            {
+                @include background-fade-transition(1.0s, 0.5s);
+                @include apply-desktop-background(url($bridge-background), 100% 300%, 0% 50%);
+            }
+
+            &:nth-child(3)
+            {
+                @include background-nudge-transition(50px);
+                @include apply-desktop-background(url($bridge-background), 100% 300%, 0% 100%);
+            }
+        }
+
+        &.maddie figure
+        {
+            &:nth-child(1)
+            {
+                @include background-fade-transition();
+                @include apply-desktop-background(url($maddie-background), 100% 200%, 0% 0%);
+            }
+
+            &:nth-child(2)
+            {
+                @include background-fade-transition();
+                @include apply-desktop-background(url($maddie-background), 100% 200%, 0% 100%);
+            }
+        }
+
+        &.credits figure
+        {
+            &:nth-child(1)
+            {
+                @include background-fade-transition();
+                @include apply-desktop-background(url($credits-background));
+            }
+        }
+    }
+}

@@ -1,0 +1,364 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+@import '../base/mixins';
+@import '../base/typography';
+
+$base-path: '../../' !default;
+
+$asset-icon-toggles: $base-path+'images/components/icons/icon-toggles.png';
+$icon-toggles-total: 2;
+$icon-toggles-width: 26px;
+$icon-toggles-height: 26px;
+$icon-toggles-dialog-position: 0px 0px;
+$icon-toggles-background-position: -($icon-toggles-width) 0px;
+
+$asset-garment-toggles: $base-path+'images/components/icons/garment-toggles.jpg';
+$garment-toggles-total: 3;
+$garment-toggles-width: 40px;
+$garment-toggles-height: 40px;
+$garment-toggles-beige-position: 0px 0px;
+$garment-toggles-navy-position: -($garment-toggles-width) 0px;
+$garment-toggles-grey-position: -($garment-toggles-width*2) 0px;
+
+$asset-video-toggle: $base-path+'images/components/icons/icon-play.png';
+$asset-scroll-down: $base-path+'images/components/icons/icon-arrow.png';
+
+button.menu
+{
+    width: 30px;
+    height: 20px;
+    background: transparent;
+
+    span
+    {
+        top: 8px;
+        left: 0px;
+        width: 30px;
+        height: 4px;
+        border-radius: 1px;
+        background: #333;
+        display: block;
+        content: '';
+        position: absolute;
+        transition: all 500ms ease-in-out;
+
+        &:before
+        {
+            top: -8px;
+            left: 0px;
+            width: 30px;
+            height: 4px;
+            border-radius: 1px;
+            background: #333;
+            display: block;
+            content: '';
+            position: absolute;
+            transition: all 500ms ease-in-out;
+        }
+
+        &:after
+        {
+            left: 0px;
+            bottom: -8px;
+            width: 30px;
+            height: 4px;
+            border-radius: 1px;
+            background: #333;
+            display: block;
+            content: '';
+            position: absolute;
+            transition: all 500ms ease-in-out;
+
+        }
+    }
+
+    &.state-active
+    {
+        span
+        {
+            &
+            {
+                background: transparent;
+            }
+
+            &:before
+            {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            &:after
+            {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+        }
+    }
+}
+
+button.info
+{
+    padding-bottom: 5px;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    display: block;
+    font-family: $font-family-header;
+    font-weight: $font-family-sans-serif-light;
+    font-size: 30px;
+    color: #999;
+    text-align: center;
+    line-height: 20px;
+
+    &:after
+    {
+        content: '\2139';
+    }
+
+    &.state-active
+    {
+        border-color: #333;
+        color: #333;
+    }
+
+    .csstransitions &
+    {
+        transition-property: color;
+        transition-duration: 0.4s;
+        transition-timing-function: ease-out;
+    }
+}
+
+button.toggle-dialog
+{
+    width: $icon-toggles-width;
+    height: $icon-toggles-height;
+
+    .csstransitions &
+    {
+        opacity: 1.0;
+        transition: opacity 0.3s linear;
+    }
+
+    .no-touch &
+    {
+        &:hover
+        {
+            opacity: 0.5;
+        }
+    }
+
+    @include desktop
+    {
+        background: url($asset-icon-toggles) no-repeat;
+        background-size: $icon-toggles-width*$icon-toggles-total;
+        background-position: $icon-toggles-dialog-position;
+        display: inline-block;
+    }
+
+    @include mobile
+    {
+        background: none;
+        display: none;
+    }
+}
+
+button.toggle-background
+{
+    width: $icon-toggles-width;
+    height: $icon-toggles-height;
+
+    .csstransitions &
+    {
+        opacity: 1.0;
+        transition: opacity 0.3s linear;
+    }
+
+    .no-touch &
+    {
+        &:hover
+        {
+            opacity: 0.5;
+        }
+    }
+
+    @include desktop
+    {
+        background: url($asset-icon-toggles) no-repeat;
+        background-size: $icon-toggles-width*$icon-toggles-total;
+        background-position: $icon-toggles-background-position;
+        display: inline-block;
+    }
+
+    @include mobile
+    {
+        background: none !important;
+        display: none;
+    }
+}
+
+button.toggle-garment
+{
+    width: 40px;
+    height: 40px;
+    font-size: 0px;
+
+    &.toggle-garment[data-target="beige"]
+    {
+        background-position: $garment-toggles-beige-position;
+    }
+
+    &.toggle-garment[data-target="navy"]
+    {
+        background-position: $garment-toggles-navy-position;
+    }
+
+    &.toggle-garment[data-target="grey"]
+    {
+        background-position: $garment-toggles-grey-position;
+    }
+
+    .csstransitions &
+    {
+        opacity: 1.0;
+        transition: opacity 0.3s linear;
+    }
+
+    .no-touch &
+    {
+        &:hover
+        {
+            opacity: 0.5;
+        }
+    }
+
+    @include desktop
+    {
+        background: url($asset-garment-toggles) no-repeat;
+        background-size: $garment-toggles-width*$garment-toggles-total $garment-toggles-height;
+        background-repeat: no-repeat;
+        display: inline-block;
+    }
+
+    @include mobile
+    {
+        background: none;
+        display: none;
+    }
+}
+
+button.toggle-video
+{
+    width: 50px;
+    height: 50px;
+    background-image: url($asset-video-toggle);
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    display: inline-block;
+
+    .csstransitions &
+    {
+        opacity: 1.0;
+        transition: opacity 0.3s linear;
+    }
+
+    .no-touch &
+    {
+        &:hover
+        {
+            opacity: 0.5;
+        }
+    }
+}
+
+button.scroll-down
+{
+    width: 40px;
+    height: 40px;
+    background-image: url($asset-scroll-down);
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+button.dismiss
+{
+    top: 15px;
+    right: 15px;
+    padding: 8px 15px;
+    font-size: 14px;
+    background: transparent;
+    border: 1px #ddd solid;
+    color: #ddd;
+    position: absolute;
+
+    &:after
+    {
+        content: 'close';
+    }
+
+    .no-touch &
+    {
+        &:hover
+        {
+            border-color: #666;
+            color: #666;
+        }
+    }
+
+    .csstransitions &
+    {
+        transition: all 0.2s ease-out;
+    }
+}
+
+button.nav-node
+{
+    width: 8px;
+    height: 8px;
+    border-radius: 5px;
+    background-color: rgba(170, 170, 170, 0.6);
+    opacity: 0.5;
+    display: inline-block;
+    position: relative;
+
+    .csstransitions &
+    {
+        transition: all 0.4s ease-out;
+    }
+
+    .no-touch &:hover,
+    &.state-active
+    {
+        opacity: 1.0;
+        background-color: #333;
+    }
+}
+
+button.next-slide
+{
+    top: 0px;
+    right: 0px;
+    width: 100px;
+    height: 100%;
+    background-color: transparent;
+    opacity: 0.0;
+    position: absolute;
+}
+
+button.prev-slide
+{
+    top: 0px;
+    left: 0px;
+    width: 100px;
+    height: 100%;
+    background-color: transparent;
+    opacity: 0.0;
+    position: absolute;
+}
