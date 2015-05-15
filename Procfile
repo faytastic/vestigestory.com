@@ -1,0 +1,1 @@
+web: jekyll serve --skip-initial-build -P $PORT
