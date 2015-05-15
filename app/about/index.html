@@ -1,45 +1,39 @@
-<!doctype html>
-<html class="no-js">
-    @@include('includes/_head.html',
-    {
-        "title": "Vestige: About"
-    })
-    <body>
-        @@include('includes/_header.html')
+---
+title: 'Vestige: About'
+---
 
-        <main class="about">
-            <section class="vestige">
-                <h2>VESTIGE</h2>
-                <h3>THE MESSAGE WITHIN</h3>
-                <p>Each season, we tell a tale of two individuals, brought together by a message in a bottle. In a time and age where communication is sparse and undervalued, we showcase how inspiring and precious connecting with others can be. Every story works to bring two seemingly different souls together, forming a harmonious collection.</p>
-                <p>Finding meaning goes beyond looking pretty. We strive for lasting impact. Our designs only use premium, natural fabrics that can stand the test of time. Our story continues from season to season, for we love continuity. We also support our local manufacturers. Some of our pieces are made in our hometown, Vancouver B.C.</p>
-                <p>Our signature tops are packaged in a Vestige bottle — with a little message for you tucked inside.</p>
-                <div class="social">
-                    <a class="email" href="mailto:info@vestigestory.com" target="_blank">Email</a>
-                    <a class="facebook" href="https://www.facebook.com/vestigestory" target="_blank">Facebook</a>
-                    <a class="instagram" href="http://instagram.com/vestige_story" target="_blank">Instagram</a>
-                    <a class="pinterest" href="https://www.pinterest.com/vestigestory/" target="_blank">Pinterest</a>
-                </div>
-            </section>
-            <section class="contact">
-                <div class="column">
-                    <h4>PRESS</h4>
-                    <p>+1 604.767.7651</p>
-                    <p><a href="mailto:press@vestigestory.com">press@vestigestory.com</a></p>
-                    <p>Please direct press inquiries to Lilian.</p>
-                </div>
-                <div class="column">
-                    <h4>WHOLESALE</h4>
-                    <p>+1 778.858.4516</p>
-                    <p><a href="mailto:accounts@vestigestory.com">accounts@vestigestory.com</a></p>
-                    <p>Please direct wholesale inquiries to Vivian.</p>
-                </div>
-            </section>
-        </main>
+{% include header.html %}
 
-        <!-- scripts -->
-        <!-- build:js /scripts/about.js -->
-        <script src="/scripts/about.js"></script>
-        <!-- endbuild -->
-    </body>
-</html>
+<main class="about">
+    <section class="vestige">
+        <h2>VESTIGE</h2>
+        <h3>THE MESSAGE WITHIN</h3>
+        <p>Each season, we tell a tale of two individuals, brought together by a message in a bottle. In a time and age where communication is sparse and undervalued, we showcase how inspiring and precious connecting with others can be. Every story works to bring two seemingly different souls together, forming a harmonious collection.</p>
+        <p>Finding meaning goes beyond looking pretty. We strive for lasting impact. Our designs only use premium, natural fabrics that can stand the test of time. Our story continues from season to season, for we love continuity. We also support our local manufacturers. Some of our pieces are made in our hometown, Vancouver B.C.</p>
+        <p>Our signature tops are packaged in a Vestige bottle — with a little message for you tucked inside.</p>
+        <div class="social">
+            <a class="email" href="mailto:info@vestigestory.com" target="_blank">Email</a>
+            <a class="facebook" href="https://www.facebook.com/vestigestory" target="_blank">Facebook</a>
+            <a class="instagram" href="http://instagram.com/vestige_story" target="_blank">Instagram</a>
+            <a class="pinterest" href="https://www.pinterest.com/vestigestory/" target="_blank">Pinterest</a>
+        </div>
+    </section>
+    <section class="contact">
+        <div class="column">
+            <h4>PRESS</h4>
+            <p>+1 604.767.7651</p>
+            <p><a href="mailto:press@vestigestory.com">press@vestigestory.com</a></p>
+            <p>Please direct press inquiries to Lilian.</p>
+        </div>
+        <div class="column">
+            <h4>WHOLESALE</h4>
+            <p>+1 778.858.4516</p>
+            <p><a href="mailto:accounts@vestigestory.com">accounts@vestigestory.com</a></p>
+            <p>Please direct wholesale inquiries to Vivian.</p>
+        </div>
+    </section>
+</main>
+
+<!-- build:js /assets/js/about.js -->
+<script src="/assets/js/about.js"></script>
+<!-- endbuild -->

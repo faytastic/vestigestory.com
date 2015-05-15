@@ -1,0 +1,21 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+@import '../../base/mixins';
+
+$base-path: '../../' !default;
+
+$asset-mobile-background: $base-path+'images/storybook/background-basket-m.jpg';
+
+main.story-book
+{
+}
+    section.basket
+    {
+        @include apply-mobile-background(url($asset-mobile-background));
+    }

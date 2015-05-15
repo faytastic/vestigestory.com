@@ -1,0 +1,390 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+@import '../../base/mixins';
+@import '../../base/typography';
+
+$base-path: '../../' !default;
+$nav-node-width: 8px;
+$nav-node-height: $nav-node-width;
+
+main.story-book
+{
+    &,
+    &.state-loading
+    {
+        overflow: hidden;
+    }
+
+    &.state-loaded
+    {
+        overflow: visible;
+    }
+
+    & > nav
+    {
+        top: 0px;
+        bottom: 0px;
+        left: 20px;
+        margin: auto;
+        width: $nav-node-width;
+        height: ($nav-node-width + 10px*2)*13;
+        display: inline-block;
+        position: fixed;
+        z-index: $story-book-nav-z-index;
+
+        @media only screen and (max-width: 1024px)
+        {
+            .touch &
+            {
+                display: none;
+                position: absolute;
+                z-index: 0;
+            }
+        }
+
+        a,
+        a.state-inactive
+        {
+            margin: 10px;
+            width: $nav-node-width;
+            height: $nav-node-height;
+            border-radius: 5px;
+            background-color: rgba(170, 170, 170, 0.6);
+            opacity: 0.5;
+            display: block;
+            position: relative;
+
+            .csstransitions &
+            {
+                transition: all 0.4s ease-out;
+            }
+
+            &:hover,
+            &.state-active
+            {
+                opacity: 1.0;
+                background-color: #333;
+            }
+        }
+    }
+
+    & > #preloader
+    {
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        background-color: #111;
+        position: absolute;
+        z-index: $preloader-z-index;
+
+        .csstransitions &
+        {
+            transition: opacity 0.5s ease-out;
+        }
+
+        &,
+        &.state-visible
+        {
+            opacity: 1.0;
+        }
+
+        &.state-hidden
+        {
+            opacity: 0.0;
+        }
+
+        .progress-bar
+        {
+            left: 0px;
+            bottom: 4px;
+            width: 0px;
+            height: 4px;
+            opacity: 0.0;
+            background-color: #fff;
+            position: absolute;
+
+            .csstransitions &
+            {
+                transition: width 0.2s ease-out;
+            }
+        }
+
+        h1.logo
+        {
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            margin: auto;
+            width: 170px;
+            height: 130px;
+            font-size: 0px;
+            background: url($base-path+'images/components/logos/message-within-logo.svg') no-repeat;
+            background-size: auto 100%;
+            vertical-align: top;
+            display: inline-block;
+            position: absolute;
+        }
+    }
+
+    & > section
+    {
+        width: 100%;
+        height: 100%;
+        min-height: 480px;
+        background-color: transparent;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+
+        @media only screen and (min-width: 450px)
+        {
+            min-height: 450px;
+        }
+
+        @media only screen and (min-width: 769px)
+        {
+            min-height: 768px;
+        }
+    }
+
+    .content-layer
+    {
+        @extend .vs-fluid-block;
+
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        margin: 0px auto;
+        padding: 60px 0px;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        position: absolute;
+        z-index: $story-book-content-layer-z-index;
+
+        figure
+        {
+            pointer-events: none;
+            display: inline-block;
+        }
+    }
+
+    .overlay-layer
+    {
+        @extend .vs-fluid-block;
+
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        position: absolute;
+        pointer-events: none;
+        display: block;
+        z-index: $story-book-overlay-layer-z-index;
+
+        @media only screen and (max-width: 1024px)
+        {
+            .touch &
+            {
+                display: none;
+            }
+        }
+    }
+
+    summary
+    {
+        width: 250px;
+        text-align: left;
+        vertical-align: middle;
+        white-space: pre-line;
+        line-height: 0;
+        display: inline-block;
+        position: relative;
+
+        @media only screen and (min-width: 321px)
+        {
+            width: 300px;
+        }
+
+        @media only screen and (min-width: 481px)
+        {
+            width: 400px;
+        }
+
+        header
+        {
+            width: 100%;
+            height: auto;
+            display: inline-block;
+            position: relative;
+        }
+
+        aside
+        {
+            padding: 20px 0px;
+            display: inline-block;
+
+            p
+            {
+                font-size: 16px;
+                font-weight: 300;
+                line-height: 22px;
+                color: #888;
+            }
+
+            .controls
+            {
+                margin: 20px 0px;
+                width: 100%;
+                height: auto;
+                white-space: initial;
+                display: inline-block;
+                position: relative;
+
+                button:not(:last-child)
+                {
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+
+    dialog
+    {
+        padding: 70px;
+        width: 900px;
+        height: auto;
+        background-color: rgba(255, 255, 255, 0.95);
+        background-repeat: no-repeat;
+        text-align: center;
+        vertical-align: middle;
+        display: inline-block;
+        position: relative;
+
+        header
+        {
+            margin-bottom: 30px;
+            width: 100%;
+            height: auto;
+            display: inline-block;
+            position: relative;
+
+            h4
+            {
+                width: auto;
+                display: inline-block;
+                padding-bottom: 20px;
+                border-bottom: 1px #ddd solid;
+            }
+
+            h5
+            {
+                color: #666;
+            }
+        }
+
+        aside
+        {
+            text-align: left;
+            vertical-align: top;
+            display: inline-block;
+            position: relative;
+
+            p
+            {
+                font-size: 14px;
+                font-weight: 300;
+                line-height: 20px;
+                color: #666;
+
+                &:first-child::first-letter
+                {
+                    font-size: 70px;
+                    float: left;
+                    line-height: 60px;
+                    padding-right: 6px;
+                }
+            }
+        }
+    }
+
+    h2
+    {
+        font-size: 60px;
+        line-height: 60px;
+        letter-spacing: 5px;
+        color: #777;
+
+        @media only screen and (min-width: 481px)
+        {
+            font-size: 80px;
+            line-height: 80px;
+        }
+
+        @media only screen and (min-width: 769px)
+        {
+            font-size: 100px;
+            line-height: 100px;
+        }
+    }
+
+    h3
+    {
+        font-family: $font-family-sub-header;
+        font-size: 22px;
+        font-weight: 100;
+        letter-spacing: 5px;
+        line-height: 40px;
+        color: #999;
+
+        @media only screen and (min-width: 481px)
+        {
+            font-size: 30px;
+            line-height: 50px;
+        }
+    }
+
+    h4
+    {
+        font-size: 16px;
+        text-align: center;
+        letter-spacing: 5px;
+        line-height: 24px;
+    }
+
+    h5
+    {
+        font-style: italic;
+        letter-spacing: 2px;
+    }
+
+    button.scroll-down
+    {
+        @include button-fade-transition();
+
+        left: 0px;
+        right: 0px;
+        bottom: 40px;
+        margin: 0px auto;
+        display: inline-block;
+        z-index: $story-book-overlay-layer-z-index;
+        position: fixed;
+
+        @media only screen and (max-width: 1024px)
+        {
+            .touch &
+            {
+                display: none;
+            }
+        }
+    }
+}

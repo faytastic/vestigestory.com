@@ -1,0 +1,65 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+@import '../../base/mixins';
+
+$base-path: '../../' !default;
+
+$asset-mobile-background: $base-path+'images/storybook/background-bridge-m.jpg';
+$asset-dialog-background: $base-path+'images/storybook/bridge-water.png';
+
+main.story-book
+{
+    section.bridge
+    {
+        @include hide-for-mobile;
+        @include apply-mobile-background(none);
+
+        summary
+        {
+            top: 25%;
+            left: 50%;
+            text-align: right;
+            position: absolute;
+
+            header
+            {
+                h2
+                {
+                    text-align: left;
+                }
+
+                h3
+                {
+                    text-align: right;
+                }
+            }
+
+            aside
+            {
+                width: 100%;
+                text-align: right;
+
+                p
+                {
+                    text-align: right;
+                }
+            }
+        }
+
+        dialog
+        {
+            @include dialog-fade-transition();
+
+            padding-bottom: 250px;
+            width: 800px;
+            background-image: url($asset-dialog-background);
+            background-position: left bottom;
+        }
+    }
+}
