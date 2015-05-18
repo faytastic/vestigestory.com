@@ -11,10 +11,10 @@
 var $ = require('jquery');
 var vars = require('vars');
 
-vars.module((function() {
+var HeaderController = require('./controllers/HeaderController');
+var AboutController = require('./controllers/AboutController');
 
-var Header = require('./controllers/header');
-var About = require('./controllers/about');
+vars.module((function() {
 
 /**
  * @constructor
@@ -30,8 +30,8 @@ function Main(init)
  */
 Main.prototype.init = function()
 {
-    this.addVirtualChild(new Header({ activeTarget: 'about' }), 'header');
-    this.addVirtualChild(new About($('main.about').get(0)));
+    this.addVirtualChild(new HeaderController({ activeTarget: 'about' }), 'header');
+    this.addVirtualChild(new AboutController($('main.about').get(0)));
 
     parent.prototype.init.call(this);
 };

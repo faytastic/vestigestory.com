@@ -1,3 +1,6 @@
+---
+---
+
 /**
  *  vestigestory.com
  *  (c) Vestige <http://vestigestory.com>
@@ -12,11 +15,11 @@ var $ = require('jquery');
 var angular = require('angular');
 var vars = require('vars');
 var utils = require('../utils/utils');
-var Products = require('../data/products');
+var PRODUCTS = {{ site.data.collections.ss2015.products | jsonify }};
 
 /**
  * @class
- * Angular controller of the Collection section.
+ * Angular controller of the CollectionController section.
  */
 module.exports = (function() {
 
@@ -29,13 +32,11 @@ var DIRTY_PAGE_SCROLL_POSITION = vars.DirtyType.CUSTOM;
 
 /**
  * @constructor
- * Creates a new Collection instance.
+ * Creates a new CollectionController instance.
  */
-function Collection($scope, $location)
+function CollectionController($scope, $location)
 {
     var self = this;
-
-    vars.Element.call(self, $('main.collection').get(0));
 
     // Confiture location provider.
     $scope.$watch
@@ -70,10 +71,10 @@ function Collection($scope, $location)
 
     /**
      * @property
-     * Collection of products.
+     * CollectionController of products.
      * @type {Array}
      */
-    Object.defineProperty($scope, 'products', { value: Products, writable: false });
+    Object.defineProperty($scope, 'products', { value: PRODUCTS, writable: false });
 
     /**
      * @property
@@ -119,37 +120,42 @@ function Collection($scope, $location)
     {
         get: function()
         {
-            if (!this._activePageIndex)
-            {
-                return 0;
-            }
-            else
-            {
-                return this._activePageIndex;
-            }
-
+            if (!this._activePageIndex) return 0;
+            return this._activePageIndex;
         },
         set: function(value)
         {
             var nPages = this.activeProduct.assets.length;
 
-            if (value > nPages-1)
-            {
-                this._activePageIndex = nPages-1;
-            }
-            else if (value < 0)
-            {
-                this._activePageIndex = 0;
-            }
-            else
-            {
-                this._activePageIndex = value;
-            }
+            this._activePageIndex = vars.clamp(value, 0, nPages-1);
 
             if (this._activePageIndex === 0 || this._activePageIndex === nPages-1)
             {
                 this.pageShift = 'neutral';
             }
+
+            vars.translate3d(self.children.slides, { x: this.pageOffset });
+        }
+    });
+
+    Object.defineProperty($scope, 'pageOffset',
+    {
+        get: function()
+        {
+            var rect = vars.getRect(self.element);
+            var offset;
+
+            switch ($scope.pageShift)
+            {
+                case 'left':    offset = 100; break;
+                case 'right':   offset = -100; break;
+                case 'neutral': offset = 0; break;
+                default:        offset = 0; break;
+            }
+
+            offset += ($scope.activePageIndex * -rect.width);
+
+            return offset;
         }
     });
 
@@ -158,7 +164,20 @@ function Collection($scope, $location)
      * Specifies the direction the page should shift.
      * @type {String}
      */
-    Object.defineProperty($scope, 'pageShift', { value: 'neutral', writable: true });
+    Object.defineProperty($scope, 'pageShift',
+    {
+        get: function()
+        {
+            if (!this._pageShift) return 'neutral';
+            return this._pageShift;
+        },
+        set: function(value)
+        {
+            if (this._pageShift == value) return;
+            this._pageShift = value;
+            vars.translate3d(self.children.slides, { x: this.pageOffset });
+        }
+    });
 
     /**
      * @property
@@ -296,60 +315,70 @@ function Collection($scope, $location)
 
         $scope.activePageIndex = $index;
     };
-} var parent = vars.inherit(Collection, vars.Element);
+
+    vars.Element.call(self, $('main.collection').get(0));
+} var parent = vars.inherit(CollectionController, vars.Element);
 
 /**
  * Child elements.
  * @type {Object}
  */
-Object.defineProperty(Collection.prototype, 'children', { value: {}, writable: false });
+Object.defineProperty(CollectionController.prototype, 'children', { value: {}, writable: false });
 
 /**
  * @inheritDoc
  */
-Collection.prototype.init = function()
+CollectionController.prototype.init = function()
 {
-    this.responsive = true;
-    this._navAcceleration = 0.0;
-
-    this.children.display = $(this.element).find('summary');
-    this.children.productDetails = $(this.children.display).find('aside');
-    this.children.slides = $(this.children.display).find('article figure');
-    this.children.nav = $(this.element).find('nav#product-nav');
-    this.children.infoButton = $(this.element).find('button.info');
-    this.children.pageNav = $(this.element).find('summary article nav');
-
     var self = this;
+
+    self.updateDelegate.responsive = true;
+    self.updateDelegate.refreshRate = 20.0;
+
+    self._navAcceleration = 0.0;
+    self._productNavOffsetX = 0.0;
+
+    self.children.display        = $(self.element).find('summary');
+    self.children.nav            = $(this.element).find('nav#product-nav');
+    self.children.infoButton     = $(self.element).find('button.info');
+    self.children.pageNav        = $(self.element).find('summary article nav');
+    self.children.productDetails = $(self.children.display).find('aside');
+    self.children.slides         = $(self.children.display).find('article figure');
 
     if (utils.isTouchDevice())
     {
-        $(this.children.slides).scroll(function() { self.updateDelegate.setDirty(DIRTY_PAGE_SCROLL_POSITION); });
-        // this.children.display.get(0).addEventListener(vars.EventType.TOUCH.TOUCH_START, self._onDisplayTouchStart.bind(self));
-        // this.children.display.get(0).addEventListener(vars.EventType.TOUCH.TOUCH_END, self._onDisplayTouchEnd.bind(self));
-        // this.children.display.get(0).addEventListener(vars.EventType.TOUCH.TOUCH_MOVE, self._onDisplayTouchMove.bind(self));
+        $(self.children.slides).scroll(function() { self.updateDelegate.setDirty(DIRTY_PAGE_SCROLL_POSITION); });
     }
     else
     {
-        this.children.nav.get(0).addEventListener(vars.EventType.MOUSE.MOUSE_ENTER, self._onNavMouseEnter.bind(self));
-        this.children.nav.get(0).addEventListener(vars.EventType.MOUSE.MOUSE_LEAVE, self._onNavMouseLeave.bind(self));
-        this.children.nav.get(0).addEventListener(vars.EventType.MOUSE.MOUSE_MOVE, self._onNavMouseMove.bind(self));
+        self.children.nav.get(0).addEventListener(vars.EventType.MOUSE.MOUSE_ENTER, self._onNavMouseEnter.bind(self));
+        self.children.nav.get(0).addEventListener(vars.EventType.MOUSE.MOUSE_LEAVE, self._onNavMouseLeave.bind(self));
+        self.children.nav.get(0).addEventListener(vars.EventType.MOUSE.MOUSE_MOVE, self._onNavMouseMove.bind(self));
     }
 
     $(self.children.infoButton).click(self._onInfoButtonClick.bind(self));
 
-    parent.prototype.init.call(this);
+    parent.prototype.init.call(self);
 };
 
 /**
  * @inheritDoc
  */
-Collection.prototype.update = function(dirtyTypes)
+CollectionController.prototype.update = function(dirtyTypes)
 {
     if (this.isDirty(vars.DirtyType.SIZE))
     {
-        var target = $(this.children.slides.find('img'));
-        var minRect = vars.getRect(this.children.display);
-        var newRect = vars.transform(target, { width: minRect.width, height: minRect.height, aspectRatio: 1920/1080, type: 'cover' }, { type: 'cover' });
+        var displayRect = vars.getRect(this.children.display);
+        var slides = $(this.children.slides.find('img'));
+        vars.transform(this.children.slides, { width: displayRect.width * slides.length });
+        vars.transform(slides, { width: displayRect.width, height: displayRect.height, aspectRatio: 1920/1080, type: 'cover' }, { type: 'cover' });
+
+        var thumbRect = vars.getRect(this.children.nav.find('a').get(0));
+        vars.transform(this.children.nav, { width: thumbRect.width*PRODUCTS.length });
+
+        var scope = angular.element(this.element).scope();
+
+        vars.translate3d(this.children.slides, { x: scope.pageOffset });
     }
 
     if (this.isDirty(DIRTY_PAGE_SCROLL_POSITION))
@@ -385,7 +414,7 @@ Collection.prototype.update = function(dirtyTypes)
  * Handler invoked when the info button is clicked.
  * @param  {Object} event
  */
-Collection.prototype._onInfoButtonClick = function(event)
+CollectionController.prototype._onInfoButtonClick = function(event)
 {
     if ($(event.currentTarget).hasClass('state-active'))
     {
@@ -403,7 +432,7 @@ Collection.prototype._onInfoButtonClick = function(event)
  * Handler invoked when the mouse moves.
  * @param  {Object} event
  */
-Collection.prototype._onNavMouseMove = function(event)
+CollectionController.prototype._onNavMouseMove = function(event)
 {
     var viewportRect = vars.getViewportRect();
     var nullArea = viewportRect.width*0.3;
@@ -428,7 +457,7 @@ Collection.prototype._onNavMouseMove = function(event)
  * Handler invoked when the mouse enters the nav section.
  * @param  {Object} event
  */
-Collection.prototype._onNavMouseEnter = function(event)
+CollectionController.prototype._onNavMouseEnter = function(event)
 {
     if (!this._navScrollInterval)
     {
@@ -441,7 +470,7 @@ Collection.prototype._onNavMouseEnter = function(event)
  * Handler invoked when the mouse leaves the nav section.
  * @param  {Object} event
  */
-Collection.prototype._onNavMouseLeave = function(event)
+CollectionController.prototype._onNavMouseLeave = function(event)
 {
     if (this._navScrollInterval)
     {
@@ -456,11 +485,10 @@ Collection.prototype._onNavMouseLeave = function(event)
  * @private
  * Handler invoked when nav scroll interval is active.
  */
-Collection.prototype._onNavScroll = function()
+CollectionController.prototype._onNavScroll = function()
 {
     var speed = 15.0;
-    var currentX = vars.getRect(this.children.nav).left;
-    var newX = currentX + speed*this._navAcceleration;
+    var newX = this._productNavOffsetX + speed*this._navAcceleration;
     var thumbnailRect = vars.getRect($(this.children.nav).find('a.thumbnail'));
     var maxX = 0.0;
     var minX = vars.getViewportRect().width - $(this.children.nav).find('a.thumbnail').length*thumbnailRect.width;
@@ -468,62 +496,9 @@ Collection.prototype._onNavScroll = function()
     newX = Math.max(minX, newX);
     newX = Math.min(maxX, newX);
 
-    vars.translate(this.children.nav, { left: newX });
+    this._productNavOffsetX = newX;
+
+    vars.translate3d(this.children.nav, { x: newX });
 };
 
-/**
- * @private
- * Handler invoked when touch starts inside the nav section.
- * @param  {Object} event
- */
-Collection.prototype._onDisplayTouchStart = function(event)
-{
-    var self = this;
-
-    self._shouldCancelTouch = false;
-
-    setTimeout
-    (
-        function()
-        {
-            self._shouldCancelTouch = true;
-        },
-        250
-    );
-
-    self._touchStartX = event ? event.touches[0].pageX : 0.0;
-};
-
-/**
- * @private
- * Handler invoked when touch ends inside the nav section.
- * @param  {Object} event
- */
-Collection.prototype._onDisplayTouchEnd = function(event)
-{
-    if (Math.abs(this._dTouchX) < 30.0) return;
-
-    var scope = angular.element(this.element).scope();
-
-    if (this._dTouchX < 0.0)
-    {
-        scope.$apply(function() { scope.activePageIndex++; });
-    }
-    else
-    {
-        scope.$apply(function() { scope.activePageIndex--; });
-    }
-};
-
-/**
- * @private
- * Handler invoked when touch moves inside the nav section.
- * @param  {Object} event
- */
-Collection.prototype._onDisplayTouchMove = function(event)
-{
-    var touchX = event ? event.touches[0].pageX : 0.0;
-    this._dTouchX = touchX - this._touchStartX;
-};
-
-return Collection; }());
+return CollectionController; }());

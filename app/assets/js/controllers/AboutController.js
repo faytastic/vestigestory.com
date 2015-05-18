@@ -13,17 +13,17 @@ var vars = require('vars');
 
 /**
  * @class
- * Controller of the About section.
+ * Controller of the AboutController section.
  */
 module.exports = (function(global) {
 
 /**
  * @constructor
- * Creates a new About instance.
+ * Creates a new AboutController instance.
  */
-function About(element)
+function AboutController(element)
 {
     vars.Element.call(this, element);
-} var parent = vars.inherit(About, vars.Element);
+} var parent = vars.inherit(AboutController, vars.Element);
 
-return About; }(window));
+return AboutController; }(window));

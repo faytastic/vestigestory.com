@@ -20,26 +20,26 @@ module.exports = (function(global) {
 
 /**
  * @constructor
- * Creates a new DynamicBackground instance.
+ * Creates a new DynamicBackgroundController instance.
  */
-function DynamicBackground(element)
+function DynamicBackgroundController(element)
 {
     vars.Element.call(this, element);
-} var parent = vars.inherit(DynamicBackground, vars.Element);
+} var parent = vars.inherit(DynamicBackgroundController, vars.Element);
 
 /**
  * @property (read-only)
  * Child elements.
  * @type {Object}
  */
-Object.defineProperty(DynamicBackground.prototype, 'children', { value: {}, writable: false });
+Object.defineProperty(DynamicBackgroundController.prototype, 'children', { value: {}, writable: false });
 
 /**
  * @property (read-only)
  * Current active section index.
  * @type {Number}
  */
-Object.defineProperty(DynamicBackground.prototype, 'index',
+Object.defineProperty(DynamicBackgroundController.prototype, 'index',
 {
     get: function()
     {
@@ -56,7 +56,7 @@ Object.defineProperty(DynamicBackground.prototype, 'index',
     }
 });
 
-Object.defineProperty(DynamicBackground.prototype, 'lightboxEnabled',
+Object.defineProperty(DynamicBackgroundController.prototype, 'lightboxEnabled',
 {
     get: function()
     {
@@ -84,7 +84,7 @@ Object.defineProperty(DynamicBackground.prototype, 'lightboxEnabled',
 /**
  * @inheritDoc
  */
-DynamicBackground.prototype.init = function()
+DynamicBackgroundController.prototype.init = function()
 {
     this.updateDelegate.receptive = vars.DirtyType.SIZE;
 
@@ -109,7 +109,7 @@ DynamicBackground.prototype.init = function()
 /**
  * @inheritDoc
  */
-DynamicBackground.prototype.update = function(dirtyTypes)
+DynamicBackgroundController.prototype.update = function(dirtyTypes)
 {
     if (this.isDirty(vars.DirtyType.SIZE))
     {
@@ -139,7 +139,7 @@ DynamicBackground.prototype.update = function(dirtyTypes)
 /**
  * Plays all the videos.
  */
-DynamicBackground.prototype.play = function()
+DynamicBackgroundController.prototype.play = function()
 {
     $(this.children.video).trigger('play');
 };
@@ -147,7 +147,7 @@ DynamicBackground.prototype.play = function()
 /**
  * Pauses all the videos.
  */
-DynamicBackground.prototype.pause = function()
+DynamicBackgroundController.prototype.pause = function()
 {
     $(this.children.video).trigger('pause');
 };
@@ -155,7 +155,7 @@ DynamicBackground.prototype.pause = function()
 /**
  * Shows the toggle background of the section in the current index.
  */
-DynamicBackground.prototype.showToggleBackground = function()
+DynamicBackgroundController.prototype.showToggleBackground = function()
 {
     var section = this.children.sections[this.index];
     var background = $(section).find('[data-type="toggle-transition"]');
@@ -166,7 +166,7 @@ DynamicBackground.prototype.showToggleBackground = function()
 /**
  * Hides the toggle background of the section in the current index.
  */
-DynamicBackground.prototype.hideToggleBackground = function()
+DynamicBackgroundController.prototype.hideToggleBackground = function()
 {
     var section = this.children.sections[this.index];
     var background = $(section).find('[data-type="toggle-transition"]');
@@ -177,7 +177,7 @@ DynamicBackground.prototype.hideToggleBackground = function()
 /**
  * Shows the garment background at the specified target.
  */
-DynamicBackground.prototype.showGarmentBackground = function(target)
+DynamicBackgroundController.prototype.showGarmentBackground = function(target)
 {
     var section = this.children.sections[this.index];
     var background = $(section).find('[data-type="garment-transition"][data-target="'+target+'"]');
@@ -188,7 +188,7 @@ DynamicBackground.prototype.showGarmentBackground = function(target)
 /**
  * Hides the garment background at the specified target.
  */
-DynamicBackground.prototype.hideGarmentBackground = function(target)
+DynamicBackgroundController.prototype.hideGarmentBackground = function(target)
 {
     var section = this.children.sections[this.index];
     var background = $(section).find('[data-type="garment-transition"][data-target="'+target+'"]');
@@ -201,7 +201,7 @@ DynamicBackground.prototype.hideGarmentBackground = function(target)
  * Activates the background at the section with the specified index.
  * @param  {Number} index
  */
-DynamicBackground.prototype._activateBackgroundForSectionAt = function(index)
+DynamicBackgroundController.prototype._activateBackgroundForSectionAt = function(index)
 {
     var section = this.children.sections[index];
 
@@ -223,7 +223,7 @@ DynamicBackground.prototype._activateBackgroundForSectionAt = function(index)
  * Deactivates the background at the section with the specified index.
  * @param  {Number} index
  */
-DynamicBackground.prototype._deactivateBackgroundForSectionAt = function(index)
+DynamicBackgroundController.prototype._deactivateBackgroundForSectionAt = function(index)
 {
     var nSections = this.children.sections.length;
 
@@ -247,7 +247,7 @@ DynamicBackground.prototype._deactivateBackgroundForSectionAt = function(index)
  * Handler invoked when mouse moves.
  * @param  {Object} event
  */
-DynamicBackground.prototype._onDocumentMouseMove = function(event)
+DynamicBackgroundController.prototype._onDocumentMouseMove = function(event)
 {
     var section = this.children.sections[this.index];
 
@@ -272,4 +272,4 @@ DynamicBackground.prototype._onDocumentMouseMove = function(event)
     }
 };
 
-return DynamicBackground; }(window));
+return DynamicBackgroundController; }(window));

@@ -14,7 +14,7 @@ var utils = require('../utils/utils');
 
 /**
  * @class
- * Controller of the main Header.
+ * Controller of the main HeaderController.
  */
 module.exports = (function(global) {
 
@@ -23,29 +23,29 @@ module.exports = (function(global) {
  * Creates a new About instance.
  * @param {String} activeTarget
  */
-function Header(init)
+function HeaderController(init)
 {
     vars.Element.call(this, init);
-} var parent = vars.inherit(Header, vars.Element);
+} var parent = vars.inherit(HeaderController, vars.Element);
 
 /**
  * @property (read-only)
  * Child elements.
  * @type {Object}
  */
-Object.defineProperty(Header.prototype, 'children', { value: {}, writable: false });
+Object.defineProperty(HeaderController.prototype, 'children', { value: {}, writable: false });
 
 /**
  * @property (read-only)
  * Child elements.
  * @type {Object}
  */
-Object.defineProperty(Header.prototype, 'activeTarget', { value: null, writable: true });
+Object.defineProperty(HeaderController.prototype, 'activeTarget', { value: null, writable: true });
 
 /**
  * @inheritDoc
  */
-Header.prototype.init = function()
+HeaderController.prototype.init = function()
 {
     this.responsive = true;
 
@@ -67,7 +67,7 @@ Header.prototype.init = function()
 /**
  * @inheritDoc
  */
-Header.prototype.update = function(dirtyTypes)
+HeaderController.prototype.update = function(dirtyTypes)
 {
     if (this.isDirty(vars.DirtyType.POSITION))
     {
@@ -101,7 +101,7 @@ Header.prototype.update = function(dirtyTypes)
  * Handler invoked when an item in the compact menu is clicked.
  * @param  {Object} event
  */
-Header.prototype._onCompactMenuItemClick = function(event)
+HeaderController.prototype._onCompactMenuItemClick = function(event)
 {
     var sNav = $(this.children.compactMenu).find('nav');
 
@@ -117,4 +117,4 @@ Header.prototype._onCompactMenuItemClick = function(event)
     }
 };
 
-return Header; }(window));
+return HeaderController; }(window));

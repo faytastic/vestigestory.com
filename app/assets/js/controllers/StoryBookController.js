@@ -1,3 +1,6 @@
+---
+---
+
 /**
  *  vestigestory.com
  *  (c) Vestige <http://vestigestory.com>
@@ -10,16 +13,18 @@
 
 var $ = require('jquery');
 var vars = require('vars');
-var Dialog = require('./common/dialog');
-var Dialogs = require('../data/dialogs');
-var utils = require('../utils/utils');
-var Directory = require('../data/storybook/directory');
 
 /**
  * @class
  * View model of the Story Book section.
  */
 module.exports = (function(global) {
+
+var DialogController = require('./common/DialogController');
+var utils = require('../utils/utils');
+
+var DIALOGS = {{ site.data.storybook.ss2015.dialogs | jsonify }};
+var DIRECTORY = {{ site.data.storybook.ss2015.directory | jsonify }};
 
 /**
  * @constant
@@ -30,33 +35,33 @@ var VIMEO_URL = 'player.vimeo.com/video/118499561?title=0byline=0portrait=0&auto
 
 /**
  * @constructor
- * Creates a new StoryBook instance.
+ * Creates a new StoryBookController instance.
  */
-function StoryBook(init)
+function StoryBookController(init)
 {
     vars.Element.call(this, init);
-} var parent = vars.inherit(StoryBook, vars.Element);
+} var parent = vars.inherit(StoryBookController, vars.Element);
 
 /**
  * @property
  * Child elements.
  * @type {Object}
  */
-Object.defineProperty(StoryBook.prototype, 'children', { value: {}, writable: false });
+Object.defineProperty(StoryBookController.prototype, 'children', { value: {}, writable: false });
 
 /**
  * @property
  * Dynamic background instance.
  * @type {Object}
  */
-Object.defineProperty(StoryBook.prototype, 'dynamicBackground', { value: null, writable: true });
+Object.defineProperty(StoryBookController.prototype, 'dynamicBackground', { value: null, writable: true });
 
 /**
  * @property
- * Indicates whether this StoryBook instance is in lightbox mode.
+ * Indicates whether this StoryBookController instance is in lightbox mode.
  * @type {Boolean}
  */
-Object.defineProperty(StoryBook.prototype, 'lightboxEnabled',
+Object.defineProperty(StoryBookController.prototype, 'lightboxEnabled',
 {
     get: function()
     {
@@ -106,7 +111,7 @@ Object.defineProperty(StoryBook.prototype, 'lightboxEnabled',
 /**
  * @inheritDoc
  */
-StoryBook.prototype.init = function()
+StoryBookController.prototype.init = function()
 {
     this.updateDelegate.receptive = vars.DirtyType.POSITION|vars.DirtyType.SIZE;
 
@@ -132,18 +137,18 @@ StoryBook.prototype.init = function()
     parent.prototype.init.call(this);
 };
 
-StoryBook.prototype.initNav = function()
+StoryBookController.prototype.initNav = function()
 {
     if (utils.isMobileVersion()) return;
 
     var nav = document.createElement('nav');
 
-    var arrlen = vars.sizeOf(Directory.names);
+    var arrlen = vars.sizeOf(DIRECTORY);
 
     for (var i = 0; i < arrlen; i++)
     {
         var node = document.createElement('a');
-        node.setAttribute('href', '#'+Directory.names[i]);
+        node.setAttribute('href', '#'+DIRECTORY[i]);
         nav.appendChild(node);
         $(node).click(this._onNavNodeClick);
     }
@@ -153,9 +158,9 @@ StoryBook.prototype.initNav = function()
 
 /**
  * @public
- * Initializes the mobile version of this StoryBook instance.
+ * Initializes the mobile version of this StoryBookController instance.
  */
-StoryBook.prototype.initMobile = function()
+StoryBookController.prototype.initMobile = function()
 {
     var self = this;
 
@@ -170,14 +175,14 @@ StoryBook.prototype.initMobile = function()
     $(this.children.videoToggles).each(function() { $(this).click(self._onVideoToggleClick.bind(self)); });
 
     // Set up notice.
-    $(this.children.sections[Directory.enums.VIDEO]).find('.content-layer summary aside').append(sNotice);
+    $(this.children.sections[DIRECTORY.indexOf('Video')]).find('.content-layer summary aside').append(sNotice);
 };
 
 /**
  * @public
- * Initializes the desktop version of this StoryBook instance.
+ * Initializes the desktop version of this StoryBookController instance.
  */
-StoryBook.prototype.initDesktop = function()
+StoryBookController.prototype.initDesktop = function()
 {
     var self = this;
 
@@ -189,19 +194,19 @@ StoryBook.prototype.initDesktop = function()
     layer.className = 'overlay-layer';
     layer.appendChild(lightbox);
 
-    $(this.children.sections[Directory.enums.VIDEO]).append(layer);
+    $(this.children.sections[DIRECTORY.indexOf('Video')]).append(layer);
 
     // Set up dialogs.
-    var arrlen = Directory.names.length;
+    var arrlen = DIRECTORY.length;
 
     for (var i = 0; i < arrlen; i++)
     {
-        var target = Directory.names[i];
-        var data = Dialogs[target];
+        var target = DIRECTORY[i];
+        var data = DIALOGS[target];
 
         if (data)
         {
-            var dialog = new Dialog();
+            var dialog = new DialogController();
             dialog.data = data;
             dialog.element.setAttribute('data-target', target);
             dialog.ondismiss = this._onDialogDismissButtonClick.bind(this);
@@ -243,7 +248,7 @@ StoryBook.prototype.initDesktop = function()
 /**
  * @inheritDoc
  */
-StoryBook.prototype.update = function(dirtyTypes)
+StoryBookController.prototype.update = function(dirtyTypes)
 {
     if (this.isDirty(vars.DirtyType.POSITION|vars.DirtyType.SIZE))
     {
@@ -263,7 +268,7 @@ StoryBook.prototype.update = function(dirtyTypes)
  * @private
  * Updates the nav nodes, specifically managing the active state of each node.
  */
-StoryBook.prototype._updateNav = function()
+StoryBookController.prototype._updateNav = function()
 {
     if (utils.isMobileVersion()) return;
 
@@ -295,28 +300,29 @@ StoryBook.prototype._updateNav = function()
  * @private
  * Updates page transitions. This method manages which page shows up at different scroll positions.
  */
-StoryBook.prototype._updatePages = function()
+StoryBookController.prototype._updatePages = function()
 {
     if (utils.isMobileVersion()) return;
     if (!this.children.sections) return;
 
     var viewportRect = vars.getViewportRect();
+    var arrlen = vars.sizeOf(DIRECTORY);
 
-    for (var key in Directory.enums)
+    for (var i = 0; i < arrlen; i++)
     {
-        var section = $(this.children.sections[Directory.enums[key]]);
+        var section = $(this.children.sections[i]);
         var elements = section.find('[data-type="basic-transition"]');
         var nElements = elements.length;
         var sectionIsVisible = (vars.getIntersectRect(section).height > viewportRect.height*0.5);
 
         if (sectionIsVisible)
         {
-            if (this.dynamicBackground) this.dynamicBackground.index = Directory.enums[key];
+            if (this.dynamicBackground) this.dynamicBackground.index = i;
         }
 
-        for (var i = 0; i < nElements; i++)
+        for (var j = 0; j < nElements; j++)
         {
-            var element = elements[i];
+            var element = elements[j];
 
             if (sectionIsVisible)
             {
@@ -328,7 +334,7 @@ StoryBook.prototype._updatePages = function()
             }
         }
 
-        if (Directory.enums[key] === Directory.enums.VIDEO)
+        if (i === 0)
         {
             if (vars.getIntersectRect(section).height > viewportRect.height*0.5 && !this.lightboxEnabled)
             {
@@ -356,7 +362,7 @@ StoryBook.prototype._updatePages = function()
  * Updates all background sizes that are not automatically resized via background-size: cover,
  * particularly image sprites.
  */
-StoryBook.prototype._updateBackgroundSizes = function()
+StoryBookController.prototype._updateBackgroundSizes = function()
 {
     if (utils.isMobileVersion()) return;
 
@@ -371,7 +377,7 @@ StoryBook.prototype._updateBackgroundSizes = function()
  * Handler invoked when the nav node is clicked.
  * @param  {Object} event
  */
-StoryBook.prototype._onNavNodeClick = function(event)
+StoryBookController.prototype._onNavNodeClick = function(event)
 {
     event.preventDefault();
 
@@ -386,7 +392,7 @@ StoryBook.prototype._onNavNodeClick = function(event)
  * Handler invoked when a background toggle is moused over.
  * @param  {Object} event
  */
-StoryBook.prototype._onBackgroundToggleMouseOver = function(event)
+StoryBookController.prototype._onBackgroundToggleMouseOver = function(event)
 {
     if (!this.dynamicBackground) return;
 
@@ -398,7 +404,7 @@ StoryBook.prototype._onBackgroundToggleMouseOver = function(event)
  * Handler invoked when a background toggle is moused out.
  * @param  {Object} event
  */
-StoryBook.prototype._onBackgroundToggleMouseOut = function(event)
+StoryBookController.prototype._onBackgroundToggleMouseOut = function(event)
 {
     if (!this.dynamicBackground) return;
 
@@ -410,7 +416,7 @@ StoryBook.prototype._onBackgroundToggleMouseOut = function(event)
  * Handler invoked when a garment toggle is moused over.
  * @param  {Object} event
  */
-StoryBook.prototype._onGarmentToggleMouseOver = function(event)
+StoryBookController.prototype._onGarmentToggleMouseOver = function(event)
 {
     if (!this.dynamicBackground) return;
 
@@ -423,7 +429,7 @@ StoryBook.prototype._onGarmentToggleMouseOver = function(event)
  * Handler invoked when a garment toggle is moused out.
  * @param  {Object} event
  */
-StoryBook.prototype._onGarmentToggleMouseOut = function(event)
+StoryBookController.prototype._onGarmentToggleMouseOut = function(event)
 {
     if (!this.dynamicBackground) return;
 
@@ -436,7 +442,7 @@ StoryBook.prototype._onGarmentToggleMouseOut = function(event)
  * Handler invoked when the scroll button is clicked.
  * @param  {Object} event
  */
-StoryBook.prototype._onScrollButtonClick = function(event)
+StoryBookController.prototype._onScrollButtonClick = function(event)
 {
     var section = $('section#origin');
 
@@ -448,7 +454,7 @@ StoryBook.prototype._onScrollButtonClick = function(event)
  * Handler invoked when a video toggle is clicked.
  * @param  {Object} event
  */
-StoryBook.prototype._onVideoToggleClick = function(event)
+StoryBookController.prototype._onVideoToggleClick = function(event)
 {
     if (!utils.isMobileVersion())
     {
@@ -465,7 +471,7 @@ StoryBook.prototype._onVideoToggleClick = function(event)
  * Handler invoked when a dialog toggle is clicked.
  * @param  {Objct} event
  */
-StoryBook.prototype._onDialogToggleClick = function(event)
+StoryBookController.prototype._onDialogToggleClick = function(event)
 {
     var target = $(event.currentTarget).attr('data-target');
     var dialog = $('dialog[data-target="'+target+'"]');
@@ -480,7 +486,7 @@ StoryBook.prototype._onDialogToggleClick = function(event)
  * Handler invoked when a dialog dismiss button is clicked.
  * @param  {Object} event
  */
-StoryBook.prototype._onDialogDismissButtonClick = function(event)
+StoryBookController.prototype._onDialogDismissButtonClick = function(event)
 {
     var dialog = $(event.currentTarget).closest('dialog');
     var layer = $(dialog).closest('.overlay-layer');
@@ -499,7 +505,7 @@ StoryBook.prototype._onDialogDismissButtonClick = function(event)
  * Handler invoked when the window is clicked.
  * @param  {Object} event
  */
-StoryBook.prototype._onDocumentClick = function(event)
+StoryBookController.prototype._onDocumentClick = function(event)
 {
     if ($(event.target).closest('dialog').length > 0 || $(event.target).closest('button').length > 0)
     {
@@ -517,4 +523,4 @@ StoryBook.prototype._onDocumentClick = function(event)
     }
 };
 
-return StoryBook; }(window));
+return StoryBookController; }(window));

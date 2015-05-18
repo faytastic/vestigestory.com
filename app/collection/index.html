@@ -1,4 +1,5 @@
 ---
+layout: default
 title: 'Vestige: Collection'
 ---
 
@@ -6,14 +7,14 @@ title: 'Vestige: Collection'
 
 <main ng-app="collection" class="collection" ng-controller="CollectionController" ng-cloak>
     <section class="products">
-        <nav id="product-nav" style="width:[[products.length*200]]px">
+        <nav id="product-nav">
             <a class="thumbnail [[(activeIndex===$index) && 'state-active' || 'state-inactive']]" ng-repeat="product in products" data-id="[[product.id]]" href="#[[product.id]]">
                 <img ng-src="/[[product.thumbnail]]"/>
             </a>
         </nav>
         <summary>
             <article>
-                <figure style="width:[[activeProduct.assets.length*100]]%;left:calc(-[[activePageIndex*(!touchEnabled && 100 || 0)]]% - [[(pageShift==='right') && 100 || ((pageShift==='left') && -100 || 0)]]px);">
+                <figure>
                     <div class="image-wrapper" ng-repeat="asset in activeProduct.assets">
                         <img ng-src="/[[asset]]"/>
                     </div>
@@ -45,6 +46,4 @@ title: 'Vestige: Collection'
     </section>
 </main>
 
-<!-- build:js /assets/js/collection.js -->
 <script src="/assets/js/collection.js"></script>
-<!-- endbuild -->

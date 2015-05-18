@@ -26,7 +26,22 @@ var FILE_EXCLUDE_PATTERN = '{psd,ai}';
 var $ = require('gulp-load-plugins')();
 var gulp = require('gulp');
 var spawn = require('child_process').spawn;
+var merge = require('merge-stream');
 var sequence = require('run-sequence');
+
+/**
+ * Runs the Jekyll build task to generate all the templates. These files are generated to the
+ * '.generated' directory.
+ */
+gulp.task('generate', function(callback)
+{
+    var proc = spawn('jekyll', ['build', '--destination=.generated'], { stdio: 'inherit' });
+
+    proc.on('exit', function(code)
+    {
+        callback(code === 0 ? null : 'ERROR: \'generate\' task exited with code: ' + code);
+    });
+});
 
 /**
  * Deploys images to the staging directory.
@@ -36,15 +51,15 @@ var sequence = require('run-sequence');
 gulp.task('images', function()
 {
     var debug = $.util.env['debug'] || $.util.env['d'];
-    var skipImageMin = $.util.env['skip-imagemin'] || debug;
+    var skipImageMin = $.util.env['skip-imagemin'] || $.util.env['si'] || debug;
 
-    return gulp.src(['app/_assets/**/*'+IMAGES_PATTERN])
+    return gulp.src(['.generated/**/*'+IMAGES_PATTERN])
         .pipe($.if(!skipImageMin, $.cache($.imagemin({
             progressive: true,
             interlaced: true,
             svgoPlugins: [{cleanupIDs: false}]
         }))))
-        .pipe(gulp.dest('.tmp/assets'));
+        .pipe(gulp.dest('.tmp'));
 });
 
 /**
@@ -52,26 +67,22 @@ gulp.task('images', function()
  */
 gulp.task('videos', function()
 {
-    return gulp.src(['app/_assets/**/*'+VIDEOS_PATTERN])
-        .pipe(gulp.dest('.tmp/assets'));
-});
-
-/**
- * Deploys all fonts from Bower components to the staging directory.
- */
-gulp.task('fonts', function()
-{
-    return gulp.src(require('main-bower-files')({ filter: '**/*.'+FONTS_PATTERN }).concat('app/_assets/fonts/**/*'))
-        .pipe(gulp.dest('.tmp/assets/fonts'));
+    return gulp.src(['.generated/**/*'+VIDEOS_PATTERN])
+        .pipe(gulp.dest('.tmp'));
 });
 
 /**
  * Processes all CSS files if preprocessed CSS languages are used (i.e. Stylus, Sass). Deploys the processed
  * files to the staging directory.
+ * @param {Boolean} --debug     Specifies debug environment, skipping CSS compression.
+ * @param {Boolean} --skip-csso Skips CSS compression.
  */
 gulp.task('styles', function()
 {
-    return gulp.src('app/_assets/**/*.'+STYLES_PATTERN)
+     var debug = $.util.env['debug'] || $.util.env['d'];
+    var skipCSSO = $.util.env['skip-csso'] || $.util.env['sc'] || debug;
+
+    return gulp.src('.generated/assets/css/*.'+STYLES_PATTERN)
         .pipe($.sourcemaps.init())
         .pipe($.sass({
             outputStyle: 'nested',
@@ -80,13 +91,16 @@ gulp.task('styles', function()
             onError: console.error.bind(console, 'Sass error:')
         }))
         .pipe($.postcss([require('autoprefixer-core')({ browsers: ['last 2 version', 'ie 9'] })]))
+        .pipe($.if(!skipCSSO, $.csso()))
         .pipe($.sourcemaps.write())
-        .pipe(gulp.dest('.tmp/assets'));
+        .pipe(gulp.dest('.tmp/assets/css'));
 });
 
 /**
  * Lints and processes all JavaScript files. If Browserify is included this task will bundle up all associated files. Processed
  * JavaScript files deployed to the staging directory.
+ * @param {Boolean} --debug         Specifies debug environment, skipping JavaScript compression.
+ * @param {Boolean} --skip-uglify   Skips JavaScript compression.
  */
 gulp.task('scripts', function()
 {
@@ -94,98 +108,107 @@ gulp.task('scripts', function()
     var reactify = require('reactify');
     var through = require('through2');
 
-    return gulp.src(['./app/_assets/js/*.'+SCRIPTS_PATTERN])
-        .pipe($.jshint())
-        .pipe($.jshint.reporter('jshint-stylish'))
-        .pipe(through.obj(function(file, enc, next)
-        {
-            browserify({ entries: [file.path], debug: true, transform: [reactify] })
-                .bundle(function(err, res)
-                {
-                    if (err) console.log(err.toString());
-                    file.contents = res;
-                    next(null, file);
-                });
-        }))
-        .pipe($.sourcemaps.init({ loadMaps: true }))
-        .pipe($.sourcemaps.write('./'))
-        .pipe(gulp.dest('.tmp/assets/js'));
-});
-
-/**
- * Processes all static files (i.e. images, fonts, stylesheets, scripts, etc) and deploys them to the staging directory.
- * The staged static files are then deployed to the production directory.
- */
-gulp.task('static', ['images', 'videos', 'fonts', 'styles', 'scripts']);
-
-/**
- * Runs the Jekyll build task to generate all the templates.
- */
-gulp.task('templates', function()
-{
-    spawn('jekyll', ['build', '--destination=.tmp'], { stdio: 'inherit' });
-});
-
-/**
- * Builds the entire project from source directory -> staging directory -> production directory. This includes
- * processing static files and generating Jekyll templates.
- * @param {Boolean} --debug             Specifies debug environment, skipping all sorts of static file compression.
- * @param {Boolean} --skip-csso         Skip CSS minification.
- * @param {Boolean} --skip-uglify       Skip JavaScript uglification.
- * @param {Boolean} --skip-rev          Skip appending revision hash to static filenames.
- * @param {Boolean} --skip-minify-html  Skip HTML minification.
- */
-gulp.task('build', ['templates', 'static'], function()
-{
     var debug = $.util.env['debug'] || $.util.env['d'];
-    var skipCSSO = $.util.env['skip-csso'] || debug;
-    var skipUglify = $.util.env['skip-uglify'] || debug;
-    var skipRev = $.util.env['skip-rev'] || debug;
-    var skipMinifyHTML = $.util.env['skip-minify-html'] || debug;
+    var skipUglify = $.util.env['skip-uglify'] || $.util.env['sj'] || debug;
 
     var assets = $.useref.assets({searchPath: ['.tmp', '.']});
 
-    return $.merge
+    return merge
     (
-        gulp.src(['.tmp/**/*.'+TEMPLATES_PATTERN])
-            .pipe(assets)
-            .pipe($.if(!skipCSSO, $.if('*.css', $.csso())))
-            .pipe($.if(!skipUglify, $.if('*.js', $.uglify()))).on('error', $.util.log)
-            .pipe($.if(!skipRev, $.rev()))
-            .pipe(assets.restore())
-            .pipe($.useref())
-            .pipe($.if(!skipRev, $.revReplace()))
-            .pipe($.if(!skipMinifyHTML, $.if('*.html', $.minifyHtml({empty: true, conditionals: true, loose: true }))))
-            .pipe(gulp.dest('public'))
-            .pipe($.size({ title: 'templates', gzip: true })),
-        gulp.src(['.tmp/**/*', '!.tmp/**/*.'+TEMPLATES_PATTERN, '!.tmp/**/*.'+STYLES_PATTERN, '!.tmp/**/*.'+SCRIPTS_PATTERN])
-            .pipe(gulp.dest('public'))
-            .pipe($.size({ title: 'static', gzip: true }))
+        gulp.src(['.generated/assets/js/*.'+SCRIPTS_PATTERN])
+            .pipe($.jshint())
+            .pipe($.jshint.reporter('jshint-stylish'))
+            .pipe(through.obj(function(file, enc, next)
+            {
+                browserify({ entries: [file.path], debug: true, transform: [reactify] })
+                    .bundle(function(err, res)
+                    {
+                        if (err) console.log(err.toString());
+                        file.contents = res;
+                        next(null, file);
+                    });
+            }))
+            .pipe($.sourcemaps.init({ loadMaps: true }))
+            .pipe($.if(!skipUglify, $.uglify())).on('error', $.util.log)
+            .pipe($.sourcemaps.write('./'))
+            .pipe(gulp.dest('.tmp/assets/js')),
+        gulp.src(['.generated/assets/vendor/**/*.'+SCRIPTS_PATTERN])
+            .pipe($.if(!skipUglify, $.uglify())).on('error', $.util.log)
+            .pipe(gulp.dest('.tmp/assets/vendor'))
     );
 });
 
 /**
- * Injects Bower components into template files.
+ * Processes all static files (i.e. images, stylesheets, scripts, etc) and deploys them to the staging directory.
+ * The staged static files are then deployed to the production directory. Option to append revision hash to the end
+ * of the associated file names.
+ * @param {Boolean} --debug     Specifies debug environment for immediate and child tasks, skipping revisioning and
+ *                              subsequent asset compressions.
+ * @param {Boolean} --skip-rev  Skips revisioning.
  */
-gulp.task('wiredep', function()
+gulp.task('static', ['images', 'videos', 'styles', 'scripts'], function()
 {
-    var wiredep = require('wiredep').stream;
+    var debug = $.util.env['debug'] || $.util.env['d'];
+    var skipRev = $.util.env['skip-rev'] || $.util.env['sr'] || debug;
 
-    gulp.src('app/**/*.'+TEMPLATES_PATTERN)
-        .pipe(wiredep({
-            exclude: ['modernizr'],
-            directory: 'bower_components',
-            ignorePath: /^(\.\.\/)*\.\./
-        }))
-        .pipe(gulp.dest('app'));
+    return merge
+    (
+        gulp.src(['.tmp/assets/**/*.'+IMAGES_PATTERN, '.tmp/assets/**/*.'+VIDEOS_PATTERN, '.tmp/assets/**/*.'+STYLES_PATTERN, '.tmp/assets/**/*.'+SCRIPTS_PATTERN])
+            .pipe($.if(!skipRev, $.rev()))
+            .pipe(gulp.dest('public/assets'))
+            .pipe($.size({ title: 'build', gzip: true }))
+            .pipe($.if(!skipRev, $.rev.manifest()))
+            .pipe(gulp.dest('.tmp')),
+        gulp.src(['.tmp/*.'+IMAGES_PATTERN, '.tmp/**/*.'+SOURCEMAPS_PATTERN])
+            .pipe(gulp.dest('public'))
+    );
 });
 
 /**
- * Cleans the build and temporary directories.
+ * Processes all template files (i.e. HTML) and deploys them to the staging and production directory.
+ * @param {Boolean} --debug             Specifies debug environment, skipping HTML compression.
+ * @param {Boolean} --skip-minify-html  Skips HTML compression.
+ */
+gulp.task('templates', function(callback)
+{
+    var debug = $.util.env['debug'] || $.util.env['d'];
+    var skipMinifyHTML = $.util.env['skip-minify-html'] || $.util.env['sh'] || debug;
+
+    return gulp.src(['.generated/**/*.'+TEMPLATES_PATTERN])
+            .pipe($.if(!skipMinifyHTML, $.minifyHtml({empty: true, conditionals: true, loose: true })))
+            .pipe(gulp.dest('.tmp'))
+            .pipe(gulp.dest('public'));
+});
+
+/**
+ * Builds the entire project from source directory -> staging directory -> production directory. This includes
+ * generating the Jekyll templates, processing static and template files.
+ * @param {Boolean} --debug     Specifies debug environment, skipping all sorts of static file compression.
+ * @param {Boolean} --skip-rev  Skip replacing embedded file references with revision hash.
+ */
+gulp.task('build', ['templates', 'static'], function()
+{
+    var debug = $.util.env['debug'] || $.util.env['d'];
+    var skipRev = $.util.env['skip-rev'] || $.util.env['sr'] || debug;
+
+    if (!skipRev)
+    {
+        return gulp.src(['public/**/*.'+STYLES_PATTERN, 'public/**/*.'+SCRIPTS_PATTERN, 'public/**/*.'+TEMPLATES_PATTERN])
+            .pipe($.revReplace({ manifest: gulp.src('.tmp/rev-manifest.json') }))
+            .pipe(gulp.dest('public'));
+    }
+    else
+    {
+        return;
+    }
+});
+
+/**
+ * Cleans the generated, staging and production directories.
  */
 gulp.task('clean', function(callback)
 {
-    require('del')(['.tmp', 'public'], function()
+    require('del')(['.generated', '.tmp', 'public'], function()
     {
         $.cache.clearAll(callback);
     });
@@ -195,6 +218,7 @@ gulp.task('clean', function(callback)
  * Serves project to localhost.
  * @param {Boolean} --debug Serve files from the staging directory (loose files), defaults
  *                          to false (serve from production directory).
+ * @param {Number}  --port  Optional port number (defaults to 9000).
  */
 gulp.task('serve', function()
 {
@@ -209,11 +233,7 @@ gulp.task('serve', function()
         port: (typeof port === 'number') ? port : 9000,
         server:
         {
-            baseDir: [baseDir],
-            routes:
-            {
-                '/bower_components': 'bower_components'
-            }
+            baseDir: [baseDir]
         }
     });
 
@@ -222,27 +242,22 @@ gulp.task('serve', function()
     {
         gulp.watch([
             baseDir+'/**/*.'+IMAGES_PATTERN,
-            baseDir+'/**/*.'+STYLES_PATTERN,
-            baseDir+'/**/*.'+SCRIPTS_PATTERN,
-            baseDir+'/**/*.'+FONTS_PATTERN,
-            baseDir+'/**/*.'+TEMPLATES_PATTERN
+            baseDir+'/**/*.'+TEMPLATES_PATTERN,
+            baseDir+'/**/*.'+FONTS_PATTERN
         ]).on('change', browserSync.reload);
 
-        gulp.watch('app/**/*.'+IMAGES_PATTERN, ['images']);
-        gulp.watch('app/**/*.'+STYLES_PATTERN, ['styles']);
-        gulp.watch('app/**/*.'+SCRIPTS_PATTERN, ['scripts']);
-        gulp.watch('app/**/*.'+FONTS_PATTERN, ['fonts']);
-        gulp.watch('app/**/*.'+TEMPLATES_PATTERN, ['templates']);
-        gulp.watch('bower.json', ['wiredep', 'fonts']);
+        gulp.watch('app/**/*.'+IMAGES_PATTERN, function() { sequence('generate', 'images'); });
+        gulp.watch('app/**/*.'+STYLES_PATTERN, function() { sequence('generate', 'styles', browserSync.reload); });
+        gulp.watch('app/**/*.'+SCRIPTS_PATTERN, function() { sequence('generate', 'scripts', browserSync.reload); });
+        gulp.watch('app/**/*.'+TEMPLATES_PATTERN, function() { sequence('generate', 'templates'); });
     }
     else
     {
-        gulp.watch('app/**/*.'+IMAGES_PATTERN, ['build', browserSync.reload]);
-        gulp.watch('app/**/*.'+STYLES_PATTERN, ['build', browserSync.reload]);
-        gulp.watch('app/**/*.'+SCRIPTS_PATTERN, ['build', browserSync.reload]);
-        gulp.watch('app/**/*.'+FONTS_PATTERN, ['build', browserSync.reload]);
-        gulp.watch('app/**/*.'+TEMPLATES_PATTERN, ['build', browserSync.reload]);
-        gulp.watch('bower.json', ['build', browserSync.reload]);
+        gulp.watch('app/**/*.'+IMAGES_PATTERN, function() { sequence('generate', 'build', browserSync.reload); });
+        gulp.watch('app/**/*.'+STYLES_PATTERN, function() { sequence('generate', 'build', browserSync.reload); });
+        gulp.watch('app/**/*.'+SCRIPTS_PATTERN, function() { sequence('generate', 'build', browserSync.reload); });
+        gulp.watch('app/**/*.'+FONTS_PATTERN, function() { sequence('generate', 'build', browserSync.reload); });
+        gulp.watch('app/**/*.'+TEMPLATES_PATTERN, function() { sequence('generate', 'build', browserSync.reload); });
     }
 });
 
@@ -258,7 +273,7 @@ gulp.task('default', function(callback)
     var debug = $.util.env['debug'] || $.util.env['d'];
     var serve = $.util.env['serve'] || $.util.env['s'];
 
-    var seq = ['clean', 'build'];
+    var seq = ['clean', 'generate', 'build'];
     if (serve) seq.push('serve');
     seq.push(callback);
 

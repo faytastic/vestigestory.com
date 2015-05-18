@@ -1,3 +1,6 @@
+---
+---
+
 /**
  *  vestigestory.com
  *  (c) Vestige <http://vestigestory.com>
@@ -11,13 +14,14 @@
 var $ = require('jquery');
 var vars = require('vars');
 
+var HeaderController = require('./controllers/HeaderController');
+var DynamicBackgroundController = require('./controllers/DynamicBackgroundController');
+var StoryBookController = require('./controllers/StoryBookController');
+var utils = require('./utils/utils');
+
 vars.module((function() {
 
-var Header = require('./controllers/header');
-var DynamicBackground = require('./controllers/dynamicbackground');
-var StoryBook = require('./controllers/storybook');
-var utils = require('./utils/utils');
-var backgrounds = require('./data/storybook/backgrounds');
+var PRELOADS = {{ site.data.storybook.ss2015.preloads | jsonify }};
 
 /**
  * @constructor
@@ -50,7 +54,7 @@ Main.prototype.init = function()
     this.children.progressBar = $(this.children.preloader).find('.progress-bar').get(0);
 
     this._preloader = new vars.AssetLoader();
-    this._preloader.enqueue.apply(this._preloader, (utils.isMobileVersion() ? backgrounds.mobile : backgrounds.desktop));
+    this._preloader.enqueue.apply(this._preloader, (utils.isMobileVersion() ? PRELOADS.mobile : PRELOADS.desktop));
     this._preloader.addEventListener(vars.EventType.OBJECT.PROGRESS, this._onPreloadProgress.bind(this));
     this._preloader.addEventListener(vars.EventType.OBJECT.LOAD, this._onPreloadComplete.bind(this));
     this._preloader.init();
@@ -83,7 +87,7 @@ Main.prototype._onPreloadComplete = function(event)
         utils.changeChildState(self.children.storyBook, 'state-loaded');
         utils.changeChildState(self.children.preloader, 'state-hidden');
 
-        var header = new Header({ activeTarget: 'story-book' });
+        var header = new HeaderController({ activeTarget: 'story-book' });
         var dynamicBackground;
 
         if (utils.isMobileVersion())
@@ -92,10 +96,10 @@ Main.prototype._onPreloadComplete = function(event)
         }
         else
         {
-            dynamicBackground = new DynamicBackground(self.children.dynamicBackground);
+            dynamicBackground = new DynamicBackgroundController(self.children.dynamicBackground);
         }
 
-        var storyBook = new StoryBook({ element: self.children.storyBook, dynamicBackground: dynamicBackground });
+        var storyBook = new StoryBookController({ element: self.children.storyBook, dynamicBackground: dynamicBackground });
 
         self.addVirtualChild(header, 'header');
         self.addVirtualChild(dynamicBackground, 'dynamicBackground');

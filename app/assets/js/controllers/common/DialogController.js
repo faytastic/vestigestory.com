@@ -18,24 +18,24 @@ module.exports = (function(global) {
 
 /**
  * @constructor
- * Creates a new Dialog instance.
+ * Creates a new DialogController instance.
  */
-function Dialog(element)
+function DialogController(element)
 {
     vars.Element.call(this, element);
-} var parent = vars.inherit(Dialog, vars.Element);
+} var parent = vars.inherit(DialogController, vars.Element);
 
 /**
  * @property
  * Event listener when the dismiss button is clicked.
  * @type {Function}
  */
-Object.defineProperty(Dialog.prototype, 'ondismiss', { value: null, writable: true });
+Object.defineProperty(DialogController.prototype, 'ondismiss', { value: null, writable: true });
 
 /**
  * @inheritDoc
  */
-Dialog.prototype.init = function()
+DialogController.prototype.init = function()
 {
     parent.prototype.init.call(this);
 };
@@ -43,7 +43,7 @@ Dialog.prototype.init = function()
 /**
  * @inheritDoc
  */
-Dialog.prototype.update = function(dirtyTypes)
+DialogController.prototype.update = function(dirtyTypes)
 
 {
     if (this.isDirty(vars.DirtyType.DATA))
@@ -57,7 +57,7 @@ Dialog.prototype.update = function(dirtyTypes)
 /**
  * @inheritDoc
  */
-Dialog.prototype.factory = function()
+DialogController.prototype.factory = function()
 {
     return document.createElement('dialog');
 };
@@ -66,7 +66,7 @@ Dialog.prototype.factory = function()
  * @private
  * Refreshes the internal element
  */
-Dialog.prototype._refresh = function()
+DialogController.prototype._refresh = function()
 {
     if (!this.data) return;
 
@@ -111,7 +111,7 @@ Dialog.prototype._refresh = function()
  * Handler invoked when the dimiss button is clicked.
  * @param  {Object} event
  */
-Dialog.prototype._onDismiss = function(event)
+DialogController.prototype._onDismiss = function(event)
 {
     if (this.ondismiss)
     {
@@ -119,4 +119,4 @@ Dialog.prototype._onDismiss = function(event)
     }
 };
 
-return Dialog; }(window));
+return DialogController; }(window));

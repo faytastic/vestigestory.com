@@ -6,6 +6,7 @@ lib
 concept
 public
 vendor
+.generated
 .tmp
 .DS_STORE
 .jekyll-metadata
