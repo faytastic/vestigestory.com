@@ -111,8 +111,6 @@ gulp.task('scripts', function()
     var debug = $.util.env['debug'] || $.util.env['d'];
     var skipUglify = $.util.env['skip-uglify'] || $.util.env['sj'] || debug;
 
-    var assets = $.useref.assets({searchPath: ['.tmp', '.']});
-
     return merge
     (
         gulp.src(['.generated/assets/js/*.'+SCRIPTS_PATTERN])

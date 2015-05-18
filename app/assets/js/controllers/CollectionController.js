@@ -31,6 +31,13 @@ module.exports = (function() {
 var DIRTY_PAGE_SCROLL_POSITION = vars.DirtyType.CUSTOM;
 
 /**
+ * @constant
+ * Custom dirty type for position of product page.
+ * @type {Enum}
+ */
+var DIRTY_PAGE_POSITION = vars.DirtyType.CUSTOM << 1;
+
+/**
  * @constructor
  * Creates a new CollectionController instance.
  */
@@ -134,7 +141,7 @@ function CollectionController($scope, $location)
                 this.pageShift = 'neutral';
             }
 
-            vars.translate3d(self.children.slides, { x: this.pageOffset });
+            self.updateDelegate.setDirty(DIRTY_PAGE_POSITION);
         }
     });
 
@@ -175,7 +182,8 @@ function CollectionController($scope, $location)
         {
             if (this._pageShift == value) return;
             this._pageShift = value;
-            vars.translate3d(self.children.slides, { x: this.pageOffset });
+
+            self.updateDelegate.setDirty(DIRTY_PAGE_POSITION);
         }
     });
 
@@ -375,9 +383,11 @@ CollectionController.prototype.update = function(dirtyTypes)
 
         var thumbRect = vars.getRect(this.children.nav.find('a').get(0));
         vars.transform(this.children.nav, { width: thumbRect.width*PRODUCTS.length });
+    }
 
+    if (this.isDirty(DIRTY_PAGE_POSITION|vars.DirtyType.SIZE))
+    {
         var scope = angular.element(this.element).scope();
-
         vars.translate3d(this.children.slides, { x: scope.pageOffset });
     }
 

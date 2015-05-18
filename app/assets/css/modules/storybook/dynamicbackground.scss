@@ -32,6 +32,7 @@ main.background
 
     overflow: hidden;
     position: fixed;
+    z-index: $story-book-background-layer-z-index;
 
     div.filter
     {
@@ -65,6 +66,7 @@ main.background
         background-color: transparent;
         pointer-events: none;
         position: absolute;
+        z-index: $story-book-background-figure-z-index;
 
         video
         {
@@ -96,7 +98,7 @@ main.background
 
         &.video
         {
-            z-index: $story-book-video-z-index;
+            z-index: $story-book-background-video-z-index;
         }
 
         &.origin figure

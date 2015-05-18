@@ -177,11 +177,10 @@ main.collection
 
                     .csstransitions &
                     {
-                        // @extend .vs-animate;
+                        @extend .vs-animate;
 
                         transition-property: transform;
                         transition-duration: 0.5s;
-                        transition-timing-function: ease-out;
                     }
 
                     div.image-wrapper
