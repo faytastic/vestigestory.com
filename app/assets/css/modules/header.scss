@@ -184,6 +184,23 @@ header#menu-compact
             line-height: 30px;
             letter-spacing: 2px;
             display: block;
+
+            a,
+            a.inactive
+            {
+                opacity: 0.5;
+
+                .csstransitions &
+                {
+                    transition: opacity 0.2s ease-out;
+                }
+            }
+
+            a:hover,
+            a.active
+            {
+                opacity: 1.0;
+            }
         }
     }
 }

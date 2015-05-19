@@ -36,28 +36,15 @@ function HeaderController(init)
 Object.defineProperty(HeaderController.prototype, 'children', { value: {}, writable: false });
 
 /**
- * @property (read-only)
- * Child elements.
- * @type {Object}
- */
-Object.defineProperty(HeaderController.prototype, 'activeTarget', { value: null, writable: true });
-
-/**
  * @inheritDoc
  */
 HeaderController.prototype.init = function()
 {
-    this.responsive = true;
+    this.updateDelegate.receptive = vars.DirtyType.POSITION|vars.DirtyType.SIZE;
 
     // Set up child elements.
     this.children.menu = $('header#menu').get(0);
     this.children.compactMenu = $('header#menu-compact').get(0);
-
-    if (this.activeTarget)
-    {
-        $(this.children.menu).find('> nav li').addClass('inactive');
-        $(this.children.menu).find('> nav li[data-type="'+this.activeTarget+'"] a').addClass('active');
-    }
 
     $(this.children.compactMenu).find('button.menu').on(utils.isTouchDevice() ? 'touchend' : 'click', this._onCompactMenuItemClick.bind(this));
 
@@ -73,10 +60,10 @@ HeaderController.prototype.update = function(dirtyTypes)
     {
         if (!utils.isMobileVersion())
         {
-            var isStoryBook = this.activeTarget === 'story-book';
+            var autoHide = $(this.children.menu).hasClass('auto-hide');
             var viewportRect = vars.getViewportRect();
 
-            if (isStoryBook)
+            if (autoHide)
             {
                 if ($(window).scrollTop() > viewportRect.height*0.5)
                 {
