@@ -45,7 +45,7 @@ Object.defineProperty(Main.prototype, 'children', { value: {}, writable: false }
 Main.prototype.init = function()
 {
     this.updateDelegate.responsive = true;
-    this.updateDelegate.refreshRate = 20.0;
+    this.updateDelegate.refreshRate = 10.0;
     this.updateDelegate.transmissive = vars.DirtyType.POSITION|vars.DirtyType.SIZE;
 
     this.children.storyBook = $('main.story-book').get(0);

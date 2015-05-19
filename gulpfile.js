@@ -18,7 +18,7 @@ var SCRIPTS_PATTERN = 'js';
 var SOURCEMAPS_PATTERN = '{css.map,js.map}';
 var STYLES_PATTERN = '{css,scss}';
 var TEMPLATES_PATTERN = '{html,shtml,htm,html.erb,asp,php}';
-var EXTRAS_PATTERN = '{txt,htaccess}';
+var DATA_PATTERN = '{json,yml,csv}';
 var FONTS_PATTERN = '{eot,svg,ttf,woff,woff2}';
 var FILE_EXCLUDE_PATTERN = '{psd,ai}';
 
@@ -79,11 +79,11 @@ gulp.task('videos', function()
  */
 gulp.task('styles', function()
 {
-     var debug = $.util.env['debug'] || $.util.env['d'];
+    var debug = $.util.env['debug'] || $.util.env['d'];
     var skipCSSO = $.util.env['skip-csso'] || $.util.env['sc'] || debug;
 
     return gulp.src('.generated/assets/css/*.'+STYLES_PATTERN)
-        .pipe($.sourcemaps.init())
+        .pipe($.if(!debug, $.sourcemaps.init()))
         .pipe($.sass({
             outputStyle: 'nested',
             precision: 10,
@@ -92,7 +92,7 @@ gulp.task('styles', function()
         }))
         .pipe($.postcss([require('autoprefixer-core')({ browsers: ['last 2 version', 'ie 9'] })]))
         .pipe($.if(!skipCSSO, $.csso()))
-        .pipe($.sourcemaps.write())
+        .pipe($.if(!debug, $.sourcemaps.write()))
         .pipe(gulp.dest('.tmp/assets/css'));
 });
 
@@ -126,9 +126,9 @@ gulp.task('scripts', function()
                         next(null, file);
                     });
             }))
-            .pipe($.sourcemaps.init({ loadMaps: true }))
+            .pipe($.if(!debug, $.sourcemaps.init({ loadMaps: true })))
             .pipe($.if(!skipUglify, $.uglify())).on('error', $.util.log)
-            .pipe($.sourcemaps.write('./'))
+            .pipe($.if(!debug, $.sourcemaps.write('./')))
             .pipe(gulp.dest('.tmp/assets/js')),
         gulp.src(['.generated/assets/vendor/**/*.'+SCRIPTS_PATTERN])
             .pipe($.if(!skipUglify, $.uglify())).on('error', $.util.log)
@@ -238,23 +238,18 @@ gulp.task('serve', function()
     // Watch for changes.
     if (debug)
     {
-        gulp.watch([
-            baseDir+'/**/*.'+IMAGES_PATTERN,
-            baseDir+'/**/*.'+TEMPLATES_PATTERN,
-            baseDir+'/**/*.'+FONTS_PATTERN
-        ]).on('change', browserSync.reload);
-
-        gulp.watch('app/**/*.'+IMAGES_PATTERN, function() { sequence('generate', 'images'); });
+        gulp.watch('app/**/*.'+DATA_PATTERN, function() { sequence('generate', 'build', browserSync.reload); });
+        gulp.watch('app/**/*.'+IMAGES_PATTERN, function() { sequence('generate', 'images', browserSync.reload); });
         gulp.watch('app/**/*.'+STYLES_PATTERN, function() { sequence('generate', 'styles', browserSync.reload); });
         gulp.watch('app/**/*.'+SCRIPTS_PATTERN, function() { sequence('generate', 'scripts', browserSync.reload); });
-        gulp.watch('app/**/*.'+TEMPLATES_PATTERN, function() { sequence('generate', 'templates'); });
+        gulp.watch('app/**/*.'+TEMPLATES_PATTERN, function() { sequence('generate', 'templates', browserSync.reload); });
     }
     else
     {
+        gulp.watch('app/**/*.'+DATA_PATTERN, function() { sequence('generate', 'build', browserSync.reload); });
         gulp.watch('app/**/*.'+IMAGES_PATTERN, function() { sequence('generate', 'build', browserSync.reload); });
         gulp.watch('app/**/*.'+STYLES_PATTERN, function() { sequence('generate', 'build', browserSync.reload); });
         gulp.watch('app/**/*.'+SCRIPTS_PATTERN, function() { sequence('generate', 'build', browserSync.reload); });
-        gulp.watch('app/**/*.'+FONTS_PATTERN, function() { sequence('generate', 'build', browserSync.reload); });
         gulp.watch('app/**/*.'+TEMPLATES_PATTERN, function() { sequence('generate', 'build', browserSync.reload); });
     }
 });

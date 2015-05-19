@@ -59,7 +59,7 @@ HeaderController.prototype.init = function()
         $(this.children.menu).find('> nav li[data-type="'+this.activeTarget+'"] a').addClass('active');
     }
 
-    $(this.children.compactMenu).find('button.menu').click(this._onCompactMenuItemClick.bind(this));
+    $(this.children.compactMenu).find('button.menu').on(utils.isTouchDevice() ? 'touchend' : 'click', this._onCompactMenuItemClick.bind(this));
 
     parent.prototype.init.call(this);
 };
@@ -103,6 +103,8 @@ HeaderController.prototype.update = function(dirtyTypes)
  */
 HeaderController.prototype._onCompactMenuItemClick = function(event)
 {
+    event.preventDefault();
+
     var sNav = $(this.children.compactMenu).find('nav');
 
     if ($(sNav).hasClass('state-visible'))

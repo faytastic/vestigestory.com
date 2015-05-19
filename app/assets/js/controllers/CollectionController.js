@@ -364,7 +364,7 @@ CollectionController.prototype.init = function()
         self.children.nav.get(0).addEventListener(vars.EventType.MOUSE.MOUSE_MOVE, self._onNavMouseMove.bind(self));
     }
 
-    $(self.children.infoButton).click(self._onInfoButtonClick.bind(self));
+    $(self.children.infoButton).on(utils.isTouchDevice() ? 'touchend' : 'click', self._onInfoButtonClick.bind(self));
 
     parent.prototype.init.call(self);
 };

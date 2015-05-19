@@ -44,7 +44,6 @@ DialogController.prototype.init = function()
  * @inheritDoc
  */
 DialogController.prototype.update = function(dirtyTypes)
-
 {
     if (this.isDirty(vars.DirtyType.DATA))
     {

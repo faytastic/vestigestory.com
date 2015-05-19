@@ -29,15 +29,20 @@ $garment-toggles-grey-position: -($garment-toggles-width*2) 0px;
 $asset-video-toggle: $base-path+'images/components/icons/icon-play.png';
 $asset-scroll-down: $base-path+'images/components/icons/icon-arrow.png';
 
+button
+{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
 button.menu
 {
     width: 30px;
-    height: 20px;
+    height: 30px;
     background: transparent;
 
     span
     {
-        top: 8px;
+        top: 13px;
         left: 0px;
         width: 30px;
         height: 4px;

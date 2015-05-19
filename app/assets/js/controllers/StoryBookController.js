@@ -150,7 +150,7 @@ StoryBookController.prototype.initNav = function()
         var node = document.createElement('a');
         node.setAttribute('href', '#'+DIRECTORY[i]);
         nav.appendChild(node);
-        $(node).click(this._onNavNodeClick);
+        $(node).on(utils.isTouchDevice() ? 'touchend' : 'click', this._onNavNodeClick);
     }
 
     $(this.element).prepend(nav);
@@ -169,10 +169,10 @@ StoryBookController.prototype.initMobile = function()
     sNotice.textContent = 'For full experience please visit the desktop version.';
 
     // Set up the scroll button.
-    $(this.children.scrollButton).click(self._onScrollButtonClick.bind(self));
+    $(this.children.scrollButton).on(utils.isTouchDevice() ? 'touchend' : 'click', self._onScrollButtonClick.bind(self));
 
     // Set up video toggles.
-    $(this.children.videoToggles).each(function() { $(this).click(self._onVideoToggleClick.bind(self)); });
+    $(this.children.videoToggles).each(function() { $(this).on(utils.isTouchDevice() ? 'touchend' : 'click', self._onVideoToggleClick.bind(self)); });
 
     // Set up notice.
     $(this.children.sections[DIRECTORY.indexOf('Video')]).find('.content-layer summary aside').append(sNotice);
@@ -194,7 +194,7 @@ StoryBookController.prototype.initDesktop = function()
     layer.className = 'overlay-layer';
     layer.appendChild(lightbox);
 
-    $(this.children.sections[DIRECTORY.indexOf('Video')]).append(layer);
+    $(this.children.sections[0]).append(layer);
 
     // Set up dialogs.
     var arrlen = DIRECTORY.length;
@@ -223,7 +223,7 @@ StoryBookController.prototype.initDesktop = function()
     var sDialogDismissButtons = $(self.element).find('dialog button.dismiss');
 
     // Set up the scroll button.
-    $(this.children.scrollButton).click(self._onScrollButtonClick.bind(self));
+    $(this.children.scrollButton).on(utils.isTouchDevice() ? 'touchend' : 'click', self._onScrollButtonClick.bind(self));
 
     // Set up background toggles.
     $(this.children.backgroundToggles).each(function() { $(this).mouseover(self._onBackgroundToggleMouseOver.bind(self)); });
@@ -234,15 +234,15 @@ StoryBookController.prototype.initDesktop = function()
     $(this.children.garmentToggles).each(function() { $(this).mouseout(self._onGarmentToggleMouseOut.bind(self)); });
 
     // Set up video toggles.
-    $(this.children.videoToggles).each(function() { $(this).click(self._onVideoToggleClick.bind(self)); });
+    $(this.children.videoToggles).each(function() { $(this).on(utils.isTouchDevice() ? 'touchend' : 'click', self._onVideoToggleClick.bind(self)); });
 
     // Set up dialog toggles.
-    $(this.children.dialogToggles).each(function() { $(this).click(self._onDialogToggleClick.bind(self)); });
+    $(this.children.dialogToggles).each(function() { $(this).on(utils.isTouchDevice() ? 'touchend' : 'click', self._onDialogToggleClick.bind(self)); });
 
     // Set up dialog dismiss buttons.
-    sDialogDismissButtons.each(function() { $(this).click(self._onDialogDismissButtonClick.bind(self)); });
+    sDialogDismissButtons.each(function() { $(this).on(utils.isTouchDevice() ? 'touchend' : 'click', self._onDialogDismissButtonClick.bind(self)); });
 
-    $(document).click(self._onDocumentClick.bind(self));
+    $(document).on(utils.isTouchDevice() ? 'touchend' : 'click', self._onDocumentClick.bind(self));
 };
 
 /**
