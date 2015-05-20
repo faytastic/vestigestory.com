@@ -2,14 +2,13 @@
 layout: default
 ---
 
-{% capture imagepath %}/assets/images/journal/{{ page.date | date: "%Y" }}/{{ page.date | date: "%m" }}/{% endcapture %}
 {% assign author = site.data.journal.authors[page.author] %}
 
 {% include header.html target="journal" %}
 
 <main class="post" data-lang="{{ page.language }}">
     <section class="cover">
-        <figure class="background" style="background-image:url({{ imagepath }}{{ page.cover }});"></figure>
+        <figure class="background" style="background-image:url({{ page.cover }});"></figure>
         <div class="details">
             <h1>{{ page.title | upcase }}</h1>
             <span class="date">{{ page.date | date: '%B %d' }}</span>

@@ -1,6 +1,6 @@
 ---
 title: Message In A Bottle
-cover: blog1.jpg
+cover: message-in-a-bottle-cover.jpg
 author: aileen
 ---
 
@@ -10,7 +10,7 @@ Quality clothing is not a disposable fad, or just a functional piece of fabric a
 
 Each season, Vestige tells a tale of two individuals, brought together by a message in a bottle. In a time and age where communication is sparse and undervalued, we showcase how inspiring and precious connecting with others can be. Every story works to bring two seemingly different souls together, forming a harmonious collection.
 
-![V6001](/assets/images/journal/2015/02/V6001-detail-2.jpg)
+![](/assets/images/journal/2015/02/v6001-detail-2.jpg)
 
 ## Our signature top is packaged in a glass bottle, each with a little message inside.
 

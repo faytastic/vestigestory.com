@@ -1,18 +1,18 @@
 ---
 title: Give a Message Campaign
 author: aileen
-cover: Give-A-Message-Web-banner.jpg
+cover: give-a-message-campaign-cover.jpg
 ---
 
 When was the last time you wrote someone a message? Note that we did not say “type”. Human interaction has been trapped behind the barrier of our monitors. Put down your phone, and send an organic message to someone you care about.
 
 ## We are inviting writers, fashionistas, and those with an unique perspective to participate in our Give A Message Campaign.
 
-![](/assets/images/journal/2015/02/V6001-detail-3.jpg)
+![](/assets/images/journal/2015/02/v6001-detail-3.jpg)
 
 This is a project that aims to connect individuals, a journey to rediscover the link that exists between ourselves and our peers. Participants will be asked to write a short message that adhere to our Spring Summer 2015 theme of “hope” or “freedom”. One winning message will be embossed on the limited edition of our Premium Origami Tee, which will be sold world wide. Part proceeds will be donated to the Dress For Success organisation, empowering disadvantaged women who seeks economic independence.
 
-![][image1]
+![](/assets/images/journal/2015/02/origami-top.jpg)
 *The Premium Origami Tee in limited edition grapefruit pink. Individually packaged in a bottle. $130*
 
 __Grand Prize:__ Selected based on its ability to inspire, its creativity and its relevance to our story, one message will be embossed on the limited edition of our Premium Origami Tee in grapefruit pink. The winner will also receive two Origami Tees, one for themselves and one for a friend.
@@ -36,6 +36,3 @@ Inspirational Prize: The contestant with the most likes on one message will also
 * This competition is open to all participants.
 * Campaign open until March 20th, 2015
 * If you have questions, contact us at [{{ site.email }}](mailto:{{ site.email }}).
-
-
-[image1]: /assets/images/journal/2015/02/Origami-Top_web.jpg

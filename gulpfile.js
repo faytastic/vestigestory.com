@@ -3,9 +3,6 @@
 /**
  *  vestigestory.com
  *  (c) Vestige <http://vestigestory.com>
- *
- *  This software is released under the MIT License:
- *  http://www.opensource.org/licenses/mit-license.php
  */
 
 'use strict';
