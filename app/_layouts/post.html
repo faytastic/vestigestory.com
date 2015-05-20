@@ -1,0 +1,39 @@
+---
+layout: default
+---
+
+{% capture imagepath %}/assets/images/journal/{{ page.date | date: "%Y" }}/{{ page.date | date: "%m" }}/{% endcapture %}
+{% assign author = site.data.journal.authors[page.author] %}
+
+{% include header.html target="journal" %}
+
+<main class="post" data-lang="{{ page.language }}">
+    <section class="cover">
+        <figure class="background" style="background-image:url({{ imagepath }}{{ page.cover }});"></figure>
+        <div class="details">
+            <h1>{{ page.title | upcase }}</h1>
+            <span class="date">{{ page.date | date: '%B %d' }}</span>
+            <div class="share">
+                <a class="twitter inverted" href="https://twitter.com/intent/tweet?text={{ page.title }}&amp;url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Twitter">Twitter</a>
+                <a class="facebook inverted" href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Facebook">Facebook</a>
+                <a class="gplus inverted" href="https://plus.google.com/share?url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Google+">Google+</a>
+            </div>
+        </div>
+    </section>
+    <section class="body">
+        <div class="content">
+            {{ content }}
+        </div>
+        <div class="share">
+            <a class="twitter" href="https://twitter.com/intent/tweet?text={{ page.title }}&amp;url={{ site.url }}{{ page.url }}&amp;via={{ site.twitter }}&amp;related={{ site.twitter }}" rel="nofollow" target="_blank" title="Share on Twitter">Twitter</a>
+            <a class="facebook" href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Facebook">Facebook</a>
+            <a class="gplus" href="https://plus.google.com/share?url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Google+">Google+</a>
+        </div>
+        <div class="author">
+            <span class="published">Published on {{ page.date | date: '%B %d, %Y' }} by</span>
+            <img class="gravatar" src="http://www.gravatar.com/avatar/{{ author.gravatar }}?s=60">
+            <span class="name">{{ author.name }}</span>
+            <p>{{ author.biography }}</p>
+        </div>
+    </section>
+</main>

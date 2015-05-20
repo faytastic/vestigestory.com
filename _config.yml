@@ -4,5 +4,17 @@ destination: public
 include: [.htaccess]
 keep_files: [assets]
 
-permalink: pretty
+permalink: /:categories/:title/
 highlighter: pygments
+
+email: info@vestigestory.com
+facebook: https://www.facebook.com/vestigestory
+instagram: https://instagram.com/vestige_story/
+pinterest: https://www.pinterest.com/vestigestory/
+
+defaults:
+-   scope:
+        path: 'journal'
+        type: 'posts'
+    values:
+        layout: 'post'

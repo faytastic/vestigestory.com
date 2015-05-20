@@ -1,0 +1,30 @@
+---
+layout: default
+title: Journal - Vestige
+---
+
+{% include header.html target="journal" %}
+
+<main class="journal">
+    <section class="title">
+        <h2>VESTIGE</h2>
+        <h3>THE MESSAGE WITHIN</h3>
+    </section>
+    <section class="posts">
+        {% for post in site.posts %}
+            {% capture imagepath %}/assets/images/journal/{{ post.date | date: "%Y" }}/{{ post.date | date: "%m" }}/{% endcapture %}
+            {% assign author = site.data.journal.authors[post.author] %}
+            <a class="post" href="{{ post.url }}">
+                <li class="post" style="background-image:url({{ imagepath }}{{ post.cover }})">
+                    <div class="filter"></div>
+                    <aside>
+                        <img class="gravatar" src="http://www.gravatar.com/avatar/{{ author.gravatar }}?s=60">
+                        <h2>{{ post.title | upcase }}</h2>
+                        <span class="date">{{ post.date | date_to_long_string }}</span>
+                    </aside>
+                </li>
+            </a>
+        {% endfor %}
+    </section>
+</main>
+

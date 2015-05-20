@@ -1,0 +1,177 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+@import '../../base/mixins';
+@import '../../base/typography';
+
+$base-path: '../../' !default;
+
+main.post
+{
+    h1
+    {
+        margin: 50px auto;
+        font-size: 60px;
+        line-height: 70px;
+        text-align: center;
+        color: #666;
+        display: block;
+        box-sizing: border-box;
+        position: relative;
+    }
+
+    h2
+    {
+        margin: 50px auto;
+        padding: 20px 10px;
+        width: 90%;
+        max-width: 600px;
+        font-size: 24px;
+        line-height: 36px;
+        text-align: center;
+        color: #999;
+        display: block;
+        box-sizing: border-box;
+        position: relative;
+
+        &:before
+        {
+            left: 0px;
+            right: 0px;
+            top: 0px;
+            margin: 0px auto;
+            width: 30%;
+            height: 1px;
+            border-top: 1px solid #ddd;
+            content: '';
+            position: absolute;
+        }
+
+        &:after
+        {
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            margin: 0px auto;
+            width: 30%;
+            height: 1px;
+            border-bottom: 1px solid #ddd;
+            content: '';
+            position: absolute;
+        }
+    }
+
+    h3
+    {
+        margin: 30px auto;
+        font-size: 40px;
+        line-height: 50px;
+        text-align: center;
+        color: #666;
+        display: block;
+        box-sizing: border-box;
+        position: relative;
+
+        + h4
+        {
+            margin-top: 0px;
+        }
+    }
+
+    h4
+    {
+        margin: 50px auto;
+        font-size: 26px;
+        line-height: 40px;
+        text-align: center;
+        color: #666;
+        display: block;
+        box-sizing: border-box;
+        position: relative;
+    }
+
+    img
+    {
+        margin: 50px auto;
+        max-width: 98%;
+        height: auto;
+        border-radius: 10px;
+        display: block;
+        position: relative;
+
+        & + em
+        {
+            margin: -45px auto 45px auto;
+            width: 90%;
+            font-family: $font-family-content;
+            font-weight: $font-family-serif-normal;
+            font-size: 14px;
+            line-height: 24px;
+            text-align: center;
+            color: #999;
+            display: block;
+            box-sizing: border-box;
+            position: relative;
+        }
+    }
+
+    p, li
+    {
+        color: #666;
+    }
+
+    em
+    {
+        font-style: italic;
+    }
+
+    blockquote
+    {
+        margin: 20px 80px;
+
+        p
+        {
+            font-family: $font-family-content;
+            font-weight: $font-family-serif-normal;
+            font-size: 14px;
+            line-height: 24px;
+            color: #999;
+        }
+    }
+
+    ol
+    {
+        padding: 0px 50px;
+        list-style: decimal;
+
+        li
+        {
+            list-style: inherit;
+        }
+    }
+
+    ul
+    {
+        padding: 0px 50px;
+        list-style: disc;
+
+        li
+        {
+            list-style: inherit;
+        }
+    }
+
+    hr
+    {
+        margin: 60px auto;
+        width: 250px;
+        border: 0;
+        height: 1px;
+        background: #ddd;
+    }
+}

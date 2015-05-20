@@ -30,3 +30,7 @@ $base-path: '../' !default;
 @import 'modules/storybook/credits';
 @import 'modules/about';
 @import 'modules/collection';
+@import 'modules/journal/journal';
+@import 'modules/journal/post';
+@import 'modules/journal/markdown';
+@import 'modules/journal/markdown-jp';

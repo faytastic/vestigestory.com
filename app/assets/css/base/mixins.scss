@@ -168,6 +168,22 @@ $preloader-z-index: 110;
     }
 }
 
+@mixin link-fade-transition()
+{
+    .csstransitions &
+    {
+        opacity: 1.0;
+        transition-property: opacity;
+        transition-duration: 0.4s;
+        transition-timing-function: ease-out;
+    }
+
+    .no-touch &:hover
+    {
+        opacity: 0.6;
+    }
+}
+
 @mixin background-fade-transition($duration:1s, $delay:0s)
 {
     @include desktop

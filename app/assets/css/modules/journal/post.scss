@@ -1,0 +1,227 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ *
+ *  This software is released under the MIT License:
+ *  http://www.opensource.org/licenses/mit-license.php
+ */
+
+@import '../../base/mixins';
+@import '../../base/typography';
+
+$base-path: '../../' !default;
+
+main.post
+{
+    div.share
+    {
+        margin: 0px auto;
+        padding: 20px 0px;
+        width: 100px;
+        max-width: 980px;
+        height: auto;
+        text-align: center;
+        position: relative;
+
+        a
+        {
+            @include link-fade-transition;
+
+            width: 20px;
+            height: 20px;
+            font-size: 0px;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            display: inline-block;
+            position: relative;
+
+            &.twitter
+            {
+                background-image: url(/assets/images/components/icons/twitter.png);
+            }
+
+            &.twitter.inverted
+            {
+                background-image: url(/assets/images/components/icons/twitter-inverted.png);
+            }
+
+            &.facebook
+            {
+                background-image: url(/assets/images/components/icons/facebook.png);
+            }
+
+            &.facebook.inverted
+            {
+                background-image: url(/assets/images/components/icons/facebook-inverted.png);
+            }
+
+            &.gplus
+            {
+                background-image: url(/assets/images/components/icons/gplus.png);
+            }
+
+            &.gplus.inverted
+            {
+                background-image: url(/assets/images/components/icons/gplus-inverted.png);
+            }
+
+            &:not(:last-child)
+            {
+                margin-right: 10px;
+            }
+        }
+    }
+
+    section.cover
+    {
+        @extend .vs-fluid-block;
+
+        width: 100%;
+        height: 80%;
+        text-align: center;
+        overflow: hidden;
+        display: block;
+        position: relative;
+
+        figure.background
+        {
+            top: 0px;
+            left: 0px;
+            width: inherit;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            display: block;
+
+            @include mobile
+            {
+                height: 100%;
+                position: absolute;
+            }
+
+            @include desktop
+            {
+                height: 80%;
+                position: fixed;
+            }
+
+            &:before
+            {
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.2);
+                content: '';
+                display: block;
+                position: relative;
+            }
+        }
+
+        div.details
+        {
+            margin: 40px auto;
+            width: 90%;
+            max-width: 800px;
+            height: auto;
+            background: transparent;
+            display: inline-block;
+            vertical-align: bottom;
+            position: relative;
+
+            img.gravatar
+            {
+                margin: 5px auto;
+                width: 60px;
+                height: 60px;
+                border-radius: 30px;
+                display: inline-block;
+                position: relative;
+            }
+
+            h1
+            {
+                margin: 0px;
+                font-size: 60px;
+                line-height: 70px;
+                color: #fff;
+            }
+
+            span.date
+            {
+                color: #fff;
+            }
+        }
+    }
+
+    section.body
+    {
+        width: 100%;
+        height: auto;
+        background-color: #eee;
+        text-size-adjust: 100%;
+        word-wrap: break-word;
+        overflow: hidden;
+        display: block;
+        position: relative;
+
+        div.content
+        {
+            margin: 0px auto;
+            padding: 100px 0px;
+            width: 90%;
+            max-width: 980px;
+            height: auto;
+            position: relative;
+        }
+
+        div.author
+        {
+            margin: 0px auto;
+            padding: 60px 0px;
+            width: 100%;
+            height: auto;
+            background-color: #ddd;
+            text-align: center;
+            position: relative;
+
+            span.published
+            {
+                margin-bottom: 20px;
+                font-size: 14px;
+                color: #999;
+                display: block;
+                position: relative;
+            }
+
+            img.gravatar
+            {
+                margin: 0px auto;
+                padding: 0px;
+                width: 60px;
+                height: 60px;
+                border-radius: 30px;
+                display: block;
+                position: relative;
+            }
+
+            span.name
+            {
+                margin: 10px 0px;
+                font-family: $font-family-content;
+                font-size: 18px;
+                color: #333;
+                display: block;
+                position: relative;
+            }
+
+            p
+            {
+                margin: 0px auto;
+                width: 80%;
+                max-width: 600px;
+                font-size: 14px;
+                line-height: 20px;
+            }
+        }
+    }
+}
