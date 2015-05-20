@@ -47,7 +47,7 @@ gulp.task('generate', function(callback)
  */
 gulp.task('images', function()
 {
-    var debug = $.util.env['debug'] || $.util.env['d'];
+    var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
     var skipImageMin = $.util.env['skip-imagemin'] || $.util.env['si'] || debug;
 
     return gulp.src(['.generated/**/*'+IMAGES_PATTERN])
@@ -76,7 +76,7 @@ gulp.task('videos', function()
  */
 gulp.task('styles', function()
 {
-    var debug = $.util.env['debug'] || $.util.env['d'];
+    var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
     var skipCSSO = $.util.env['skip-csso'] || $.util.env['sc'] || debug;
 
     return gulp.src('.generated/assets/css/*.'+STYLES_PATTERN)
@@ -105,7 +105,7 @@ gulp.task('scripts', function()
     var reactify = require('reactify');
     var through = require('through2');
 
-    var debug = $.util.env['debug'] || $.util.env['d'];
+    var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
     var skipUglify = $.util.env['skip-uglify'] || $.util.env['sj'] || debug;
 
     return merge
@@ -143,7 +143,7 @@ gulp.task('scripts', function()
  */
 gulp.task('static', ['images', 'videos', 'styles', 'scripts'], function()
 {
-    var debug = $.util.env['debug'] || $.util.env['d'];
+    var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
     var skipRev = $.util.env['skip-rev'] || $.util.env['sr'] || debug;
 
     return merge
@@ -166,7 +166,7 @@ gulp.task('static', ['images', 'videos', 'styles', 'scripts'], function()
  */
 gulp.task('templates', function(callback)
 {
-    var debug = $.util.env['debug'] || $.util.env['d'];
+    var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
     var skipMinifyHTML = $.util.env['skip-minify-html'] || $.util.env['sh'] || debug;
 
     return gulp.src(['.generated/**/*.'+TEMPLATES_PATTERN])
@@ -183,7 +183,7 @@ gulp.task('templates', function(callback)
  */
 gulp.task('build', ['templates', 'static'], function()
 {
-    var debug = $.util.env['debug'] || $.util.env['d'];
+    var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
     var skipRev = $.util.env['skip-rev'] || $.util.env['sr'] || debug;
 
     if (!skipRev)
@@ -217,7 +217,7 @@ gulp.task('clean', function(callback)
  */
 gulp.task('serve', function()
 {
-    var debug = $.util.env['debug'] || $.util.env['d'];
+    var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
     var port = $.util.env['port'] || $.util.env['p'];
     var baseDir = (debug) ? '.tmp' : 'public';
     var browserSync = require('browser-sync');
@@ -260,7 +260,7 @@ gulp.task('serve', function()
  */
 gulp.task('default', function(callback)
 {
-    var debug = $.util.env['debug'] || $.util.env['d'];
+    var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
     var serve = $.util.env['serve'] || $.util.env['s'];
 
     var seq = ['clean', 'generate', 'build'];
