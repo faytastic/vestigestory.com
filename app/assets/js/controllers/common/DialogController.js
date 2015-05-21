@@ -42,7 +42,7 @@ DialogController.prototype.init = function()
  */
 DialogController.prototype.update = function(dirtyTypes)
 {
-    if (this.isDirty(vars.DirtyType.DATA))
+    if (this.updateDelegate.isDirty(vars.DirtyType.DATA))
     {
         this._refresh();
     }

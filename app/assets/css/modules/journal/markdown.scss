@@ -117,9 +117,26 @@ main.post
         }
     }
 
+    a
+    {
+        color: #333;
+        text-decoration: underline;
+
+        .csstransitions &
+        {
+            transition: color 0.4s;
+        }
+
+        &:hover
+        {
+            color: #999;
+        }
+    }
+
     p, li
     {
         color: #666;
+        text-align: left;
     }
 
     em
@@ -155,7 +172,7 @@ main.post
     ul
     {
         padding: 0px 50px;
-        list-style: disc;
+        list-style: circle;
 
         li
         {

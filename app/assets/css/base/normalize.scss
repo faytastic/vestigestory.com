@@ -267,14 +267,14 @@ div
  */
 .vs-parallax
 {
-    height: 100vh;
+    height: 100%;
     perspective: 1px;
     overflow-x: hidden;
     overflow-y: auto;
 
     .vs-parallax-group
     {
-        height: 100vh;
+        height: 100%;
         position: relative;
         transform-style: preserve-3d;
     }

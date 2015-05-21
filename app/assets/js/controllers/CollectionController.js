@@ -371,7 +371,7 @@ CollectionController.prototype.init = function()
  */
 CollectionController.prototype.update = function(dirtyTypes)
 {
-    if (this.isDirty(vars.DirtyType.SIZE))
+    if (this.updateDelegate.isDirty(vars.DirtyType.SIZE))
     {
         var displayRect = vars.getRect(this.children.display);
         var slides = $(this.children.slides.find('img'));
@@ -382,13 +382,13 @@ CollectionController.prototype.update = function(dirtyTypes)
         vars.transform(this.children.nav, { width: thumbRect.width*PRODUCTS.length });
     }
 
-    if (this.isDirty(DIRTY_PAGE_POSITION|vars.DirtyType.SIZE))
+    if (this.updateDelegate.isDirty(DIRTY_PAGE_POSITION|vars.DirtyType.SIZE))
     {
         var scope = angular.element(this.element).scope();
         vars.translate3d(this.children.slides, { x: scope.pageOffset });
     }
 
-    if (this.isDirty(DIRTY_PAGE_SCROLL_POSITION))
+    if (this.updateDelegate.isDirty(DIRTY_PAGE_SCROLL_POSITION))
     {
         var scrollX = $(this.children.slides).scrollLeft();
         var nPages = $(this.children.slides).find('img').length;

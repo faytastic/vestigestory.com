@@ -12,6 +12,12 @@ main.post[data-lang="jp"]
 {
     h3
     {
-        font-family: $font-family-content;
+        // font-family: $font-family-content;
+        font-family: 'serif';
+    }
+
+    p, li
+    {
+        font-family: 'serif';
     }
 }

@@ -9,14 +9,14 @@ layout: default
 <main class="post" data-lang="{{ page.language }}">
     <section class="cover">
         <figure class="background" style="background-image:url({{ page.cover }});"></figure>
-        <div class="details">
-            <h1>{{ page.title | upcase }}</h1>
-            <span class="date">{{ page.date | date: '%B %d' }}</span>
-            <div class="share">
-                <a class="twitter inverted" href="https://twitter.com/intent/tweet?text={{ page.title }}&amp;url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Twitter">Twitter</a>
-                <a class="facebook inverted" href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Facebook">Facebook</a>
-                <a class="gplus inverted" href="https://plus.google.com/share?url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Google+">Google+</a>
-            </div>
+    </section>
+    <section class="details">
+        <h1>{{ page.title | upcase }}</h1>
+        <span class="date">{{ page.date | date: '%B %d' }}</span>
+        <div class="share">
+            <a class="twitter inverted" href="https://twitter.com/intent/tweet?text={{ page.title }}&amp;url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Twitter">Twitter</a>
+            <a class="facebook inverted" href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Facebook">Facebook</a>
+            <a class="gplus inverted" href="https://plus.google.com/share?url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Google+">Google+</a>
         </div>
     </section>
     <section class="body">
@@ -36,3 +36,5 @@ layout: default
         </div>
     </section>
 </main>
+
+<script src="/assets/js/post.js"></script>

@@ -247,13 +247,13 @@ StoryBookController.prototype.initDesktop = function()
  */
 StoryBookController.prototype.update = function(dirtyTypes)
 {
-    if (this.isDirty(vars.DirtyType.POSITION|vars.DirtyType.SIZE))
+    if (this.updateDelegate.isDirty(vars.DirtyType.POSITION|vars.DirtyType.SIZE))
     {
         this._updateNav();
         this._updatePages();
     }
 
-    if (this.isDirty(vars.DirtyType.SIZE))
+    if (this.updateDelegate.isDirty(vars.DirtyType.SIZE))
     {
         this._updateBackgroundSizes();
     }

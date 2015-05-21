@@ -36,7 +36,14 @@ gulp.task('generate', function(callback)
 
     proc.on('exit', function(code)
     {
-        callback(code === 0 ? null : 'ERROR: \'generate\' task exited with code: ' + code);
+        if (code === 0)
+        {
+            callback();
+        }
+        else
+        {
+            return;
+        }
     });
 });
 

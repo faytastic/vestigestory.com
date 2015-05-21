@@ -11,12 +11,13 @@
 var $ = require('jquery');
 var vars = require('vars');
 
-var HeaderController = require('./controllers/HeaderController');
+vars.module(require('./controllers/HeaderController'), document.getElementById('menu'));
+
+vars.module((function() {
+
 var DynamicBackgroundController = require('./controllers/DynamicBackgroundController');
 var StoryBookController = require('./controllers/StoryBookController');
 var utils = require('./utils/utils');
-
-vars.module((function() {
 
 var PRELOADS = {{ site.data.storybook.ss2015.preloads | jsonify }};
 
@@ -84,7 +85,6 @@ Main.prototype._onPreloadComplete = function(event)
         utils.changeChildState(self.children.storyBook, 'state-loaded');
         utils.changeChildState(self.children.preloader, 'state-hidden');
 
-        var header = new HeaderController({ activeTarget: 'story-book' });
         var dynamicBackground;
 
         if (utils.isMobileVersion())
@@ -98,7 +98,6 @@ Main.prototype._onPreloadComplete = function(event)
 
         var storyBook = new StoryBookController({ element: self.children.storyBook, dynamicBackground: dynamicBackground });
 
-        self.addVirtualChild(header, 'header');
         self.addVirtualChild(dynamicBackground, 'dynamicBackground');
         self.addVirtualChild(storyBook, 'storyBook');
 

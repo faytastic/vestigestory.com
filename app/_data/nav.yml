@@ -1,0 +1,17 @@
+---
+
+-   name: Story Book
+    target: story-book
+    url: /
+
+-   name: Vestige
+    target: about
+    url: /about
+
+-   name: Collection
+    target: collection
+    url: /collection
+
+-   name: Journal
+    target: journal
+    url: /journal

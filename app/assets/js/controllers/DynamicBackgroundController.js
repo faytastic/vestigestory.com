@@ -108,7 +108,7 @@ DynamicBackgroundController.prototype.init = function()
  */
 DynamicBackgroundController.prototype.update = function(dirtyTypes)
 {
-    if (this.isDirty(vars.DirtyType.SIZE))
+    if (this.updateDelegate.isDirty(vars.DirtyType.SIZE))
     {
         var viewportRect = vars.getViewportRect();
         var figures = $(this.element).find('> section figure');

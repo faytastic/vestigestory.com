@@ -7,13 +7,14 @@
 
 var $ = require('jquery');
 var vars = require('vars');
-var utils = require('../utils/utils');
 
 /**
  * @class
  * Controller of the main HeaderController.
  */
-module.exports = (function(global) {
+module.exports = (function() {
+
+var utils = require('../utils/utils');
 
 /**
  * @constructor
@@ -26,24 +27,15 @@ function HeaderController(init)
 } var parent = vars.inherit(HeaderController, vars.Element);
 
 /**
- * @property (read-only)
- * Child elements.
- * @type {Object}
- */
-Object.defineProperty(HeaderController.prototype, 'children', { value: {}, writable: false });
-
-/**
  * @inheritDoc
  */
 HeaderController.prototype.init = function()
 {
-    this.updateDelegate.receptive = vars.DirtyType.POSITION|vars.DirtyType.SIZE;
+    this.updateDelegate.responsive = true;
+    this.updateDelegate.refreshRate = 10.0;
 
     // Set up child elements.
-    this.children.menu = $('header#menu').get(0);
-    this.children.compactMenu = $('header#menu-compact').get(0);
-
-    $(this.children.compactMenu).find('button.menu').on(utils.isTouchDevice() ? 'touchend' : 'click', this._onCompactMenuItemClick.bind(this));
+    $(this.element).find('button.menu').on(utils.isTouchDevice() ? 'touchend' : 'click', this._onCompactMenuItemClick.bind(this));
 
     parent.prototype.init.call(this);
 };
@@ -53,22 +45,34 @@ HeaderController.prototype.init = function()
  */
 HeaderController.prototype.update = function(dirtyTypes)
 {
-    if (this.isDirty(vars.DirtyType.POSITION))
+    if (this.updateDelegate.isDirty(vars.DirtyType.POSITION))
     {
         if (!utils.isMobileVersion())
         {
-            var autoHide = $(this.children.menu).hasClass('auto-hide');
+            var autoHide = $(this.element).hasClass('auto-hide');
             var viewportRect = vars.getViewportRect();
 
-            if ($(window).scrollTop() > viewportRect.height*0.5)
+            if ($(this.updateDelegate.conductor).scrollTop() > viewportRect.height*0.5)
             {
-                if (autoHide) utils.changeChildState(this.children.menu, 'state-visible');
-                this.children.menu.addClass('emphasized');
+                if (autoHide)
+                {
+                    utils.changeChildState(this.element, 'state-visible');
+                }
+                else
+                {
+                    $(this.element).addClass('emphasized');
+                }
             }
             else
             {
-                if (autoHide) utils.changeChildState(this.children.menu, 'state-hidden');
-                this.children.menu.removeClass('emphasized');
+                if (autoHide)
+                {
+                    utils.changeChildState(this.element, 'state-hidden');
+                }
+                else
+                {
+                    $(this.element).removeClass('emphasized');
+                }
             }
         }
     }
@@ -84,7 +88,7 @@ HeaderController.prototype._onCompactMenuItemClick = function(event)
 {
     event.preventDefault();
 
-    var sNav = $(this.children.compactMenu).find('nav');
+    var sNav = $(this.element).find('nav');
 
     if ($(sNav).hasClass('state-visible'))
     {
@@ -98,4 +102,4 @@ HeaderController.prototype._onCompactMenuItemClick = function(event)
     }
 };
 
-return HeaderController; }(window));
+return HeaderController; }());

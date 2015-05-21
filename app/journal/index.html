@@ -6,24 +6,23 @@ title: Journal - Vestige
 {% include header.html target="journal" %}
 
 <main class="journal">
-    <section class="title">
+<!--     <section class="title">
         <h2>VESTIGE</h2>
         <h3>THE MESSAGE WITHIN</h3>
-    </section>
+    </section> -->
     <section class="posts">
         {% for post in site.posts %}
             {% assign author = site.data.journal.authors[post.author] %}
             <a class="post" href="{{ post.url }}">
-                <li class="post" style="background-image:url({{ post.cover }})">
-                    <div class="filter"></div>
-                    <aside>
-                        <img class="gravatar" src="http://www.gravatar.com/avatar/{{ author.gravatar }}?s=60">
-                        <h2>{{ post.title | upcase }}</h2>
-                        <span class="date">{{ post.date | date_to_long_string }}</span>
-                    </aside>
-                </li>
+                <figure class="cover" style="background-image:url({{ post.cover }});"></figure>
+                <aside>
+                    <h2>{{ post.title | upcase }}</h2>
+                    <span class="date">{{ post.date | date_to_long_string }}</span>
+                    <p>{{ post.content | strip_html | truncate:120}}</p>
+                </aside>
             </a>
         {% endfor %}
     </section>
 </main>
 
+<script src="/assets/js/journal.js"></script>

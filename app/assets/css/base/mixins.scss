@@ -16,6 +16,22 @@ $story-book-nav-z-index: 40;
 $header-z-index: 100;
 $preloader-z-index: 110;
 
+@mixin portrait
+{
+    @media only screen and (orientation: portrait)
+    {
+        @content;
+    }
+}
+
+@mixin landscape
+{
+    @media only screen and (orientation: landscape)
+    {
+        @content;
+    }
+}
+
 @mixin mobile
 {
     @media only screen and (max-width: 1024px)
