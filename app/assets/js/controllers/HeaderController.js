@@ -60,20 +60,15 @@ HeaderController.prototype.update = function(dirtyTypes)
             var autoHide = $(this.children.menu).hasClass('auto-hide');
             var viewportRect = vars.getViewportRect();
 
-            if (autoHide)
+            if ($(window).scrollTop() > viewportRect.height*0.5)
             {
-                if ($(window).scrollTop() > viewportRect.height*0.5)
-                {
-                    utils.changeChildState(this.children.menu, 'state-visible');
-                }
-                else
-                {
-                    utils.changeChildState(this.children.menu, 'state-hidden');
-                }
+                if (autoHide) utils.changeChildState(this.children.menu, 'state-visible');
+                this.children.menu.addClass('emphasized');
             }
             else
             {
-                utils.changeChildState(this.children.menu, 'state-visible');
+                if (autoHide) utils.changeChildState(this.children.menu, 'state-hidden');
+                this.children.menu.removeClass('emphasized');
             }
         }
     }

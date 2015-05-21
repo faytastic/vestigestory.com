@@ -13,6 +13,7 @@ header#menu
     top: 0px;
     width: 100%;
     height: 70px;
+    background-color: transparent;
     pointer-events: none;
 
     @media only screen and (max-width: 767px)
@@ -28,10 +29,18 @@ header#menu
         z-index: $header-z-index;
     }
 
-    .csstransitions &.auto-hide
+    .csstransitions &
     {
-        transition: transform 0.4s ease-out;
+        transition: transform 0.4s ease-out, background-color 0.4s ease-out;
+    }
 
+    &.emphasized
+    {
+        background-color: rgba(255, 255, 255, 0.6);
+    }
+
+    &.auto-hide
+    {
         &,
         &.state-hidden
         {
