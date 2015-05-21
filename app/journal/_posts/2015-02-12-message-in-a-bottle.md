@@ -1,6 +1,6 @@
 ---
 title: Message In A Bottle
-cover: message-in-a-bottle-cover.jpg
+cover: /assets/images/journal/2015/02/message-in-a-bottle-cover.jpg
 author: aileen
 ---
 

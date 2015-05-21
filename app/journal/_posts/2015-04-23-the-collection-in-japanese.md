@@ -1,7 +1,7 @@
 ---
 title: 'The Collection in Japanese'
 author: aileen
-cover: cover.jpg
+cover: /assets/images/journal/2015/04/cover.jpg
 language: jp
 ---
 

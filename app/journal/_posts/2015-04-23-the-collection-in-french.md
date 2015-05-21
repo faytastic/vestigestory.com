@@ -1,7 +1,7 @@
 ---
 title: 'The Collection in French'
 author: aileen
-cover: VESTIGE-37-of-53.jpg
+cover: /assets/images/journal/2015/04/VESTIGE-37-of-53.jpg
 language: fr
 ---
 

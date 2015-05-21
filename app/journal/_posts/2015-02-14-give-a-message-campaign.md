@@ -1,7 +1,7 @@
 ---
 title: Give a Message Campaign
 author: aileen
-cover: give-a-message-campaign-cover.jpg
+cover: /assets/images/journal/2015/02/give-a-message-campaign-cover.jpg
 ---
 
 When was the last time you wrote someone a message? Note that we did not say “type”. Human interaction has been trapped behind the barrier of our monitors. Put down your phone, and send an organic message to someone you care about.
