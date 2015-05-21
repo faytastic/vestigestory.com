@@ -5,7 +5,7 @@ bin
 lib
 concept
 public
-vendor
+/vendor
 .generated
 .tmp
 .DS_STORE
