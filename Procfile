@@ -1,2 +1,1 @@
-gulp: gulp
-web: node server.js
+web: gulp && node server.js
