@@ -32,7 +32,18 @@ var sequence = require('run-sequence');
  */
 gulp.task('generate', function(callback)
 {
-    var proc = spawn('jekyll', ['build', '--destination=.generated'], { stdio: 'inherit' });
+    var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
+
+    var proc;
+
+    if (debug)
+    {
+        proc = spawn('jekyll', ['build', '--drafts', '--destination=.generated'], { stdio: 'inherit' });
+    }
+    else
+    {
+        proc = spawn('jekyll', ['build', '--destination=.generated'], { stdio: 'inherit' });
+    }
 
     proc.on('exit', function(code)
     {

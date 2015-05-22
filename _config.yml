@@ -20,3 +20,9 @@ defaults:
         type: 'posts'
     values:
         layout: 'post'
+
+-   scope:
+        path: 'journal'
+        type: 'drafts'
+    values:
+        layout: 'post'

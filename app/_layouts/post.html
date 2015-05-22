@@ -9,11 +9,11 @@ layout: default
 <main class="post" data-lang="{{ page.language }}">
     <section class="cover">
         <figure class="background" style="background-image:url({{ page.cover }});"></figure>
-    </section>
-    <section class="details">
-        <h1>{{ page.title | upcase }}</h1>
-        <span class="date">{{ page.date | date: '%B %d' }}</span>
-        {% include share.html inverted=true %}
+        <div class="details">
+            <h1>{{ page.title | upcase }}</h1>
+            <span class="date">{{ page.date | date: '%B %d' }}</span>
+            {% include share.html inverted=true %}
+        </div>
     </section>
     <section class="body">
         <div class="content">
