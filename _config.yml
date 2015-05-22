@@ -50,3 +50,9 @@ prose:
         - favicon.png
         - og-image.png
         - robots.txt
+        - css/
+        - js/
+        - vendor/
+        - videos/
+        - components/
+        - storybook/
