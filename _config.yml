@@ -26,3 +26,15 @@ defaults:
         type: 'drafts'
     values:
         layout: 'post'
+
+prose:
+    rooturl: 'app/journal/_posts'
+    media: 'app/assets/images/journal'
+    ignore:
+        - .*
+        - *.yml
+        - Gemfile
+        - Gemfile.lock
+        - *.js
+        - *.json
+        - /_includes
