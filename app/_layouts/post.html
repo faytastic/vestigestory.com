@@ -13,21 +13,13 @@ layout: default
     <section class="details">
         <h1>{{ page.title | upcase }}</h1>
         <span class="date">{{ page.date | date: '%B %d' }}</span>
-        <div class="share">
-            <a class="share twitter inverted" href="https://twitter.com/intent/tweet?text={{ page.title }}&amp;url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Twitter">Twitter</a>
-            <a class="share facebook inverted" href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Facebook">Facebook</a>
-            <a class="share gplus inverted" href="https://plus.google.com/share?url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Google+">Google+</a>
-        </div>
+        {% include share.html inverted=true %}
     </section>
     <section class="body">
         <div class="content">
             {{ content }}
         </div>
-        <div class="share">
-            <a class="share twitter" href="https://twitter.com/intent/tweet?text={{ page.title }}&amp;url={{ site.url }}{{ page.url }}&amp;via={{ site.twitter }}&amp;related={{ site.twitter }}" rel="nofollow" target="_blank" title="Share on Twitter">Twitter</a>
-            <a class="share facebook" href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Facebook">Facebook</a>
-            <a class="share gplus" href="https://plus.google.com/share?url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Google+">Google+</a>
-        </div>
+        {% include share.html %}
     </section>
     <section class="author">
         <span class="published">Published on {{ page.date | date: '%B %d, %Y' }} by</span>

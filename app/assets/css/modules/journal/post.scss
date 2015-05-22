@@ -15,22 +15,6 @@ main.post
     width: 100%;
     height: 100%;
 
-    div.share
-    {
-        margin: 0px auto;
-        padding: 20px 0px;
-        width: 100px;
-        max-width: 980px;
-        height: auto;
-        text-align: center;
-        position: relative;
-
-        a:not(:last-child)
-        {
-            margin-right: 10px;
-        }
-    }
-
     section.cover
     {
         top: 0px;
@@ -38,7 +22,7 @@ main.post
         width: 100%;
         height: 100%;
         display: block;
-        position: fixed;
+        position: absolute;
         z-index: 0;
 
         figure.background
@@ -50,6 +34,7 @@ main.post
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             display: block;
             position: absolute;
 

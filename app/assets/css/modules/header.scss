@@ -28,11 +28,6 @@ header#menu
         position: relative;
     }
 
-    a
-    {
-        color: #000;
-    }
-
     button.menu
     {
         top: 20px;
@@ -49,11 +44,12 @@ header#menu
             a,
             a.inactive
             {
-                opacity: 0.5;
+                opacity: 0.4;
+                text-decoration: none;
 
                 .csstransitions &
                 {
-                    transition: opacity 0.2s ease-out, text-decoration 0.2s ease-out;
+                    transition: opacity 0.2s ease-out;
                 }
             }
 
@@ -61,7 +57,6 @@ header#menu
             a.active
             {
                 opacity: 1.0;
-                text-decoration: underline;
             }
         }
     }

@@ -135,15 +135,19 @@ main.collection
             position: absolute;
             overflow: hidden;
 
-            @media only screen and (min-height: 500px)
+            @include wider-than(767)
+            {
+                text-align: right;
+            }
+
+            @include longer-than(500)
             {
                 height: calc(100% - 150px);
             }
 
-            @media only screen and (min-height: 700px)
+            @include longer-than(700)
             {
                 height: calc(100% - 200px);
-                text-align: right;
             }
 
             article
@@ -257,7 +261,7 @@ main.collection
                     pointer-events: none;
                 }
 
-                @media only screen and (min-width: 768px)
+                @include wider-than(767)
                 {
                     width: 300px;
                     right: 5%;
@@ -274,7 +278,7 @@ main.collection
                     line-height: 20px;
                     position: relative;
 
-                    @media only screen and (min-width: 768px)
+                    @include wider-than(767)
                     {
                         padding-bottom: 20px;
                         font-size: 16px;
@@ -320,7 +324,7 @@ main.collection
                 left: 10px;
                 position: absolute;
 
-                @media only screen and (min-width: 768px)
+                @include wider-than(767)
                 {
                     display: none;
                 }
@@ -331,11 +335,9 @@ main.collection
     button.size
     {
         margin-left: 5px;
-        width: 30px;
-        height: 30px;
         font-size: 10px;
         text-align: center;
-        border-radius: 4px;
+        border-radius: $default-border-radius;
         background-color: #bbb;
         color: #fff;
         pointer-events: none;
@@ -343,6 +345,9 @@ main.collection
 
         &.xs
         {
+            width: 30px;
+            height: 30px;
+
             &:after
             {
                 content: 'XS';
@@ -351,6 +356,9 @@ main.collection
 
         &.s
         {
+            width: 30px;
+            height: 30px;
+
             &:after
             {
                 content: 'S';
@@ -359,6 +367,9 @@ main.collection
 
         &.m
         {
+            width: 30px;
+            height: 30px;
+
             &:after
             {
                 content: 'M';
@@ -367,6 +378,9 @@ main.collection
 
         &.l
         {
+            width: 30px;
+            height: 30px;
+
             &:after
             {
                 content: 'L';
@@ -375,6 +389,9 @@ main.collection
 
         &.xs-s
         {
+            width: 30px;
+            height: 30px;
+
             &:after
             {
                 content: 'XS-S';
@@ -383,6 +400,9 @@ main.collection
 
         &.m-l
         {
+            width: 30px;
+            height: 30px;
+
             &:after
             {
                 content: 'M-L';
@@ -397,7 +417,7 @@ main.collection
         height: 30px;
         font-size: 10px;
         text-align: center;
-        border-radius: 4px;
+        border-radius: $default-border-radius;
         background-color: transparent;
         background-repeat: no-repeat;
         background-size: cover;
@@ -406,7 +426,7 @@ main.collection
         vertical-align: middle;
         pointer-events: none;
 
-        @media only screen and (min-width: 768px)
+        @include wider-than(767)
         {
             width: 35px;
             height: 35px;

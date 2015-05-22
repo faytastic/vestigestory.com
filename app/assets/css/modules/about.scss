@@ -7,12 +7,6 @@ $base-path: '../../' !default;
 
 main.about
 {
-    section.vestige
-    {
-        min-height: 500px;
-        vertical-align: middle;
-    }
-
     section.contact
     {
         background-color: #dadada;
@@ -47,20 +41,6 @@ main.about
                     margin-top: 10px;
                 }
             }
-        }
-    }
-
-    div.social
-    {
-        padding-top: 50px;
-        width: auto;
-        height: auto;
-        display: inline-block;
-        position: relative;
-
-        a.social:not(:last-child)
-        {
-            margin-right: 20px;
         }
     }
 }

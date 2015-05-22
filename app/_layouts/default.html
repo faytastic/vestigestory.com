@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" {% if page.angular_app != null %}ng-app="{{ page.angular_app }}" {% endif %}>
     <head>
         <title>{{ page.title }}</title>
 

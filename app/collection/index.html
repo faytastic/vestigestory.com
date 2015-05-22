@@ -2,11 +2,12 @@
 layout: default
 title: Collection - Vestige
 description: The message within. Founded in Vancouver, we are a fashion house that gives casual premium a whole new meaning.
+angular_app: collection
 ---
 
 {% include header.html target="collection" %}
 
-<main ng-app="collection" class="collection" ng-controller="CollectionController" ng-cloak>
+<main class="collection" ng-controller="CollectionController" ng-cloak>
     <section class="products">
         <summary>
             <article>
@@ -19,11 +20,11 @@ description: The message within. Founded in Vancouver, we are a fashion house th
                 </nav>
             </article>
             <aside>
-                <h4 data-type="name">[[activeProduct.name]]</h4>
-                <h5 data-type="id">[[activeProduct.id]]</h5>
-                <span data-type="description">[[activeProduct.description]]</span>
-                <span data-type="description">[[activeProduct.materials]]</span>
-                <span data-type="sizes">
+                <h4 data-type="name" ng-bind="activeProduct.name"></h4>
+                <h5 data-type="id" ng-bind="activeProduct.id"></h5>
+                <span data-type="description" ng-bind="activeProduct.description"></span>
+                <span data-type="description" ng-bind="activeProduct.materials"></span>
+                <span data-type="sizes" ng-cloak>
                     <span>
                         <button ng-repeat="size in activeProduct.sizes" class="size [[size]]"></button>
                     </span>

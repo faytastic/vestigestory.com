@@ -9,7 +9,6 @@
 $base-path: '../../' !default;
 $post-aside-width: 250px;
 $post-aside-height: 200px;
-$post-border-radius: 6px;
 
 main.journal
 {
@@ -17,22 +16,22 @@ main.journal
 
     a.post
     {
-        margin: 20px 0px;
+        margin: 10px 0px;
         width: 100%;
         text-align: left;
         display: inline-block;
-        border-radius: $post-border-radius;
+        border-radius: $default-border-radius;
         overflow: hidden;
         position: relative;
 
         @include portrait
         {
-            height: 400px;
+            height: 500px;
         }
 
         @include landscape
         {
-            height: 300px;
+            height: 500px;
         }
 
         .csstransitions &
@@ -72,7 +71,7 @@ main.journal
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
-            border-radius: $post-border-radius;
+            border-radius: $default-border-radius;
             display: inline-block;
             position: relative;
             overflow: hidden;

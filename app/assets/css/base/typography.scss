@@ -57,6 +57,12 @@ h6
     font-family: $font-family-header;
 }
 
+p,
+li
+{
+    color: #707070;
+}
+
 p
 {
     & + p
@@ -87,6 +93,7 @@ h2
     font-weight: $font-family-sans-serif-light;
     text-align: center;
     line-height: 1.2em;
+    color: #c2c2c2;
     display: block;
     position: relative;
 
@@ -103,6 +110,7 @@ h3
     font-size: 20px;
     text-align: center;
     line-height: 1.2em;
+    color: #707070;
     display: block;
     position: relative;
 
@@ -118,7 +126,7 @@ h4
     font-size: 24px;
     text-align: left;
     font-weight: $font-family-sans-serif-light;
-    color: #666;
+    color: #606060;
     line-height: 1.2em;
     display: block;
     position: relative;
@@ -153,9 +161,15 @@ h6
     color: #666;
     text-align: left;
     font-size: 18px;
+    line-height: 1.4em;
     font-weight: $font-family-sans-serif-light;
     display: inline-block;
     position: relative;
+}
+
+em
+{
+    font-style: italic;
 }
 
 a
@@ -166,12 +180,13 @@ a
     color: #000;
     text-align: inherit;
     line-height: inherit;
-    text-decoration: none;
+    text-decoration: underline;
 
     &:hover,
     &.active,
     &.state-active
     {
-        text-decoration: underline;
+        opacity: 0.6;
+        text-decoration: none;
     }
 }

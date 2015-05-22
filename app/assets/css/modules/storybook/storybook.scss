@@ -51,7 +51,7 @@ main.story-book
             margin: 10px;
             width: $nav-node-width;
             height: $nav-node-height;
-            border-radius: 5px;
+            border-radius: $default-border-radius;
             background-color: rgba(170, 170, 170, 0.6);
             opacity: 0.5;
             display: block;

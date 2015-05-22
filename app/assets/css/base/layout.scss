@@ -22,8 +22,6 @@ body
 
 main
 {
-    @extend .vs-fluid-block;
-
     width: 100%;
     min-width: 320px;
     height: 100%;
@@ -41,6 +39,11 @@ main
         position: relative;
         overflow: hidden;
 
+        &.title
+        {
+            margin-top: 10%;
+        }
+
         @include wider-than(700)
         {
             padding: 80px 10%;
@@ -52,7 +55,7 @@ main
         }
     }
 
-    @media only screen and (min-width: 980px)
+    @include wider-than(980)
     {
         min-width: 980px;
     }
@@ -67,28 +70,30 @@ main
         background: #ddd;
     }
 
-    h2
+    aside.cell
     {
-        color: #c2c2c2;
-    }
+        margin: 20px 0px;
+        padding: 20px;
+        width: 300px;
+        height: 300px;
+        text-align: left;
+        background-color: #f4f4f4;
+        border-radius: $default-border-radius;
+        overflow: hidden;
+        display: inline-block;
 
-    h3
-    {
-        color: #707070;
-    }
+        &:not(:last-child)
+        {
+            margin-right: 20px;
+        }
 
-    h4
-    {
-        color: #606060;
-    }
-
-    p
-    {
-        color: #707070;
-    }
-
-    a
-    {
-        color: #000;
+        hr
+        {
+            margin: 10px 0px 60px 0px;
+            width: 60%;
+            border: 0;
+            height: 1px;
+            background: #ddd;
+        }
     }
 }
