@@ -42,4 +42,11 @@ prose:
         - stockist
         - .htaccess
         - 404.html
-        - *.png
+        - apple-touch-icon-114x114.png
+        - apple-touch-icon-57x57.png
+        - apple-touch-icon-72x72.png
+        - apple-touch-icon.png
+        - favicon.ico
+        - favicon.png
+        - og-image.png
+        - robots.txt
