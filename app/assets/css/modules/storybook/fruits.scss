@@ -13,8 +13,7 @@ main.story-book
 {
     section.fruits
     {
-        @include hide-for-mobile;
-        @include apply-mobile-background(none);
+        @include apply-mobile-background(url($asset-mobile-background));
 
         summary
         {

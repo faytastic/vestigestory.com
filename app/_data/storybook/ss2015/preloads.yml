@@ -33,12 +33,16 @@ desktop:
 
 mobile:
     - assets/images/storybook/amanda-swallow.png
+    - assets/images/storybook/background-origin-m.jpg
     - assets/images/storybook/background-amanda-m.jpg
     - assets/images/storybook/background-basket-m.jpg
+    - assets/images/storybook/background-bridge-m.jpg
     - assets/images/storybook/background-credits.jpg
     - assets/images/storybook/background-destiny-m.jpg
+    - assets/images/storybook/background-fruits-m.jpg
     - assets/images/storybook/background-maddie-m.jpg
     - assets/images/storybook/background-mountain-m.jpg
+    - assets/images/storybook/background-pants-m.jpg
     - assets/images/storybook/background-pass-m.jpg
     - assets/images/storybook/background-princess-m.jpg
     - assets/images/storybook/background-video.jpg

@@ -196,9 +196,12 @@ main.collection
                         transition-duration: 0.5s;
                     }
 
-                    .cssanimations &.state-active
+                    @include desktop
                     {
-                        animation: reveal 1.0s;
+                        .cssanimations &.state-active
+                        {
+                            animation: reveal 1.0s;
+                        }
                     }
 
                     figure

@@ -1,0 +1,43 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ */
+
+@import '../base/mixins';
+
+$base-path: '../../' !default;
+
+main.press
+{
+    section.media
+    {
+        text-align: center;
+        background-color: #fff;
+
+        a
+        {
+            @include link-fade-transition;
+
+            margin: 20px 10px;
+            display: inline-block;
+            position: relative;
+
+            @include wider-than(370)
+            {
+                margin: 20px 40px;
+            }
+
+            @include wider-than(768)
+            {
+                margin: 20px 40px;
+            }
+        }
+
+        img
+        {
+            width: auto;
+            height: 50px;
+        }
+
+    }
+}

@@ -34,9 +34,13 @@ main.post
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
             display: block;
             position: absolute;
+
+            @include desktop
+            {
+                background-attachment: fixed;
+            }
 
             &:before
             {
@@ -74,6 +78,12 @@ main.post
             font-size: 60px;
             line-height: 70px;
             color: #fff;
+
+            @include narrower-than(768)
+            {
+                font-size: 50px;
+                line-height: 60px;
+            }
         }
 
         span.date

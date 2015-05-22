@@ -14,7 +14,7 @@ main.story-book
 {
     section.pants
     {
-        @include hide-for-mobile;
+        @include apply-mobile-background(url($asset-mobile-background));
 
         .content-layer
         {

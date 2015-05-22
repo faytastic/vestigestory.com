@@ -14,13 +14,12 @@ main.story-book
 {
     section.bridge
     {
-        @include hide-for-mobile;
-        @include apply-mobile-background(none);
+        @include apply-mobile-background(url($asset-mobile-background));
 
         summary
         {
-            top: 25%;
-            left: 50%;
+            top: 20%;
+            right: 15%;
             text-align: right;
             position: absolute;
 

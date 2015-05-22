@@ -9,7 +9,23 @@ description: The message within. Founded in Vancouver, we are a fashion house th
 <main class="press">
     <section class="title">
         <h2>PRESS</h2>
+        <h3>VESTIGE IN THE MEDIA</h3>
         <hr/>
+        <p>"The brand is all about taking the time to think about the days of slow communication - thinking about the delicate symbol of a gift in a glass bottle being passed between two hands, what does that signify to you?" &mdash; This Open Space</p>
+    </section>
+    <section class="media">
+        {% for medium in site.data.press.media %}
+            <a href="{{ medium.url }}">
+                <img src="{{ site.url }}{{ medium.logo }}"/>
+            </a>
+        {% endfor %}
+    </section>
+    <section class="contact">
+        <li><em>general inquiries</em> | <a href="mailto:{{ site.info_email }}">{{ site.info_email }}</a></li>
+        <li><em>press</em> | <a href="mailto:{{ site.press_email }}">{{ site.press_email }}</a></li>
+        <li><em>wholesale</em> | <a href="mailto:{{ site.accounts_email }}">{{ site.accounts_email }}</a></li>
+    </section>
+    <section class="social">
         {% include social.html %}
     </section>
 </main>

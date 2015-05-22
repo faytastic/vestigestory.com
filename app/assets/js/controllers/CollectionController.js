@@ -400,7 +400,7 @@ CollectionController.prototype.update = function(dirtyTypes)
     if (this.updateDelegate.isDirty(DIRTY_PAGE_SCROLL_POSITION))
     {
         var scrollX = $(this.children.slides).scrollLeft();
-        var nPages = $(this.children.slides).find('img').length;
+        var nPages = $(this.children.slides).find('figure').length;
         var viewportRect = vars.getViewportRect();
         var navNodes = $(this.children.pageNav).find('.nav-node');
         var index = -1;

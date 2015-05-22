@@ -24,6 +24,6 @@
     target: press
     url: /press
 
--   name: Contact
-    target: contact
-    url: /contact
+# -   name: Contact
+#     target: contact
+#     url: /contact
