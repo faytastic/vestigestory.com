@@ -29,4 +29,39 @@ main
     {
         min-width: 980px;
     }
+
+    hr
+    {
+        margin: 10px auto 60px auto;
+        width: 60%;
+        max-width: 600px;
+        border: 0;
+        height: 1px;
+        background: #ddd;
+    }
+
+    h2
+    {
+        color: #c2c2c2;
+    }
+
+    h3
+    {
+        color: #707070;
+    }
+
+    h4
+    {
+        color: #606060;
+    }
+
+    p
+    {
+        color: #707070;
+    }
+
+    a
+    {
+        color: #000;
+    }
 }

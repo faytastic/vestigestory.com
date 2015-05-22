@@ -32,9 +32,42 @@ $preloader-z-index: 110;
     }
 }
 
+@mixin wider-than($minWidth)
+{
+    @media only screen and (min-width: #{$minWidth + 1}px)
+    {
+        @content;
+    }
+}
+
+@mixin narrower-than($maxWidth)
+{
+    @media only screen and (max-width: #{$maxWidth - 1}px)
+    {
+        @content;
+    }
+}
+
+@mixin longer-than($minHeight)
+{
+    @media only screen and (min-height: #{$minHeight + 1}px)
+    {
+        @content;
+    }
+}
+
+@mixin shorter-than($maxHeight)
+{
+    @media only screen and (max-height: #{$maxHeight - 1}px)
+    {
+        @content;
+    }
+}
+
+
 @mixin mobile
 {
-    @media only screen and (max-width: 1024px)
+    @include narrower-than(1025)
     {
         .touch &
         {
@@ -45,7 +78,7 @@ $preloader-z-index: 110;
 
 @mixin desktop
 {
-    @media only screen and (max-width: 1024px)
+    @include narrower-than(1025)
     {
         .no-touch &
         {
@@ -53,7 +86,7 @@ $preloader-z-index: 110;
         }
     }
 
-    @media only screen and (min-width: 1025px)
+    @include wider-than(1024)
     {
         @content;
     }

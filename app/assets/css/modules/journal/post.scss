@@ -25,53 +25,9 @@ main.post
         text-align: center;
         position: relative;
 
-        a
+        a:not(:last-child)
         {
-            @include link-fade-transition;
-
-            width: 20px;
-            height: 20px;
-            font-size: 0px;
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: center;
-            display: inline-block;
-            position: relative;
-
-            &.twitter
-            {
-                background-image: url(/assets/images/components/icons/twitter.png);
-            }
-
-            &.twitter.inverted
-            {
-                background-image: url(/assets/images/components/icons/twitter-inverted.png);
-            }
-
-            &.facebook
-            {
-                background-image: url(/assets/images/components/icons/facebook.png);
-            }
-
-            &.facebook.inverted
-            {
-                background-image: url(/assets/images/components/icons/facebook-inverted.png);
-            }
-
-            &.gplus
-            {
-                background-image: url(/assets/images/components/icons/gplus.png);
-            }
-
-            &.gplus.inverted
-            {
-                background-image: url(/assets/images/components/icons/gplus-inverted.png);
-            }
-
-            &:not(:last-child)
-            {
-                margin-right: 10px;
-            }
+            margin-right: 10px;
         }
     }
 

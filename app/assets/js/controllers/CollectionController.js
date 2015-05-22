@@ -138,6 +138,14 @@ function CollectionController($scope, $location)
                 this.pageShift = 'neutral';
             }
 
+            utils.changeChildState(self.children.slides, 'state-inactive');
+
+            if (this._activePageIndex === 0)
+            {
+                // Use timeout hack to force class change on the next run loop.
+                setTimeout(function() { utils.changeChildState(self.children.slides, 'state-active'); }, 0);
+            }
+
             self.updateDelegate.setDirty(DIRTY_PAGE_POSITION);
         }
     });
@@ -348,7 +356,7 @@ CollectionController.prototype.init = function()
     self.children.infoButton     = $(self.element).find('button.info');
     self.children.pageNav        = $(self.element).find('summary article nav');
     self.children.productDetails = $(self.children.display).find('aside');
-    self.children.slides         = $(self.children.display).find('article figure');
+    self.children.slides         = $(self.children.display).find('article .slides');
 
     if (utils.isTouchDevice())
     {
@@ -374,12 +382,13 @@ CollectionController.prototype.update = function(dirtyTypes)
     if (this.updateDelegate.isDirty(vars.DirtyType.SIZE))
     {
         var displayRect = vars.getRect(this.children.display);
-        var slides = $(this.children.slides.find('img'));
+        var slides = $(this.children.slides.find('figure'));
         vars.transform(this.children.slides, { width: displayRect.width * slides.length });
-        vars.transform(slides, { width: displayRect.width, height: displayRect.height, aspectRatio: 1920/1080, type: 'cover' }, { type: 'cover' });
 
         var thumbRect = vars.getRect(this.children.nav.find('a').get(0));
         vars.transform(this.children.nav, { width: thumbRect.width*PRODUCTS.length });
+
+        this._onNavScroll();
     }
 
     if (this.updateDelegate.isDirty(DIRTY_PAGE_POSITION|vars.DirtyType.SIZE))

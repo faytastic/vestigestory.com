@@ -8,25 +8,19 @@ description: The message within. Founded in Vancouver, we are a fashion house th
 
 <main ng-app="collection" class="collection" ng-controller="CollectionController" ng-cloak>
     <section class="products">
-        <nav id="product-nav">
-            <a class="thumbnail [[(activeIndex===$index) && 'state-active' || 'state-inactive']]" ng-repeat="product in products" data-id="[[product.id]]" href="#[[product.id]]">
-                <img ng-src="/[[product.thumbnail]]"/>
-            </a>
-        </nav>
         <summary>
             <article>
-                <figure>
-                    <div class="image-wrapper" ng-repeat="asset in activeProduct.assets">
-                        <img ng-src="/[[asset]]"/>
-                    </div>
-                </figure>
+                <div class="slides">
+                    <figure ng-repeat="asset in activeProduct.assets" ng-style="{'background-image':'url(/[[asset]])'}">
+                    </figure>
+                </div>
                 <nav>
                     <button class="nav-node [[(activePageIndex===$index) && 'state-active' || 'state-inactive']]" ng-repeat="asset in activeProduct.assets" ng-click="_onPageSelect($index)"></button>
                 </nav>
             </article>
             <aside>
-                <h2 data-type="name">[[activeProduct.name]]</h2>
-                <h3 data-type="id">[[activeProduct.id]]</h3>
+                <h4 data-type="name">[[activeProduct.name]]</h4>
+                <h5 data-type="id">[[activeProduct.id]]</h5>
                 <span data-type="description">[[activeProduct.description]]</span>
                 <span data-type="description">[[activeProduct.materials]]</span>
                 <span data-type="sizes">
@@ -44,6 +38,11 @@ description: The message within. Founded in Vancouver, we are a fashion house th
             <button ng-if="(activePageIndex > 0) && !touchEnabled" class="prev-slide" ng-click="_onPrevPageSelect($event)" ng-mouseover="_onPrevPageMouseOver($event)" ng-mouseout="_onPrevPageMouseOut($event)"></button>
             <button class="info"></button>
         </summary>
+        <nav id="product-nav">
+            <a class="thumbnail [[(activeIndex===$index) && 'state-active' || 'state-inactive']]" ng-repeat="product in products" data-id="[[product.id]]" href="#[[product.id]]">
+                <img ng-src="/[[product.thumbnail]]"/>
+            </a>
+        </nav>
     </section>
 </main>
 

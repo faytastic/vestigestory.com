@@ -52,7 +52,7 @@ HeaderController.prototype.update = function(dirtyTypes)
             var autoHide = $(this.element).hasClass('auto-hide');
             var viewportRect = vars.getViewportRect();
 
-            if ($(this.updateDelegate.conductor).scrollTop() > viewportRect.height*0.5)
+            if ($(this.updateDelegate.conductor).scrollTop() > viewportRect.height*0.2)
             {
                 if (autoHide)
                 {

@@ -3,6 +3,8 @@
  *  (c) Vestige <http://vestigestory.com>
  */
 
+@import './mixins';
+
 $base-path: '../../' !default;
 
 $font-family-content: 'EB Garamond', serif;
@@ -21,8 +23,11 @@ h2,
 h3,
 h4,
 h5,
+h6,
 button
 {
+    margin: 0px;
+    padding: 0px;
     font-style: normal;
     text-align: inherit;
     list-style: none;
@@ -46,7 +51,8 @@ h1,
 h2,
 h3,
 h4,
-h5
+h5,
+h6
 {
     font-family: $font-family-header;
 }
@@ -69,30 +75,38 @@ h1
 {
     font-size: 56px;
     font-weight: $font-family-sans-serif-light;
-    color: #333333;
+    line-height: 1.2em;
+    display: inline-block;
+    position: relative;
 }
 
 h2
 {
-    font-size: 30px;
+    margin: 20px;
+    font-size: 60px;
     font-weight: $font-family-sans-serif-light;
     text-align: center;
     line-height: 1.2em;
+    display: block;
+    position: relative;
 
-    @media only screen and (min-width: 1024px)
+    @include wider-than(1023)
     {
-        font-size: 50px;
+        font-size: 100px;
     }
 }
 
 h3
 {
+    margin: 20px;
     font-weight: $font-family-sans-serif-light;
-    font-size: 24px;
+    font-size: 20px;
     text-align: center;
     line-height: 1.2em;
+    display: block;
+    position: relative;
 
-    @media only screen and (min-width: 1024px)
+    @include wider-than(600)
     {
         font-size: 24px;
     }
@@ -100,17 +114,48 @@ h3
 
 h4
 {
-    margin-bottom: 10px;
-    font-size: 14px;
+    margin: 0px;
+    font-size: 24px;
+    text-align: left;
     font-weight: $font-family-sans-serif-light;
+    color: #666;
+    line-height: 1.2em;
+    display: block;
+    position: relative;
+
+    @include wider-than(767)
+    {
+        font-size: 30px;
+    }
 }
 
 h5
 {
-    margin-bottom: 10px;
+    margin: 0px;
+    padding: 10px 10px 20px 0px;
     font-size: 14px;
     font-weight: $font-family-sans-serif-light;
-    text-align: center;
+    color: #707070;
+    line-height: 1.2em;
+    text-align: left;
+    display: block;
+    position: relative;
+
+    @include wider-than(767)
+    {
+        font-size: 18px;
+    }
+}
+
+h6
+{
+    width: 100%;
+    color: #666;
+    text-align: left;
+    font-size: 18px;
+    font-weight: $font-family-sans-serif-light;
+    display: inline-block;
+    position: relative;
 }
 
 a
@@ -118,13 +163,15 @@ a
     font-family: inherit;
     font-weight: inherit;
     font-size: inherit;
+    color: #000;
     text-align: inherit;
     line-height: inherit;
-    color: #000;
     text-decoration: none;
-}
 
-a:hover
-{
-    text-decoration: none;
+    &:hover,
+    &.active,
+    &.state-active
+    {
+        text-decoration: underline;
+    }
 }

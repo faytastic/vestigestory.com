@@ -1,0 +1,87 @@
+/**
+ *  vestigestory.com
+ *  (c) Vestige <http://vestigestory.com>
+ */
+
+@import '../base/mixins';
+
+$base-path: '../../' !default;
+$asset-icons-social: $base-path+'images/components/icons/icons-social.png';
+
+a.social
+{
+    @include link-fade-transition;
+
+    width: 30px;
+    height: 30px;
+    font-size: 0px;
+    background-image: url($asset-icons-social);
+    background-size: 400% 100%;
+    background-repeat: no-repeat;
+    display: inline-block;
+    position: relative;
+
+    &.email
+    {
+        background-position: 0% 0%;
+    }
+
+    &.facebook
+    {
+        background-position: -30px 0%;
+    }
+
+    &.instagram
+    {
+        background-position: -60px 0%;
+    }
+
+    &.pinterest
+    {
+        background-position: -90px 0%;
+    }
+}
+
+a.share
+{
+    @include link-fade-transition;
+
+    width: 20px;
+    height: 20px;
+    font-size: 0px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    display: inline-block;
+    position: relative;
+
+    &.twitter
+    {
+        background-image: url(/assets/images/components/icons/twitter.png);
+    }
+
+    &.twitter.inverted
+    {
+        background-image: url(/assets/images/components/icons/twitter-inverted.png);
+    }
+
+    &.facebook
+    {
+        background-image: url(/assets/images/components/icons/facebook.png);
+    }
+
+    &.facebook.inverted
+    {
+        background-image: url(/assets/images/components/icons/facebook-inverted.png);
+    }
+
+    &.gplus
+    {
+        background-image: url(/assets/images/components/icons/gplus.png);
+    }
+
+    &.gplus.inverted
+    {
+        background-image: url(/assets/images/components/icons/gplus-inverted.png);
+    }
+}

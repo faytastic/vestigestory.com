@@ -16,7 +16,7 @@ title: Journal - Vestige
             <a class="post" href="{{ post.url }}">
                 <figure class="cover" style="background-image:url({{ post.cover }});"></figure>
                 <aside>
-                    <h2>{{ post.title | upcase }}</h2>
+                    <h6>{{ post.title | upcase }}</h6>
                     <span class="date">{{ post.date | date_to_long_string }}</span>
                     <p>{{ post.content | strip_html | truncate:120}}</p>
                 </aside>
@@ -25,4 +25,4 @@ title: Journal - Vestige
     </section>
 </main>
 
-<script src="/assets/js/journal.js"></script>
+<script src="/assets/js/default.js"></script>

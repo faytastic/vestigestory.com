@@ -8,6 +8,7 @@ $base-path: '../' !default;
 @import 'base/normalize';
 @import 'base/typography';
 @import 'base/layout';
+@import 'components/anchors';
 @import 'components/buttons';
 @import 'modules/header';
 @import 'modules/storybook/dynamicbackground';

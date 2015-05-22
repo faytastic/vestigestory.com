@@ -3,6 +3,8 @@
  *  (c) Vestige <http://vestigestory.com>
  */
 
+@import '../base/mixins';
+
 $base-path: '../../' !default;
 $thumbnail-size-large: 200px;
 $thumbnail-size-medium: 150px;
@@ -29,13 +31,23 @@ main.collection
         {
             bottom: 0px;
             left: 0px;
-            width: auto; // will be resized in code
-            height: auto;
+            width: 0; // will be resized in code
+            height: $thumbnail-size-small;
             text-align: left;
             display: block;
             overflow-x: hidden;
             overflow-y: hidden;
             position: absolute;
+
+            @include longer-than(500)
+            {
+                height: $thumbnail-size-medium;
+            }
+
+            @include longer-than(700)
+            {
+                height: $thumbnail-size-large;
+            }
 
             .touch &
             {
@@ -60,13 +72,13 @@ main.collection
                 position: relative;
                 box-sizing: border-box;
 
-                @media only screen and (min-height: 500px)
+                @include longer-than(500)
                 {
                     width: $thumbnail-size-medium;
                     height: $thumbnail-size-medium;
                 }
 
-                @media only screen and (min-height: 700px)
+                @include longer-than(700)
                 {
                     width: $thumbnail-size-large;
                     height: $thumbnail-size-large;
@@ -150,7 +162,7 @@ main.collection
                     transition: opacity 0.4s ease-out;
                 }
 
-                figure
+                div.slides
                 {
                     top: 0px;
                     height: 100%;
@@ -180,22 +192,22 @@ main.collection
                         transition-duration: 0.5s;
                     }
 
-                    div.image-wrapper
+                    .cssanimations &.state-active
+                    {
+                        animation: reveal 1.0s;
+                    }
+
+                    figure
                     {
                         width: 100vw;
                         height: 100%;
                         vertical-align: top;
                         display: inline-block;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        background-size: cover;
                         position: relative;
                         overflow: hidden;
-
-                        img
-                        {
-                            left: 50%;
-                            top: 50%;
-                            transform: translateY(-50%) translateX(-50%);
-                            position: absolute;
-                        }
                     }
                 }
 
@@ -316,53 +328,6 @@ main.collection
         }
     }
 
-    h2
-    {
-        font-size: 24px;
-        text-align: left;
-        color: #666;
-        display: block;
-        position: relative;
-
-        @media only screen and (min-width: 768px)
-        {
-            font-size: 30px;
-        }
-    }
-
-    h3
-    {
-        padding: 10px 10px 20px 0px;
-        font-size: 14px;
-        color: #707070;
-        text-align: left;
-        display: block;
-        position: relative;
-
-        @media only screen and (min-width: 768px)
-        {
-            font-size: 18px;
-        }
-    }
-
-    h4
-    {
-        margin-bottom: 15px;
-        font-size: 18px;
-        text-align: left;
-        color: #606060;
-    }
-
-    p
-    {
-        color: #707070;
-    }
-
-    a:hover
-    {
-        text-decoration: underline;
-    }
-
     button.size
     {
         margin-left: 5px;
@@ -446,5 +411,18 @@ main.collection
             width: 35px;
             height: 35px;
         }
+    }
+}
+
+@keyframes reveal
+{
+    0%
+    {
+        opacity: 0.0;
+    }
+
+    100%
+    {
+        opacity: 1.0;
     }
 }

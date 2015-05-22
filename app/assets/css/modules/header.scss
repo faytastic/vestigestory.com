@@ -10,16 +10,67 @@ $base-path: '../../' !default;
 
 header#menu
 {
-    @media only screen and (min-width: 768px)
+    top: 0px;
+    pointer-events: none;
+    display: block;
+    position: fixed;
+    z-index: $header-z-index;
+
+    h1.logo
     {
-        top: 0px;
+        width: 31px;
+        height: 30px;
+        font-size: 0px;
+        background: url($base-path+'images/components/logos/vestige-logo.svg') no-repeat;
+        background-size: auto 100%;
+        vertical-align: top;
+        display: inline-block;
+        position: relative;
+    }
+
+    a
+    {
+        color: #000;
+    }
+
+    button.menu
+    {
+        top: 20px;
+        right: 10px;
+        position: absolute;
+        pointer-events: auto;
+        transition: all 0.5s ease-in-out;
+    }
+
+    nav
+    {
+        li
+        {
+            a,
+            a.inactive
+            {
+                opacity: 0.5;
+
+                .csstransitions &
+                {
+                    transition: opacity 0.2s ease-out, text-decoration 0.2s ease-out;
+                }
+            }
+
+            a:hover,
+            a.active
+            {
+                opacity: 1.0;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    @include wider-than(767)
+    {
         width: 100%;
         height: 70px;
         background-color: transparent;
-        pointer-events: none;
-        display: block;
-        position: fixed;
-        z-index: $header-z-index;
 
         .csstransitions &
         {
@@ -53,15 +104,7 @@ header#menu
         h1.logo
         {
             margin: 20px 20px 20px 30px;
-            width: 31px;
-            height: 30px;
-            font-size: 0px;
-            background: url($base-path+'images/components/logos/vestige-logo.svg') no-repeat;
-            background-size: auto 100%;
-            vertical-align: top;
             float: left;
-            display: inline-block;
-            position: relative;
         }
 
         nav
@@ -86,57 +129,18 @@ header#menu
                 {
                     margin-right: 20px;
                 }
-
-                a,
-                a.inactive
-                {
-                    opacity: 0.5;
-
-                    .csstransitions &
-                    {
-                        transition: opacity 0.2s ease-out;
-                    }
-                }
-
-                a:hover,
-                a.active
-                {
-                    opacity: 1.0;
-                }
             }
         }
     }
 
-    @media only screen and (max-width: 767px)
+    @include narrower-than(768)
     {
-        top: 0px;
         right: 0px;
         height: 100%;
-        pointer-events: none;
-        display: block;
-        position: fixed;
-        z-index: $header-z-index;
 
         h1.logo
         {
             margin: 20px 0px 20px 30px;
-            width: 31px;
-            height: 30px;
-            font-size: 0px;
-            background: url($base-path+'images/components/logos/vestige-logo.svg') no-repeat;
-            background-size: auto 100%;
-            vertical-align: top;
-            display: inline-block;
-            position: relative;
-        }
-
-        button.menu
-        {
-            top: 20px;
-            right: 10px;
-            position: absolute;
-            pointer-events: auto;
-            transition: all 0.5s ease-in-out;
         }
 
         nav
@@ -178,23 +182,6 @@ header#menu
                 line-height: 30px;
                 letter-spacing: 2px;
                 display: block;
-
-                a,
-                a.inactive
-                {
-                    opacity: 0.5;
-
-                    .csstransitions &
-                    {
-                        transition: opacity 0.2s ease-out;
-                    }
-                }
-
-                a:hover,
-                a.active
-                {
-                    opacity: 1.0;
-                }
             }
         }
     }

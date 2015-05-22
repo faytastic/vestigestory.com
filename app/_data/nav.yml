@@ -15,3 +15,15 @@
 -   name: Journal
     target: journal
     url: /journal
+
+-   name: Stockist
+    target: stockist
+    url: /stockist
+
+-   name: Press
+    target: press
+    url: /press
+
+-   name: Contact
+    target: contact
+    url: /contact

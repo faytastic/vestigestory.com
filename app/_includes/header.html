@@ -1,4 +1,4 @@
-<header id="menu" class="{{ include.class }}">
+<header id="menu" {% if include.auto_hide == true %}class="auto-hide"{% endif %}">
     <nav>
         {% for item in site.data.nav %}
             <li data-type="{{ item.target }}"><a href="{{ item.url }}" {% if include.target == item.target %}class="active"{% endif %} target="_self">{{ item.name | upcase }}</a></li>

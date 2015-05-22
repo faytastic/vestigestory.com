@@ -167,15 +167,6 @@ main.journal
                 display: inline-block;
             }
 
-            h2
-            {
-                width: 100%;
-                color: #666;
-                text-align: left;
-                font-size: 18px;
-                position: relative;
-            }
-
             span.date
             {
                 margin: 0px 0px 10px 0px;
@@ -196,6 +187,7 @@ main.journal
 
     h2
     {
+        margin: 0px;
         width: 100%;
         font-size: 60px;
         color: #c2c2c2;
@@ -210,6 +202,7 @@ main.journal
 
     h3
     {
+        margin: 0px;
         padding: 10px;
         font-size: 20px;
         width: 50%;
