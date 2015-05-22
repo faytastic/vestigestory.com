@@ -65,7 +65,7 @@ main.post
 
     h3
     {
-        margin: 30px auto;
+        margin: 45px auto 30px auto;
         font-size: 40px;
         line-height: 50px;
         text-align: center;
@@ -82,14 +82,30 @@ main.post
 
     h4
     {
-        margin: 50px auto;
+        margin: 45px auto 30px auto;
         font-size: 26px;
-        line-height: 40px;
+        line-height: 1.2em;
         text-align: center;
         color: #666;
         display: block;
         box-sizing: border-box;
         position: relative;
+    }
+
+    h5
+    {
+        margin: 30px auto 20px auto;
+        padding: 0px;
+        font-size: 24px;
+        line-height: 1.2em;
+    }
+
+    h6
+    {
+        margin: 20px auto 10px auto;
+        padding: 0px;
+        font-size: 20px;
+        line-height: 1.2em;
     }
 
     img
@@ -137,6 +153,17 @@ main.post
     {
         color: #666;
         text-align: left;
+
+        & + p,
+        {
+            margin-top: 30px;
+        }
+
+        & + ul,
+        & + ol
+        {
+            margin-top: 15px;
+        }
     }
 
     em
@@ -158,8 +185,9 @@ main.post
         }
     }
 
-    ol
+    ol, ul
     {
+        margin: 30px 0px;
         padding: 0px 50px;
         list-style: decimal;
 
@@ -169,15 +197,14 @@ main.post
         }
     }
 
+    ol
+    {
+        list-style: decimal;
+    }
+
     ul
     {
-        padding: 0px 50px;
         list-style: circle;
-
-        li
-        {
-            list-style: inherit;
-        }
     }
 
     hr
