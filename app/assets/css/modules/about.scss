@@ -7,59 +7,32 @@ $base-path: '../../' !default;
 
 main.about
 {
-    @extend .vs-fluid-block;
-
-    height: 100%;
-    background-color: #f7f7f7;
-
     section.vestige
     {
-        padding: 80px 10%;
-        width: 100%;
-        height: auto;
         min-height: 500px;
-        text-align: center;
-        background-color: #f7f7f7;
         vertical-align: middle;
-        display: inline-block;
-        position: relative;
-
-        @media only screen and (min-width: 700px)
-        {
-            padding: 80px 10%;
-        }
-
-        @media only screen and (min-width: 1025px)
-        {
-            padding: 80px 20%;
-        }
     }
 
     section.contact
     {
-        width: 100%;
-        height: auto;
         background-color: #dadada;
-        text-align: center;
-        display: inline-block;
-        position: relative;
 
         .column
         {
-            padding: 30px 30px;
+            padding: 0px 30px;
             width: 100%;
             height: 100%;
             display: inline-block;
 
             @media only screen and (min-width: 768px)
             {
-                padding: 50px 20px;
+                padding: 0px 20px;
                 width: 344px;
             }
 
             @media only screen and (min-width: 900px)
             {
-                padding: 50px 40px;
+                padding: 0px 40px;
                 width: 370px;
             }
 

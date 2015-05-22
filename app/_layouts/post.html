@@ -28,12 +28,12 @@ layout: default
             <a class="share facebook" href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Facebook">Facebook</a>
             <a class="share gplus" href="https://plus.google.com/share?url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Google+">Google+</a>
         </div>
-        <div class="author">
-            <span class="published">Published on {{ page.date | date: '%B %d, %Y' }} by</span>
-            <img class="gravatar" src="http://www.gravatar.com/avatar/{{ author.gravatar }}?s=60">
-            <span class="name">{{ author.name }}</span>
-            <p>{{ author.biography }}</p>
-        </div>
+    </section>
+    <section class="author">
+        <span class="published">Published on {{ page.date | date: '%B %d, %Y' }} by</span>
+        <img class="gravatar" src="http://www.gravatar.com/avatar/{{ author.gravatar }}?s=60">
+        <span class="name">{{ author.name }}</span>
+        <p>{{ author.biography }}</p>
     </section>
 </main>
 

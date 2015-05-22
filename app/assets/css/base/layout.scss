@@ -3,6 +3,8 @@
  *  (c) Vestige <http://vestigestory.com>
  */
 
+@import './mixins';
+
 $base-path: '../../' !default;
 
 html,
@@ -20,10 +22,35 @@ body
 
 main
 {
+    @extend .vs-fluid-block;
+
     width: 100%;
     min-width: 320px;
     height: 100%;
     position: absolute;
+
+    section
+    {
+        padding: 80px 50px;
+        width: 100%;
+        height: auto;
+        background: transparent;
+        text-align: center;
+        vertical-align: middle;
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+
+        @include wider-than(700)
+        {
+            padding: 80px 10%;
+        }
+
+        @include wider-than(1024)
+        {
+            padding: 80px 20%;
+        }
+    }
 
     @media only screen and (min-width: 980px)
     {
