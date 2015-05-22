@@ -87,7 +87,7 @@ gulp.task('styles', function()
     var skipCSSO = $.util.env['skip-csso'] || $.util.env['sc'] || debug;
 
     return gulp.src('.generated/assets/css/*.'+STYLES_PATTERN)
-        .pipe($.if(!debug, $.sourcemaps.init()))
+        .pipe($.if(debug, $.sourcemaps.init()))
         .pipe($.sass({
             outputStyle: 'nested',
             precision: 10,
@@ -96,7 +96,7 @@ gulp.task('styles', function()
         }))
         .pipe($.postcss([require('autoprefixer-core')({ browsers: ['last 2 version', 'ie 9'] })]))
         .pipe($.if(!skipCSSO, $.csso()))
-        .pipe($.if(!debug, $.sourcemaps.write()))
+        .pipe($.if(debug, $.sourcemaps.write()))
         .pipe(gulp.dest('.tmp/assets/css'));
 });
 
@@ -130,9 +130,9 @@ gulp.task('scripts', function()
                         next(null, file);
                     });
             }))
-            .pipe($.if(!debug, $.sourcemaps.init({ loadMaps: true })))
+            .pipe($.if(debug, $.sourcemaps.init({ loadMaps: true })))
             .pipe($.if(!skipUglify, $.uglify())).on('error', $.util.log)
-            .pipe($.if(!debug, $.sourcemaps.write('./')))
+            .pipe($.if(debug, $.sourcemaps.write('./')))
             .pipe(gulp.dest('.tmp/assets/js')),
         gulp.src(['.generated/assets/vendor/**/*.'+SCRIPTS_PATTERN])
             .pipe($.if(!skipUglify, $.uglify())).on('error', $.util.log)
