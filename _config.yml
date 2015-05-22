@@ -28,8 +28,5 @@ defaults:
         layout: 'post'
 
 prose:
-    rooturl: 'app/journal/_posts'
+    rooturl: 'app/journal'
     media: 'app/assets/images/journal'
-    ignore:
-        - Gemfile
-        - Gemfile.lock
