@@ -30,3 +30,15 @@ defaults:
 prose:
     rooturl: 'app/journal'
     media: 'app/assets/images/journal'
+    ignore:
+        - index.html
+        - _data
+        - _includes
+        - _layouts
+        - about
+        - collection
+        - contact
+        - press
+        - stockist
+        - .htaccess
+        - 404.html
