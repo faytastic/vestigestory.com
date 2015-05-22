@@ -42,3 +42,4 @@ prose:
         - stockist
         - .htaccess
         - 404.html
+        - *.png
