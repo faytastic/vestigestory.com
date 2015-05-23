@@ -11,7 +11,10 @@ Set up remote Git repositories. The source code is hosted on GitHub, while the a
 1. Clone this project:
   - ```$ git clone https://github.com/andrewscwei/vestigestory.com.git```
 
-2. Set up Heroku remotes for all 3 environments: prod, stage and dev.
+2. ```cd``` into it
+  - ```$ cd vestigestory.com```
+
+3. Set up Heroku remotes for all 3 environments: prod, stage and dev.
   - ```$ git remote add prod https://git.heroku.com/vestigestory-com.git```
   - ```$ git remote add stage https://git.heroku.com/vestigestory-com-stage.git```
   - ```$ git remote add dev https://git.heroku.com/vestigestory-com-dev.git```
