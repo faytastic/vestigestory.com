@@ -107,3 +107,4 @@ Please assume the following conventions:
 
 1. All images used for blog posts should reside ```/app/assets/images/journal/```, grouped by the post's year and month respectively. For example, if you were to upload an image ```picture.jpg``` for a post dated June 2015, its path would be: ```/app/assets/images/journal/2015/06/picture.jpg```. In [prose.io](http://prose.io), the default image path ```/app/assets/images/journal/``` is automatically set for you when you comfirm your image upload. Please manually insert the year and the month to the path prior to confirming the upload.
 
+2. All posts reside in either ```/app/journal/_drafts/``` or ```/app/journal/_posts/```, one for unpublished drafts and one for live posts. Drafts are viewable in the dev Heroku instance ```vestigestory-com-dev``` only. Do preview your posts in the form of drafts first before deploying them to the live site.
