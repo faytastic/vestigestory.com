@@ -20,7 +20,7 @@ defaults:
         layout: 'post'
 
 prose:
-    rooturl: 'app/journal'
+    rooturl: 'app'
     media: 'app/assets/images/journal'
     ignore:
         -   index.html
