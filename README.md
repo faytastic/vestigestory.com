@@ -19,6 +19,18 @@ Set up remote Git repositories. The source code is hosted on GitHub, while the a
   - ```$ git remote add stage https://git.heroku.com/vestigestory-com-stage.git```
   - ```$ git remote add dev https://git.heroku.com/vestigestory-com-dev.git```
 
+4. Verify that your remotes are set up correctly by doing: ```$ git remote -v```. You should see the following:
+  ```
+  dev	https://git.heroku.com/vestigestory-com-dev.git (push)
+  dev	https://git.heroku.com/vestigestory-com-dev.git (fetch)
+  origin	https://github.com/andrewscwei/vestigestory.com.git (fetch)
+  origin	https://github.com/andrewscwei/vestigestory.com.git (push)
+  prod	https://git.heroku.com/vestigestory-com.git (push)
+  prod	https://git.heroku.com/vestigestory-com.git (fetch)
+  stage	https://git.heroku.com/vestigestory-com-stage.git (fetch)
+  stage	https://git.heroku.com/vestigestory-com-stage.git (push)
+  ```
+
 ### Local
 
 Do the following to get the project up and running in your local machine.
