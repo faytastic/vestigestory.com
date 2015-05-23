@@ -2,17 +2,9 @@ source: app
 destination: public
 
 include: [.htaccess]
-keep_files: [assets]
 
 permalink: /:categories/:title/
 highlighter: pygments
-
-info_email: info@vestigestory.com
-accounts_email: accounts@vestigestory.com
-press_email: press@vestigestory.com
-facebook: https://www.facebook.com/vestigestory
-instagram: https://instagram.com/vestige_story/
-pinterest: https://www.pinterest.com/vestigestory/
 
 defaults:
 -   scope:
@@ -31,28 +23,66 @@ prose:
     rooturl: 'app/journal'
     media: 'app/assets/images/journal'
     ignore:
-        - index.html
-        - _data
-        - _includes
-        - _layouts
-        - about
-        - collection
-        - contact
-        - press
-        - stockist
-        - .htaccess
-        - 404.html
-        - apple-touch-icon-114x114.png
-        - apple-touch-icon-57x57.png
-        - apple-touch-icon-72x72.png
-        - apple-touch-icon.png
-        - favicon.ico
-        - favicon.png
-        - og-image.png
-        - robots.txt
-        - /app/assets/css
-        - /app/assets/js
-        - /app/assets/vendor
-        - /app/assets/videos
-        - /app/assets/images/components
-        - /app/assets/images/storybook
+        -   index.html
+        -   _data
+        -   _includes
+        -   _layouts
+        -   about
+        -   collection
+        -   contact
+        -   press
+        -   stockist
+        -   .htaccess
+        -   404.html
+        -   apple-touch-icon-114x114.png
+        -   apple-touch-icon-57x57.png
+        -   apple-touch-icon-72x72.png
+        -   apple-touch-icon.png
+        -   favicon.ico
+        -   favicon.png
+        -   og-image.png
+        -   robots.txt
+        -   /app/assets/css
+        -   /app/assets/js
+        -   /app/assets/vendor
+        -   /app/assets/videos
+        -   /app/assets/images/components
+        -   /app/assets/images/storybook
+    metadata:
+        -   name: 'title'
+                field:
+                    element: text
+                    label: Title
+                    help: 'This is the title which appears in the cover of the post. The title also appears as the tab name of the browser.'
+                    placeholder: 'Change the post title here'
+                    type: text
+
+        -   name: 'author'
+                field:
+                    element: select
+                    label: Author
+                    help: 'Select the author of this post.'
+                    options:
+                        -   name: 'Aileen'
+                            value: 'aileen'
+
+        -   name: 'cover'
+                field:
+                    element: text
+                    label: Cover Photo
+                    help: 'This is the cover photo of this post. Please specify the relative path to the image in the following format: /assets/images/journal/{year}/{month}/{file-name} (i.e. /assets/images/journal/2015/04/cover.jpg).'
+                    value: '/assets/images/journal/'
+                    placeholder: '/assets/images/journal/{year}/{month}/{file-name}'
+
+        -   name: 'language'
+                field:
+                    element: select
+                    label: language
+                    help: 'Select the language of this post (defaults to English). This affects the fonts used.'
+                    options:
+                        -   name: 'English'
+                            value: 'en'
+                        -   name: 'French'
+                            value: 'fr'
+                        -   name: 'Japanese'
+                            value: 'jp'

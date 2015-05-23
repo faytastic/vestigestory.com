@@ -23,8 +23,8 @@ Inspirational Prize: The contestant with the most likes on one message will also
 ## How To Enter
 
 1. Write a message of no more than 10 words.
-2. Follow us on [Facebook]({{ site.facebook }}) or [Instagram]({{ site.instagram }}), and post up your message as an image. You can write it on a piece of paper, type it out on photoshop, pen it across your forehead — be creative!
-3. Tag your post with Vestige’s official page on [Facebook]({{ site.facebook }}}]) or with [#VestigeGiveAMessage](https://instagram.com/explore/tags/VestigeGiveAMessage/) on [Instagram]({{ site.instagram }}).
+2. Follow us on [Facebook]({{ site.data.social.facebook }}) or [Instagram]({{ site.data.social.instagram }}), and post up your message as an image. You can write it on a piece of paper, type it out on photoshop, pen it across your forehead — be creative!
+3. Tag your post with Vestige’s official page on [Facebook]({{ site.data.social.facebook }}}]) or with [#VestigeGiveAMessage](https://instagram.com/explore/tags/VestigeGiveAMessage/) on [Instagram]({{ site.data.social.instagram }}).
 4. Winners will be announced on March 30th.
 
 ## Guideline

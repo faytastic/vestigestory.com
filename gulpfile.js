@@ -28,7 +28,8 @@ var sequence = require('run-sequence');
 
 /**
  * Runs the Jekyll build task to generate all the templates. These files are generated to the
- * '.generated' directory.
+ * '.generated' directory. Drafts are automatically built in debug mode.
+ * @param {Boolean} --debug Specifies debug environment, builds drafts as well.
  */
 gulp.task('generate', function(callback)
 {
@@ -253,6 +254,7 @@ gulp.task('serve', function()
     // Watch for changes.
     if (debug)
     {
+        gulp.watch('_config.yml', function() { sequence('generate', 'build', browserSync.reload); });
         gulp.watch('app/**/*.'+DATA_PATTERN, function() { sequence('generate', 'build', browserSync.reload); });
         gulp.watch('app/**/*.'+IMAGES_PATTERN, function() { sequence('generate', 'images', browserSync.reload); });
         gulp.watch('app/**/*.'+STYLES_PATTERN, function() { sequence('generate', 'styles', browserSync.reload); });
@@ -261,6 +263,7 @@ gulp.task('serve', function()
     }
     else
     {
+        gulp.watch('_config.yml', function() { sequence('generate', 'build', browserSync.reload); });
         gulp.watch('app/**/*.'+DATA_PATTERN, function() { sequence('generate', 'build', browserSync.reload); });
         gulp.watch('app/**/*.'+IMAGES_PATTERN, function() { sequence('generate', 'build', browserSync.reload); });
         gulp.watch('app/**/*.'+STYLES_PATTERN, function() { sequence('generate', 'build', browserSync.reload); });
