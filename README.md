@@ -24,14 +24,10 @@ Test dev environment:
 $ gulp --debug --serve
 ```
 
-Visit ```localhost:9000``` in browser; by default you should see 'Hello, World!'.
-
 Test prod environment:
 ```
 $ gulp --serve
 ```
-
-Visit ```localhost:9000``` in browser; by default you should see 'Hello, World!'.
 
 ## Tasks
 
@@ -75,7 +71,7 @@ See ```gulpfile.js``` for more tasks and custom flags such as ```--skip-uglify``
 
 Currently ```vestigestory.com``` is hosted in Heroku, with two app instances: ```vestigestory-com``` and ```vestigestory-com-stage```, where one is the production environment (live) and one is the staging environment, respectively. 
 
-The production environment ```vestigestory-com``` is linked to GitHub with automatic deploy **disabled**. It is also configured to execute the ```gulp``` build task in production, thus undergoing a series of asset compression steps. It is not recommended to overload this environment during development. Test your changes in the staging app instead, and when ready, manually deploy to Heroku. This 
+The production environment ```vestigestory-com``` is linked to GitHub with automatic deploy **disabled**. It is also configured to execute the ```gulp``` build task in production, thus undergoing a series of asset compression steps. It is not recommended to overload this environment during development. Test your changes in the staging app instead, and when ready, manually deploy to Heroku.
 
 The staging environment ```vestigestory-com-stage``` is for development use only. It is linked to GitHub as well with automatic deploy **enabled**. Thus every push to GitHub will consequently kickoff a deploy to this instance. Its ```gulp``` build task is also configured to run in debug. This is the best environment to test your changes before deploying them to production. Note that this instance is using Heroku's free tier service, meaning that it only has 1 dyno instance that sleeps after 30 minutes of inactivity.
 
