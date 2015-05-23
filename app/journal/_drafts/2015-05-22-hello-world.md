@@ -1,9 +1,9 @@
 ---
-published: false
 title: Hello World
 author: aileen
 cover: "/assets/images/journal/2015/04/his-story-cover.jpg"
 language: en
+published: true
 ---
 
 # Hello World
