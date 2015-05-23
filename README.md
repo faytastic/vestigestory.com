@@ -105,5 +105,5 @@ For a user-friendly UI, use [prose.io](http://prose.io) to add/modify/remove blo
 
 Please assume the following conventions:
 
-1. All images used for blog posts should reside ```app/assets/images/journal```, grouped by the post's year and month respectively. For example, if you were to upload an image ```picture.jpg``` for a post dated June 2015, its path would be: ```app/assets/images/journal/2015/06/picture.jpg```. In ```prose.io```, the default image path ```app/assets/images/journal``` is automatically set for you when you comfirm your image upload. Please manually insert the year and the month to the path prior to confirming the upload.
+1. All images used for blog posts should reside ```/app/assets/images/journal/```, grouped by the post's year and month respectively. For example, if you were to upload an image ```picture.jpg``` for a post dated June 2015, its path would be: ```/app/assets/images/journal/2015/06/picture.jpg```. In [prose.io](http://prose.io), the default image path ```/app/assets/images/journal/``` is automatically set for you when you comfirm your image upload. Please manually insert the year and the month to the path prior to confirming the upload.
 
