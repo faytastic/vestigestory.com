@@ -1,6 +1,6 @@
 # vestigestory.com
 
-This is the official website of Vestige. This project is a static, database-less, blog-aware site that uses [Jekyll](http://jekyllrb.com) streamlined by [Gulp](http://gulpjs.com). Ensure that you have the right dependencies installed and set up prior to making modifications.
+This is the official website of Vestige. This project is a static, database-less, blog-aware site that uses the [Jekyll](http://jekyllrb.com) generator and streamlined by [Gulp](http://gulpjs.com). Ensure that you have the right dependencies installed and set up prior to making modifications.
 
 ## Dependencies
 
