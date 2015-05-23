@@ -49,57 +49,19 @@ prose:
         -   /app/assets/images/components
         -   /app/assets/images/storybook
     metadata:
-        _drafts:
-            -   name: 'title'
-                field:
-                    element: text
-                    label: Title
-                    help: 'This is the title which appears in the cover of the post. The title also appears as the tab name of the browser.'
-                    placeholder: 'Change the post title here'
-                    type: text
-
-            -   name: 'author'
-                field:
-                    element: select
-                    label: Author
-                    help: 'Select the author of this post.'
-                    options:
-                        -   name: 'Aileen'
-                            value: 'aileen'
-
-            -   name: 'cover'
-                field:
-                    element: text
-                    label: Cover Photo
-                    help: 'This is the cover photo of this post. Please specify the relative path to the image in the following format: /assets/images/journal/{year}/{month}/{file-name} (i.e. /assets/images/journal/2015/04/cover.jpg).'
-                    value: '/assets/images/journal/'
-                    placeholder: '/assets/images/journal/{year}/{month}/{file-name}'
-
-            -   name: 'language'
-                field:
-                    element: select
-                    label: language
-                    help: 'Select the language of this post (defaults to English). This affects the fonts used.'
-                    options:
-                        -   name: 'English'
-                            value: 'en'
-                        -   name: 'French'
-                            value: 'fr'
-                        -   name: 'Japanese'
-                            value: 'jp'
         _posts:
             -   name: 'title'
                 field:
-                    element: text
-                    label: Title
+                    element: 'text'
+                    label: 'Title'
                     help: 'This is the title which appears in the cover of the post. The title also appears as the tab name of the browser.'
                     placeholder: 'Change the post title here'
                     type: text
 
             -   name: 'author'
                 field:
-                    element: select
-                    label: Author
+                    element: 'select'
+                    label: 'Author'
                     help: 'Select the author of this post.'
                     options:
                         -   name: 'Aileen'
@@ -107,16 +69,16 @@ prose:
 
             -   name: 'cover'
                 field:
-                    element: text
-                    label: Cover Photo
+                    element: 'text'
+                    label: 'Cover Photo'
                     help: 'This is the cover photo of this post. Please specify the relative path to the image in the following format: /assets/images/journal/{year}/{month}/{file-name} (i.e. /assets/images/journal/2015/04/cover.jpg).'
                     value: '/assets/images/journal/'
                     placeholder: '/assets/images/journal/{year}/{month}/{file-name}'
 
             -   name: 'language'
                 field:
-                    element: select
-                    label: language
+                    element: 'select'
+                    label: 'language'
                     help: 'Select the language of this post (defaults to English). This affects the fonts used.'
                     options:
                         -   name: 'English'
