@@ -103,10 +103,10 @@ Please assume the following conventions:
 
 There are 3 Heroku instances available for previewing the compiled site, as follows:
 
-1. [```vestigestory-com```](http://vestigestory.com) (prod): This is the instance that serves the live site. What you see here is what users see.
+1. [```vestigestory-com```](http://vestigestory.com) (prod): This is the instance that serves the live site. What you see here is what users see. This instance links to the [core GitHub repo](https://github.com/andrewscwei/vestigestory.com) with auto deploy **disabled**. You must manually deploy to this instance (for now).
 
-2. [```vestigestory-com-stage```](http://vestigestory-com-stage.herokuapp.com) (stage): This is the instance that serves a replica of the live site. Prior to deploying changes to the live site, they should QA'd here first. All configuration settings in this instance is the same as the prod instance, so its safe to assume that what you see here will be what users see.
+2. [```vestigestory-com-stage```](http://vestigestory-com-stage.herokuapp.com) (stage): This is the instance that serves a replica of the live site. Prior to deploying changes to the live site, they should QA'd here first. All configuration settings in this instance is the same as the prod instance, so its safe to assume that what you see here will be what users see. This instance links to the [core GitHub repo](https://github.com/andrewscwei/vestigestory.com) with auto deploy **enabled**. Any push to the [core repo](https://github.com/andrewscwei/vestigestory.com) will trigger a deploy to this instance.
 
-3. [```vestigestory-com-dev```](http://vestigestory-com-dev.herokuapp.com) (dev): This is the instance that serves the project in debug configuration, meaning that there are no asset compression, whatsoever. During development you should test your changes here for faster build iteration. Bloggers can test their drafts here as well.
+3. [```vestigestory-com-dev```](http://vestigestory-com-dev.herokuapp.com) (dev): This is the instance that serves the project in debug configuration, meaning that there are no asset compression, whatsoever. During development you should test your changes here for faster build iteration. Bloggers can test their drafts here as well. This instance links to the [core GitHub repo](https://github.com/andrewscwei/vestigestory.com) with auto deploy **enabled**. Any push to the [core repo](https://github.com/andrewscwei/vestigestory.com) will trigger a deploy to this instance.
 
-If both stage and dev instances pass the auto build, you can safely manually deploy to the prod instance in the Heroku dashboard.
+When both stage and dev instances pass the auto build, you can safely deploy to the prod instance in the [Heroku dashboard](https://dashboard.heroku.com/apps/vestigestory-com/deploy/github).
