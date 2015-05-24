@@ -17,7 +17,7 @@ var STYLES_PATTERN = '{css,scss}';
 var TEMPLATES_PATTERN = '{html,shtml,htm,html.erb,asp,php,md}';
 var DATA_PATTERN = '{json,yml,csv}';
 var FONTS_PATTERN = '{eot,svg,ttf,woff,woff2}';
-var EXTRAS_PATTERN = '{htaccess,txt}';
+var EXTRAS_PATTERN = '{txt}';
 var FILE_EXCLUDE_PATTERN = '{psd,ai}';
 
 // Load modules.
@@ -154,11 +154,11 @@ gulp.task('scripts', function()
 });
 
 /**
- * Deploys extra files (i.e. .htaccess).
+ * Deploys extra files (i.e. robots.txt).
  */
 gulp.task('extras', function()
 {
-    return gulp.src(['.generated/**/*.'+EXTRAS_PATTERN, '.generated/**/.'+EXTRAS_PATTERN])
+    return gulp.src(['.generated/**/*.'+EXTRAS_PATTERN])
         .pipe(gulp.dest('.tmp'));
 });
 
@@ -177,7 +177,7 @@ gulp.task('static', ['images', 'videos', 'styles', 'scripts', 'extras'], functio
 
     return merge
     (
-        gulp.src(['.tmp/**/*.'+EXTRAS_PATTERN, '.tmp/**/.'+EXTRAS_PATTERN])
+        gulp.src(['.tmp/**/*.'+EXTRAS_PATTERN])
             .pipe(gulp.dest('public')),
         gulp.src(['.tmp/assets/**/*.'+IMAGES_PATTERN, '.tmp/assets/**/*.'+VIDEOS_PATTERN, '.tmp/assets/**/*.'+STYLES_PATTERN, '.tmp/assets/**/*.'+SCRIPTS_PATTERN])
             .pipe($.if(!skipRev, $.rev()))
