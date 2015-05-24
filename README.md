@@ -89,16 +89,6 @@ This guideline refers to creating a new Heroku app from scratch.
 
 See ```gulpfile.js``` for more tasks and custom flags such as ```--skip-uglify```, ```--skip-csso```, etc.
 
-## Deploying
-
-Currently ```vestigestory.com``` is hosted on Heroku, with 3 app instances: ```vestigestory-com```, ```vestigestory-com-stage```, and ```vestigestory-com-dev```, representing the production (live), staging, and development environments respectively. 
-
-The production environment ```vestigestory-com``` is linked to the core GitHub repo with automatic deploy **disabled**. It also configured to execute the ```gulp``` build task in production, thus undergoing a series of asset compression steps. It is not recommended to overload this environment during development. Test your changes in the stage/dev instances instead, and when ready, manually deploy to this instance.
-
-The staging environment ```vestigestory-com-stage``` is for development use only. It is linked to the core GitHub repo with automatic deploy **enabled**. Thus every push to GitHub will consequently kickoff a deploy to this instance. Its ```gulp``` build task is also configured to run in production. This is the best environment to test your changes before deploying them to production since it resembles the production instance the most. Note that this instance is using Heroku's free tier service, meaning that it only has 1 dyno instance that sleeps after 30 minutes of inactivity.
-
-The stage environment ```vestigestory-com-dev``` is for development use only. It is linked to the core GitHub repo with automatic deploy **enabled**. Its ```gulp``` build task is configured to run in debug, so use this instance to test changes quicker. Note that this instance is using Heroku's free tier service, meaning that it only has 1 dyno instance that sleeps after 30 minutes of inactivity.
-
 ## Blogging
 
 For a user-friendly UI, use [prose.io](http://prose.io) to add/modify/remove blog posts as well as uploading required images. Note that in [prose.io](http://prose.io), any file/directory that is irrelevant to blogging will be hidden from the UI for security reasons.
@@ -109,9 +99,9 @@ Please assume the following conventions:
 
 2. All posts reside in either ```/app/journal/_drafts/``` or ```/app/journal/_posts/```, one for unpublished drafts and one for live posts. Drafts are viewable in the dev Heroku instance ```vestigestory-com-dev``` only. Do preview your posts in the form of drafts first before deploying them to the live site.
 
-## Previewing
+## Deploying
 
-As mentioned above, there are 3 Heroku instances available for previewing the compiled site, as follows:
+There are 3 Heroku instances available for previewing the compiled site, as follows:
 
 1. [```vestigestory-com```](http://vestigestory.com) (prod): This is the instance that serves the live site. What you see here is what users see.
 
@@ -119,3 +109,4 @@ As mentioned above, there are 3 Heroku instances available for previewing the co
 
 3. [```vestigestory-com-dev```](http://vestigestory-com-dev.herokuapp.com) (dev): This is the instance that serves the project in debug configuration, meaning that there are no asset compression, whatsoever. During development you should test your changes here for faster build iteration. Bloggers can test their drafts here as well.
 
+If both stage and dev instances pass the auto build, you can safely manually deploy to the prod instance in the Heroku dashboard.
