@@ -108,3 +108,14 @@ Please assume the following conventions:
 1. All images used for blog posts should reside ```/app/assets/images/journal/```, grouped by the post's year and month respectively. For example, if you were to upload an image ```picture.jpg``` for a post dated June 2015, its path would be: ```/app/assets/images/journal/2015/06/picture.jpg```. In [prose.io](http://prose.io), the default image path ```/app/assets/images/journal/``` is automatically set for you when you comfirm your image upload. Please manually insert the year and the month to the path prior to confirming the upload.
 
 2. All posts reside in either ```/app/journal/_drafts/``` or ```/app/journal/_posts/```, one for unpublished drafts and one for live posts. Drafts are viewable in the dev Heroku instance ```vestigestory-com-dev``` only. Do preview your posts in the form of drafts first before deploying them to the live site.
+
+## Previewing
+
+As mentioned above, there are 3 Heroku instances available for previewing the compiled site, as follows:
+
+1. [```vestigestory-com```](http://vestigestory.com) (prod): This is the instance that serves the live site. What you see here is what users see.
+
+2. [```vestigestory-com-stage```](http://vestigestory-com-stage.herokuapp.com) (stage): This is the instance that serves a replica of the live site. Prior to deploying changes to the live site, they should QA'd here first. All configuration settings in this instance is the same as the prod instance, so its safe to assume that what you see here will be what users see.
+
+3. [```vestigestory-com-dev```](http://vestigestory-com-dev.herokuapp.com) (dev): This is the instance that serves the project in debug configuration, meaning that there are no asset compression, whatsoever. During development you should test your changes here for faster build iteration. Bloggers can test their drafts here as well.
+
