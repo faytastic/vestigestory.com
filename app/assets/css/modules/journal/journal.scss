@@ -32,6 +32,11 @@ main.journal
         @include landscape
         {
             height: 500px;
+
+            @include shorter-than(500)
+            {
+                height: 90%;
+            }
         }
 
         .csstransitions &

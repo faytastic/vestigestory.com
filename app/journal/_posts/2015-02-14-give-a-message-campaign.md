@@ -35,4 +35,4 @@ Inspirational Prize: The contestant with the most likes on one message will also
 * No limit to number of entries per person.
 * This competition is open to all participants.
 * Campaign open until March 20th, 2015
-* If you have questions, contact us at [{{ site.email }}](mailto:{{ site.email }}).
+* If you have questions, contact us at [{{ site.data.social.info_email }}](mailto:{{ site.data.social.info_email }}).
