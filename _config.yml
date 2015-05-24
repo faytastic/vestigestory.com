@@ -2,8 +2,6 @@ url: http://vestigestory.com
 source: app
 destination: public
 
-include: [.htaccess]
-
 permalink: /:categories/:title/
 highlighter: pygments
 
@@ -34,8 +32,8 @@ prose:
         -   contact
         -   press
         -   stockist
-        -   .htaccess
         -   404.html
+        -   500.html
         -   apple-touch-icon-114x114.png
         -   apple-touch-icon-57x57.png
         -   apple-touch-icon-72x72.png
