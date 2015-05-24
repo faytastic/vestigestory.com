@@ -17,6 +17,7 @@ var STYLES_PATTERN = '{css,scss}';
 var TEMPLATES_PATTERN = '{html,shtml,htm,html.erb,asp,php,md}';
 var DATA_PATTERN = '{json,yml,csv}';
 var FONTS_PATTERN = '{eot,svg,ttf,woff,woff2}';
+var EXTRAS_PATTERN = '{htaccess,txt}';
 var FILE_EXCLUDE_PATTERN = '{psd,ai}';
 
 // Load modules.
@@ -153,6 +154,15 @@ gulp.task('scripts', function()
 });
 
 /**
+ * Deploys extra files (i.e. .htaccess).
+ */
+gulp.task('extras', function()
+{
+    return gulp.src(['.generated/**/*.'+EXTRAS_PATTERN, '.generated/**/.'+EXTRAS_PATTERN])
+        .pipe(gulp.dest('.tmp'));
+});
+
+/**
  * Processes all static files (i.e. images, stylesheets, scripts, etc) and deploys them to the staging directory.
  * The staged static files are then deployed to the production directory. Option to append revision hash to the end
  * of the associated file names.
@@ -160,19 +170,21 @@ gulp.task('scripts', function()
  *                              subsequent asset compressions.
  * @param {Boolean} --skip-rev  Skips revisioning.
  */
-gulp.task('static', ['images', 'videos', 'styles', 'scripts'], function()
+gulp.task('static', ['images', 'videos', 'styles', 'scripts', 'extras'], function()
 {
     var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
     var skipRev = $.util.env['skip-rev'] || $.util.env['sr'] || debug;
 
     return merge
     (
+        gulp.src(['.tmp/**/*.'+EXTRAS_PATTERN, '.tmp/**/.'+EXTRAS_PATTERN])
+            .pipe(gulp.dest('public')),
         gulp.src(['.tmp/assets/**/*.'+IMAGES_PATTERN, '.tmp/assets/**/*.'+VIDEOS_PATTERN, '.tmp/assets/**/*.'+STYLES_PATTERN, '.tmp/assets/**/*.'+SCRIPTS_PATTERN])
             .pipe($.if(!skipRev, $.rev()))
             .pipe(gulp.dest('public/assets'))
             .pipe($.size({ title: 'build', gzip: true }))
             .pipe($.if(!skipRev, $.rev.manifest()))
-            .pipe(gulp.dest('.tmp')),
+            .pipe($.if(!skipRev, gulp.dest('.tmp'))),
         gulp.src(['.tmp/*.'+IMAGES_PATTERN, '.tmp/**/*.'+SOURCEMAPS_PATTERN])
             .pipe(gulp.dest('public'))
     );
