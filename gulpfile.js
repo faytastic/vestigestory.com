@@ -27,18 +27,26 @@ var spawn = require('child_process').spawn;
 var merge = require('merge-stream');
 var sequence = require('run-sequence');
 
+// Environment variables.
+var debug = function() { return $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG; };
+var skipImageMin = function() { return $.util.env['skip-imagemin'] || $.util.env['si'] || debug(); };
+var skipCSSO = function() { return $.util.env['skip-csso'] || $.util.env['sc'] || debug(); };
+var skipUglify = function() { return $.util.env['skip-uglify'] || $.util.env['sj'] || debug(); };
+var skipRev = function() { return $.util.env['skip-rev'] || $.util.env['sr'] || debug(); };
+var skipMinifyHTML = function() { return $.util.env['skip-minify-html'] || $.util.env['sh'] || debug(); };
+var skipRev = function() { return $.util.env['skip-rev'] || $.util.env['sr'] || debug(); };
+
 /**
  * Runs the Jekyll build task to generate all the templates. These files are generated to the
  * '.generated' directory. Drafts are automatically built in debug mode.
+ *
  * @param {Boolean} --debug Specifies debug environment, builds drafts as well.
  */
 gulp.task('generate', function(callback)
 {
-    var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
-
     var proc;
 
-    if (debug)
+    if (debug())
     {
         proc = spawn('jekyll', ['build', '--drafts', '--destination=.generated'], { stdio: 'inherit' });
     }
@@ -62,16 +70,14 @@ gulp.task('generate', function(callback)
 
 /**
  * Deploys images to the staging directory.
+ *
  * @param {Boolean} --debug         Specifies debug environment, skipping image compression.
  * @param {Boolean} --skip-imagemin Skips image compression.
  */
 gulp.task('images', function()
 {
-    var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
-    var skipImageMin = $.util.env['skip-imagemin'] || $.util.env['si'] || debug;
-
     return gulp.src(['.generated/**/*'+IMAGES_PATTERN])
-        .pipe($.if(!skipImageMin, $.cache($.imagemin({
+        .pipe($.if(!skipImageMin(), $.cache($.imagemin({
             progressive: true,
             interlaced: true,
             svgoPlugins: [{cleanupIDs: false}]
@@ -91,14 +97,12 @@ gulp.task('videos', function()
 /**
  * Processes all CSS files if preprocessed CSS languages are used (i.e. Stylus, Sass). Deploys the processed
  * files to the staging directory.
+ *
  * @param {Boolean} --debug     Specifies debug environment, skipping CSS compression.
  * @param {Boolean} --skip-csso Skips CSS compression.
  */
 gulp.task('styles', function()
 {
-    var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
-    var skipCSSO = $.util.env['skip-csso'] || $.util.env['sc'] || debug;
-
     return gulp.src('.generated/assets/css/*.'+STYLES_PATTERN)
         .pipe($.if(debug, $.sourcemaps.init()))
         .pipe($.sass({
@@ -108,7 +112,7 @@ gulp.task('styles', function()
             onError: console.error.bind(console, 'Sass error:')
         }))
         .pipe($.postcss([require('autoprefixer-core')({ browsers: ['last 2 version', 'ie 9'] })]))
-        .pipe($.if(!skipCSSO, $.csso()))
+        .pipe($.if(!skipCSSO(), $.csso()))
         .pipe($.if(debug, $.sourcemaps.write()))
         .pipe(gulp.dest('.tmp/assets/css'));
 });
@@ -116,6 +120,7 @@ gulp.task('styles', function()
 /**
  * Lints and processes all JavaScript files. If Browserify is included this task will bundle up all associated files. Processed
  * JavaScript files deployed to the staging directory.
+ *
  * @param {Boolean} --debug         Specifies debug environment, skipping JavaScript compression.
  * @param {Boolean} --skip-uglify   Skips JavaScript compression.
  */
@@ -124,9 +129,6 @@ gulp.task('scripts', function()
     var browserify = require('browserify');
     var reactify = require('reactify');
     var through = require('through2');
-
-    var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
-    var skipUglify = $.util.env['skip-uglify'] || $.util.env['sj'] || debug;
 
     return merge
     (
@@ -144,11 +146,11 @@ gulp.task('scripts', function()
                     });
             }))
             .pipe($.if(debug, $.sourcemaps.init({ loadMaps: true })))
-            .pipe($.if(!skipUglify, $.uglify())).on('error', $.util.log)
+            .pipe($.if(!skipUglify(), $.uglify())).on('error', $.util.log)
             .pipe($.if(debug, $.sourcemaps.write('./')))
             .pipe(gulp.dest('.tmp/assets/js')),
         gulp.src(['.generated/assets/vendor/**/*.'+SCRIPTS_PATTERN])
-            .pipe($.if(!skipUglify, $.uglify())).on('error', $.util.log)
+            .pipe($.if(!skipUglify(), $.uglify())).on('error', $.util.log)
             .pipe(gulp.dest('.tmp/assets/vendor'))
     );
 });
@@ -166,25 +168,23 @@ gulp.task('extras', function()
  * Processes all static files (i.e. images, stylesheets, scripts, etc) and deploys them to the staging directory.
  * The staged static files are then deployed to the production directory. Option to append revision hash to the end
  * of the associated file names.
+ *
  * @param {Boolean} --debug     Specifies debug environment for immediate and child tasks, skipping revisioning and
  *                              subsequent asset compressions.
  * @param {Boolean} --skip-rev  Skips revisioning.
  */
 gulp.task('static', ['images', 'videos', 'styles', 'scripts', 'extras'], function()
 {
-    var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
-    var skipRev = $.util.env['skip-rev'] || $.util.env['sr'] || debug;
-
     return merge
     (
         gulp.src(['.tmp/**/*.'+EXTRAS_PATTERN])
             .pipe(gulp.dest('public')),
         gulp.src(['.tmp/assets/**/*.'+IMAGES_PATTERN, '.tmp/assets/**/*.'+VIDEOS_PATTERN, '.tmp/assets/**/*.'+STYLES_PATTERN, '.tmp/assets/**/*.'+SCRIPTS_PATTERN])
-            .pipe($.if(!skipRev, $.rev()))
+            .pipe($.if(!skipRev(), $.rev()))
             .pipe(gulp.dest('public/assets'))
             .pipe($.size({ title: 'build', gzip: true }))
-            .pipe($.if(!skipRev, $.rev.manifest()))
-            .pipe($.if(!skipRev, gulp.dest('.tmp'))),
+            .pipe($.if(!skipRev(), $.rev.manifest()))
+            .pipe($.if(!skipRev(), gulp.dest('.tmp'))),
         gulp.src(['.tmp/*.'+IMAGES_PATTERN, '.tmp/**/*.'+SOURCEMAPS_PATTERN])
             .pipe(gulp.dest('public'))
     );
@@ -192,16 +192,14 @@ gulp.task('static', ['images', 'videos', 'styles', 'scripts', 'extras'], functio
 
 /**
  * Processes all template files (i.e. HTML) and deploys them to the staging and production directory.
+ *
  * @param {Boolean} --debug             Specifies debug environment, skipping HTML compression.
  * @param {Boolean} --skip-minify-html  Skips HTML compression.
  */
 gulp.task('templates', function(callback)
 {
-    var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
-    var skipMinifyHTML = $.util.env['skip-minify-html'] || $.util.env['sh'] || debug;
-
     return gulp.src(['.generated/**/*.'+TEMPLATES_PATTERN])
-            .pipe($.if(!skipMinifyHTML, $.minifyHtml({empty: true, conditionals: true, loose: true })))
+            .pipe($.if(!skipMinifyHTML(), $.minifyHtml({empty: true, conditionals: true, loose: true })))
             .pipe(gulp.dest('.tmp'))
             .pipe(gulp.dest('public'));
 });
@@ -209,15 +207,13 @@ gulp.task('templates', function(callback)
 /**
  * Builds the entire project from source directory -> staging directory -> production directory. This includes
  * generating the Jekyll templates, processing static and template files.
+ *
  * @param {Boolean} --debug     Specifies debug environment, skipping all sorts of static file compression.
  * @param {Boolean} --skip-rev  Skip replacing embedded file references with revision hash.
  */
 gulp.task('build', ['templates', 'static'], function()
 {
-    var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
-    var skipRev = $.util.env['skip-rev'] || $.util.env['sr'] || debug;
-
-    if (!skipRev)
+    if (!skipRev())
     {
         return gulp.src(['public/**/*.'+STYLES_PATTERN, 'public/**/*.'+SCRIPTS_PATTERN, 'public/**/*.'+TEMPLATES_PATTERN])
             .pipe($.revReplace({ manifest: gulp.src('.tmp/rev-manifest.json') }))
@@ -241,16 +237,18 @@ gulp.task('clean', function(callback)
 });
 
 /**
- * Serves project to localhost.
+ * Serves project to localhost and watches for file changes to auto rebuild. Specify debug to build
+ * unique static file types separately without any sort of compression. This is recommended during
+ * development.
+ *
  * @param {Boolean} --debug Serve files from the staging directory (loose files), defaults
  *                          to false (serve from production directory).
  * @param {Number}  --port  Optional port number (defaults to 9000).
  */
 gulp.task('serve', function()
 {
-    var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
     var port = $.util.env['port'] || $.util.env['p'];
-    var baseDir = (debug) ? '.tmp' : 'public';
+    var baseDir = (debug()) ? '.tmp' : 'public';
     var browserSync = require('browser-sync');
 
     browserSync(
@@ -264,7 +262,7 @@ gulp.task('serve', function()
     });
 
     // Watch for changes.
-    if (debug)
+    if (debug())
     {
         gulp.watch('_config.yml', function() { sequence('generate', 'build', browserSync.reload); });
         gulp.watch('app/**/*.'+DATA_PATTERN, function() { sequence('generate', 'build', browserSync.reload); });
@@ -285,7 +283,8 @@ gulp.task('serve', function()
 });
 
 /**
- * Default task.
+ * Default task. Cleans the generated directories and builds the project.
+ *
  * @param {Boolean} --debug Specifies debug environment, meaning all sub-tasks will be
  *                          iterated in this environment.
  * @param {Boolean} --serve Specifies whether the site should be served at the end of
@@ -293,7 +292,6 @@ gulp.task('serve', function()
  */
 gulp.task('default', function(callback)
 {
-    var debug = $.util.env['debug'] || $.util.env['d'] || process.env.GULP_CONFIG_DEBUG;
     var serve = $.util.env['serve'] || $.util.env['s'];
 
     var seq = ['clean', 'generate', 'build'];
