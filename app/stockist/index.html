@@ -17,7 +17,20 @@ description: The message within. Founded in Vancouver, we are a fashion house th
         {% for vendor in site.data.stockist.vendors %}
             <aside>
                 <h3>{{ vendor.name | upcase }}</h3>
-                <li>{% if vendor.type == 'online' %}<a href="{{ vendor.address }}">{% endif %}{{ vendor.address }}{% if vendor.type == 'online' %}</a>{% endif %}</li>
+                {% if vendor.url != null %}
+                    <li><a href="http://{{ vendor.url }}" target="_blank">{{ vendor.url }}</a></li>
+                {% endif %}
+                {% if vendor.address != null %}
+                    <li>
+                        {% if vendor.map != null %}
+                            <a href="{{ vendor.map }}" target="_blank">
+                        {% endif %}
+                            {{ vendor.address }}
+                        {% if vendor.map != null %}
+                            </a>
+                        {% endif %}
+                    </li>
+                {% endif %}
                 <li>{{ vendor.location }}</li>
             </aside>
         {% endfor %}

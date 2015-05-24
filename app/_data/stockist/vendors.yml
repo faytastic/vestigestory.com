@@ -1,11 +1,11 @@
 ---
 
 -   name: Woo to See You
-    type: offline
+    url: wootoseeyou.com
     address: 1062 Mainland Street
+    map: https://www.google.ca/maps/place/Woo+To+See+You+Boutique/@49.275639,-123.119962,17z/data=!3m1!4b1!4m2!3m1!1s0x548673d6c123257d:0x3a069d28496ea29c
     location: Vancouver, BC V6B 2T4
 
 -   name: Craft & Culture
-    type: online
-    address: http://craftandculture.com
+    url: craftandculture.com
     location: Seattle, WA, USA

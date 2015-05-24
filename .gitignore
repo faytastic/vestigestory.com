@@ -12,3 +12,4 @@ public
 .jekyll-metadata
 *.sublime-project
 *.sublime-workspace
+npm-debug.log
