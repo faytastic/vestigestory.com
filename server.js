@@ -6,11 +6,14 @@
 'use strict';
 
 var express = require('express');
+var compress = require('compression');
 var app = express();
+
+app.use(compress());
 
 app.use(function(req, res, next)
 {
-    if (req.url.indexOf('/assets/') === 0)
+    if ((req.url.indexOf('/assets/') === 0) || (req.url.indexOf('/favicon.png') === 0))
     {
         res.setHeader('Cache-Control', 'public, max-age=345600');
         res.setHeader('Expires', new Date(Date.now() + 345600000).toUTCString());
