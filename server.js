@@ -6,7 +6,6 @@
 'use strict';
 
 var express = require('express');
-var expiry = require('static-expiry');
 var app = express();
 
 app.use(function(req, res, next)
