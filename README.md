@@ -79,13 +79,13 @@ This guideline refers to creating a new Heroku app from scratch.
 
 ## Tasks
 
-1. ```gulp --debug```: Builds all source files in the ```app``` directory but skips all compression tasks.
+1. ```$ gulp --debug```: Builds all source files in the ```app``` directory but skips all compression tasks.
 
-2. ```gulp```: Builds all source fies in the ```app``` directory with asset compression such as CSS/HTML/JavaScript minification and deploys them to the ```public``` directory.
+2. ```$ gulp```: Builds all source fies in the ```app``` directory with asset compression such as CSS/HTML/JavaScript minification and deploys them to the ```public``` directory.
 
-3. ```gulp serve --debug```: Serves the project to ```http://localhost:9000``` by default in debug configuration (recommended for development).
+3. ```$ gulp serve --debug```: Serves the project to ```http://localhost:9000``` by default in debug configuration (recommended for development).
 
-4. ```gulp serve```: Serves the project to ```http://localhost:9000``` by default in production configuration (not recommended for development).
+4. ```$ gulp serve```: Serves the project to ```http://localhost:9000``` by default in production configuration (not recommended for development).
 
 See ```gulpfile.js``` for more tasks and custom flags such as ```--skip-uglify```, ```--skip-csso```, etc.
 
