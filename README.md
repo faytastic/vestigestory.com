@@ -1,6 +1,6 @@
 # vestigestory.com
 
-This is the official website of Vestige. This project is a static, database-less, blog-aware site that uses the [Jekyll](http://jekyllrb.com) generator and pipelined by [Gulp](http://gulpjs.com).
+This is the official website of Vestige. This project is a static, database-less, blog-aware site that uses the [Jekyll](http://jekyllrb.com) generator and pipelined by [Gulp](http://gulpjs.com). Refer to [generator-vars-jekyll](https://github.com/VARIANTE/generator-vars-jekyll) for more details about the project structure.
 
 ## Setup
 
