@@ -52,6 +52,13 @@ Do the following to get the project up and running in your local machine.
   $ npm install
   ```
   After ```npm``` is done installing dependencies, it will trigger its ```postinstall``` script which will run a clean ```gulp``` build for production.
+  
+4. Test the site in debug and serve it to ```localhost:9000```:
+  ```
+  $ gulp --debug --serve
+  ```
+  
+5. Voila.
 
 ### Cloud (Heroku)
 
@@ -110,3 +117,12 @@ There are 3 Heroku instances available for previewing the compiled site, as foll
 3. [```vestigestory-com-dev```](http://vestigestory-com-dev.herokuapp.com) (dev): This is the instance that serves the project in debug configuration, meaning that there are no asset compression, whatsoever. During development you should test your changes here for faster build iteration. Bloggers can test their drafts here as well. This instance links to the [core GitHub repo](https://github.com/andrewscwei/vestigestory.com) with auto deploy **enabled**. It also has the config variable ```GULP_CONFIG_DEBUG``` set to ```true``` to notify a ```gulp``` to run in the debug environment. Any push to the [core repo](https://github.com/andrewscwei/vestigestory.com) will trigger a deploy to this instance.
 
 When both stage and dev instances pass the auto build, you can safely deploy to the prod instance in the [Heroku dashboard](https://dashboard.heroku.com/apps/vestigestory-com/deploy/github).
+
+## Common Issues
+
+1. If while kicking off a ```gulp``` build you encounter an error that has to do with ```node-sass```, that package is probably corrupted. Repair it by running: ```$ npm rebuild node-sass```
+
+2. If while kicking off a ```gulp``` build you encounter an error that has to do with ```gulp-imagemin```, you will probably have to reinstall it.
+  ```
+  $ npm uninstall gulp-imagemin && npm install gulp-imagemin
+  ```
