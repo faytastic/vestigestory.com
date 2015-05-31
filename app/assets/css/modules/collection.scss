@@ -3,7 +3,7 @@
  *  (c) Vestige <http://vestigestory.com>
  */
 
-@import '../base/mixins';
+@import 'base/mixins';
 
 $base-path: '../../' !default;
 $thumbnail-size-large: 200px;
@@ -39,17 +39,17 @@ main.collection
             overflow-y: hidden;
             position: absolute;
 
-            @include longer-than(500)
+            @include screen(phablet)
             {
                 height: $thumbnail-size-medium;
             }
 
-            @include longer-than(700)
+            @include screen(tablet)
             {
                 height: $thumbnail-size-large;
             }
 
-            .touch &
+            @include touch(true)
             {
                 width: 100% !important;
                 overflow-x: scroll;
@@ -72,37 +72,36 @@ main.collection
                 position: relative;
                 box-sizing: border-box;
 
-                @include longer-than(500)
+                @include screen(phablet)
                 {
                     width: $thumbnail-size-medium;
                     height: $thumbnail-size-medium;
                 }
 
-                @include longer-than(700)
+                @include screen(tablet)
                 {
                     width: $thumbnail-size-large;
                     height: $thumbnail-size-large;
                 }
 
-                &,
-                &.state-inactive
+                @include state(inactive, true)
                 {
                     border: 0px solid #999;
                 }
 
-                &.state-active
+                @include state(active)
                 {
                     border: 2px solid #999;
                 }
 
-                &:hover
+                @include state(hover)
                 {
                     cursor: pointer;
                     border: 2px solid #999;
                     opacity: 0.6;
                 }
 
-                .csstransitions &
+                @include transition
                 {
                     transition-property: border, opacity;
                     transition-duration: 0.2s;
@@ -124,7 +123,7 @@ main.collection
         // Main display.
         summary
         {
-            @extend .vs-fluid-block;
+            @include fluid-block;
 
             top: 0px;
             left: 0px;
@@ -135,17 +134,17 @@ main.collection
             position: absolute;
             overflow: hidden;
 
-            @include wider-than(767)
+            @include screen(tablet)
             {
                 text-align: right;
             }
 
-            @include longer-than(500)
+            @include screen(phablet)
             {
                 height: calc(100% - 150px);
             }
 
-            @include longer-than(700)
+            @include screen(tablet)
             {
                 height: calc(100% - 200px);
             }
@@ -161,7 +160,7 @@ main.collection
                 overflow-x: hidden;
                 overflow-y: hidden;
 
-                .csstransitions &
+                @include transition
                 {
                     transition: opacity 0.4s ease-out;
                 }
@@ -174,7 +173,7 @@ main.collection
                     overflow-x: hidden;
                     overflow-y: hidden;
 
-                    .touch &
+                    @include touch
                     {
                         width: 100% !important;
                         overflow-x: scroll;
@@ -188,7 +187,7 @@ main.collection
                         }
                     }
 
-                    .csstransitions &
+                    @include transition
                     {
                         @extend .vs-animate;
 
@@ -196,11 +195,14 @@ main.collection
                         transition-duration: 0.5s;
                     }
 
-                    @include desktop
+                    @include screen(desktop)
                     {
-                        .cssanimations &.state-active
+                        @include state(active)
                         {
-                            animation: reveal 1.0s;
+                            @include animation
+                            {
+                                animation: reveal 1.0s;
+                            }
                         }
                     }
 
@@ -236,7 +238,7 @@ main.collection
                 }
             }
 
-            &.state-active
+            @include state(active)
             {
                 article
                 {
@@ -259,12 +261,12 @@ main.collection
                 display: none;
                 position: relative;
 
-                .touch &
+                @include touch
                 {
                     pointer-events: none;
                 }
 
-                @include wider-than(767)
+                @include screen(tablet)
                 {
                     width: 300px;
                     right: 5%;
@@ -281,7 +283,7 @@ main.collection
                     line-height: 20px;
                     position: relative;
 
-                    @include wider-than(767)
+                    @include screen(tablet)
                     {
                         padding-bottom: 20px;
                         font-size: 16px;
@@ -327,7 +329,7 @@ main.collection
                 left: 10px;
                 position: absolute;
 
-                @include wider-than(767)
+                @include screen(tablet)
                 {
                     display: none;
                 }
@@ -429,7 +431,7 @@ main.collection
         vertical-align: middle;
         pointer-events: none;
 
-        @include wider-than(767)
+        @include screen(tablet)
         {
             width: 35px;
             height: 35px;

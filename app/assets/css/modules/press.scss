@@ -3,7 +3,7 @@
  *  (c) Vestige <http://vestigestory.com>
  */
 
-@import '../base/mixins';
+@import 'base/mixins';
 
 $base-path: '../../' !default;
 
@@ -22,12 +22,12 @@ main.press
             display: inline-block;
             position: relative;
 
-            @include wider-than(370)
+            @include screen-min-width(370)
             {
                 margin: 20px 40px;
             }
 
-            @include wider-than(768)
+            @include screen(tablet)
             {
                 margin: 20px 40px;
             }

@@ -108,7 +108,7 @@ gulp.task('styles', function()
         .pipe($.sass({
             outputStyle: 'nested',
             precision: 10,
-            includePaths: ['.'],
+            includePaths: ['node_modules', '.generated/assets/css'],
             onError: console.error.bind(console, 'Sass error:')
         }))
         .pipe($.postcss([require('autoprefixer-core')({ browsers: ['last 2 version', 'ie 9'] })]))

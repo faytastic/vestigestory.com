@@ -3,8 +3,8 @@
  *  (c) Vestige <http://vestigestory.com>
  */
 
-@import '../../base/mixins';
-@import '../../base/typography';
+@import 'base/mixins';
+@import 'base/typography';
 
 $base-path: '../../' !default;
 
@@ -138,12 +138,12 @@ main.post
         color: #333;
         text-decoration: underline;
 
-        .csstransitions &
+        @include transition
         {
             transition: color 0.4s;
         }
 
-        &:hover
+        @include state(hover)
         {
             color: #999;
         }
@@ -185,7 +185,7 @@ main.post
             color: #999;
         }
 
-        @include wider-than(700)
+        @include screen(phablet)
         {
             padding: 0px 80px;
         }
@@ -197,7 +197,7 @@ main.post
         padding: 0px 40px;
         list-style: decimal;
 
-        @include wider-than(700)
+        @include screen(phablet)
         {
             padding: 0px 60px;
         }

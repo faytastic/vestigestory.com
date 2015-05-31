@@ -3,8 +3,8 @@
  *  (c) Vestige <http://vestigestory.com>
  */
 
-@import '../../base/mixins';
-@import '../../base/typography';
+@import 'base/mixins';
+@import 'base/typography';
 
 $base-path: '../../' !default;
 $nav-node-width: 8px;
@@ -12,19 +12,20 @@ $nav-node-height: $nav-node-width;
 
 main.story-book
 {
-    &,
-    &.state-loading
+    @include state(loading, true)
     {
         overflow: hidden;
     }
 
-    &.state-loaded
+    @include state(loaded)
     {
         overflow: visible;
     }
 
     & > nav
     {
+        @include hide-for-mobile;
+
         top: 0px;
         bottom: 0px;
         left: 20px;
@@ -35,35 +36,26 @@ main.story-book
         position: fixed;
         z-index: $story-book-nav-z-index;
 
-        @media only screen and (max-width: 1024px)
+        a
         {
-            .touch &
+            @include state(inactive, true)
             {
-                display: none;
-                position: absolute;
-                z-index: 0;
+                margin: 10px;
+                width: $nav-node-width;
+                height: $nav-node-height;
+                border-radius: $default-border-radius;
+                background-color: rgba(170, 170, 170, 0.6);
+                opacity: 0.5;
+                display: block;
+                position: relative;
             }
-        }
 
-        a,
-        a.state-inactive
-        {
-            margin: 10px;
-            width: $nav-node-width;
-            height: $nav-node-height;
-            border-radius: $default-border-radius;
-            background-color: rgba(170, 170, 170, 0.6);
-            opacity: 0.5;
-            display: block;
-            position: relative;
-
-            .csstransitions &
+            @include transition
             {
                 transition: all 0.4s ease-out;
             }
 
-            &:hover,
-            &.state-active
+            @include state(hover active)
             {
                 opacity: 1.0;
                 background-color: #333;
@@ -81,18 +73,17 @@ main.story-book
         position: absolute;
         z-index: $preloader-z-index;
 
-        .csstransitions &
+        @include transition
         {
             transition: opacity 0.5s ease-out;
         }
 
-        &,
-        &.state-visible
+        @include state(visible, true)
         {
             opacity: 1.0;
         }
 
-        &.state-hidden
+        @include state(hidden)
         {
             opacity: 0.0;
         }
@@ -107,7 +98,7 @@ main.story-book
             background-color: #fff;
             position: absolute;
 
-            .csstransitions &
+            @include transition
             {
                 transition: width 0.2s ease-out;
             }
@@ -141,12 +132,12 @@ main.story-book
         position: relative;
         overflow: hidden;
 
-        @media only screen and (min-width: 450px)
+        @include screen-min-width(450)
         {
             min-height: 450px;
         }
 
-        @media only screen and (min-width: 769px)
+        @include screen(tablet)
         {
             min-height: 768px;
         }
@@ -154,7 +145,7 @@ main.story-book
 
     .content-layer
     {
-        @extend .vs-fluid-block;
+        @include fluid-block;
 
         top: 0px;
         left: 0px;
@@ -176,7 +167,7 @@ main.story-book
 
     .overlay-layer
     {
-        @extend .vs-fluid-block;
+        @include fluid-block;
 
         top: 0px;
         left: 0px;
@@ -188,9 +179,9 @@ main.story-book
         display: block;
         z-index: $story-book-overlay-layer-z-index;
 
-        @media only screen and (max-width: 1024px)
+        @include screen(desktop, false, true)
         {
-            .touch &
+            @include touch
             {
                 display: none;
             }
@@ -207,12 +198,12 @@ main.story-book
         display: inline-block;
         position: relative;
 
-        @media only screen and (min-width: 321px)
+        @include screen-min-width(321)
         {
             width: 300px;
         }
 
-        @media only screen and (min-width: 481px)
+        @include screen-min-width(481)
         {
             width: 400px;
         }
@@ -257,6 +248,8 @@ main.story-book
 
     dialog
     {
+        @include hide-for-mobile;
+
         padding: 70px;
         width: 900px;
         height: auto;
@@ -322,13 +315,13 @@ main.story-book
         letter-spacing: 5px;
         color: #777;
 
-        @media only screen and (min-width: 481px)
+        @include screen-min-width(481)
         {
             font-size: 80px;
             line-height: 80px;
         }
 
-        @media only screen and (min-width: 769px)
+        @include screen(tablet)
         {
             font-size: 100px;
             line-height: 100px;
@@ -345,7 +338,7 @@ main.story-book
         line-height: 40px;
         color: #999;
 
-        @media only screen and (min-width: 481px)
+        @include screen-min-width(481)
         {
             font-size: 30px;
             line-height: 50px;
@@ -364,10 +357,12 @@ main.story-book
     {
         font-style: italic;
         letter-spacing: 2px;
+        text-align: center;
     }
 
     button.scroll-down
     {
+        @include hide-for-mobile;
         @include button-fade-transition();
 
         left: 0px;
@@ -378,9 +373,9 @@ main.story-book
         z-index: $story-book-overlay-layer-z-index;
         position: fixed;
 
-        @media only screen and (max-width: 1024px)
+        @include screen(desktop, false, true)
         {
-            .touch &
+            @include touch
             {
                 display: none;
             }

@@ -1,6 +1,6 @@
 {
   "name": "vestigestory.com",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "start": "node server",
@@ -11,7 +11,7 @@
     "compression": "^1.4.4",
     "express": "^4.12.3",
     "jquery": "~2.1.x",
-    "vars": "https://github.com/VARIANTE/vars.js.git"
+    "vars": "https://github.com/VARIANTE/vars.web.git"
   },
   "devDependencies": {
     "autoprefixer-core": "^5.1.7",

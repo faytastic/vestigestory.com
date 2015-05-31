@@ -22,7 +22,7 @@ var utils = {};
  */
 utils.isMobileVersion = function()
 {
-    return global.forceTouch || (($(window).innerWidth() <= 1024) && ($('html').hasClass('touch')));
+    return ($(window).innerWidth() <= 1024);
 };
 
 /**

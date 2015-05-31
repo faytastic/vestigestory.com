@@ -3,8 +3,8 @@
  *  (c) Vestige <http://vestigestory.com>
  */
 
-@import '../../base/mixins';
-@import '../../base/typography';
+@import 'base/mixins';
+@import 'base/typography';
 
 $base-path: '../../' !default;
 $post-aside-width: 250px;
@@ -24,17 +24,17 @@ main.journal
         overflow: hidden;
         position: relative;
 
-        @include portrait
+        @include screen-portrait
         {
             height: 500px;
         }
 
-        @include landscape
+        @include screen-landscape
         {
             height: 500px;
         }
 
-        .csstransitions &
+        @include transition
         {
             transition: background-color 0.4s ease-out;
         }
@@ -50,19 +50,19 @@ main.journal
                 content: '';
                 display: block;
 
-                .csstransitions &
+                @include transition
                 {
                     transition: background-color 0.4s ease-out;
                 }
             }
 
-            @include portrait
+            @include screen-portrait
             {
                 width: 100%;
                 height: calc(100% - #{$post-aside-height});
             }
 
-            @include landscape
+            @include screen-landscape
             {
                 width: calc(100% - #{$post-aside-width});
                 height: 100%;
@@ -99,13 +99,13 @@ main.journal
             display: inline-block;
             position: relative;
 
-            @include portrait
+            @include screen-portrait
             {
                 width: 100%;
                 height: $post-aside-height;
             }
 
-            @include landscape
+            @include screen-landscape
             {
                 width: $post-aside-width;
                 height: 100%;
@@ -151,7 +151,7 @@ main.journal
         display: inline-block;
         position: relative;
 
-        @media only screen and (min-width: 600px)
+        @include screen(phablet)
         {
             font-size: 100px;
         }
@@ -168,7 +168,7 @@ main.journal
         display: inline-block;
         position: relative;
 
-        @media only screen and (min-width: 600px)
+        @include screen(phablet)
         {
             padding: 20px;
             font-size: 24px;

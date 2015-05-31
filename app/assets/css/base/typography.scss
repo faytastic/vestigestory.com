@@ -3,8 +3,6 @@
  *  (c) Vestige <http://vestigestory.com>
  */
 
-@import './mixins';
-
 $base-path: '../../' !default;
 
 $font-family-content: 'EB Garamond', serif;
@@ -97,7 +95,7 @@ h2
     display: block;
     position: relative;
 
-    @include wider-than(1023)
+    @include screen(desktop)
     {
         font-size: 100px;
     }
@@ -114,7 +112,7 @@ h3
     display: block;
     position: relative;
 
-    @include wider-than(600)
+    @include screen(phablet)
     {
         font-size: 24px;
     }
@@ -131,7 +129,7 @@ h4
     display: block;
     position: relative;
 
-    @include wider-than(767)
+    @include screen(tablet)
     {
         font-size: 30px;
     }
@@ -149,7 +147,7 @@ h5
     display: block;
     position: relative;
 
-    @include wider-than(767)
+    @include screen(tablet)
     {
         font-size: 18px;
     }

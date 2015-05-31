@@ -121,7 +121,7 @@ StoryBookController.prototype.init = function()
     this.children.dialogToggles = $(this.element).find('button.toggle-dialog');
 
     // Set up document events.
-    if (utils.isMobileVersion())
+    if (utils.isMobileVersion() && utils.isTouchDevice())
     {
         this.initMobile();
     }
@@ -136,8 +136,6 @@ StoryBookController.prototype.init = function()
 
 StoryBookController.prototype.initNav = function()
 {
-    if (utils.isMobileVersion()) return;
-
     var nav = document.createElement('nav');
 
     var arrlen = vars.sizeOf(DIRECTORY);

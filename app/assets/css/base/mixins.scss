@@ -17,85 +17,9 @@ $header-z-index: 100;
 $preloader-z-index: 110;
 $default-border-radius: 4px;
 
-@mixin portrait
-{
-    @media only screen and (orientation: portrait)
-    {
-        @content;
-    }
-}
-
-@mixin landscape
-{
-    @media only screen and (orientation: landscape)
-    {
-        @content;
-    }
-}
-
-@mixin wider-than($minWidth)
-{
-    @media only screen and (min-width: #{$minWidth + 1}px)
-    {
-        @content;
-    }
-}
-
-@mixin narrower-than($maxWidth)
-{
-    @media only screen and (max-width: #{$maxWidth - 1}px)
-    {
-        @content;
-    }
-}
-
-@mixin longer-than($minHeight)
-{
-    @media only screen and (min-height: #{$minHeight + 1}px)
-    {
-        @content;
-    }
-}
-
-@mixin shorter-than($maxHeight)
-{
-    @media only screen and (max-height: #{$maxHeight - 1}px)
-    {
-        @content;
-    }
-}
-
-
-@mixin mobile
-{
-    @include narrower-than(1025)
-    {
-        .touch &
-        {
-            @content;
-        }
-    }
-}
-
-@mixin desktop
-{
-    @include narrower-than(1025)
-    {
-        .no-touch &
-        {
-            @content;
-        }
-    }
-
-    @include wider-than(1024)
-    {
-        @content;
-    }
-}
-
 @mixin hide-for-mobile
 {
-    @include mobile
+    @include screen(desktop, false, true)
     {
         pointer-events: none;
         display: none;
@@ -104,7 +28,7 @@ $default-border-radius: 4px;
 
 @mixin apply-mobile-background($image:none, $size:cover, $position:center, $repeat:no-repeat)
 {
-    @include mobile
+    @include screen(desktop, false, true)
     {
         background-image: $image;
         background-size: $size;
@@ -115,7 +39,7 @@ $default-border-radius: 4px;
 
 @mixin apply-desktop-background($image:none, $size:cover, $position:center, $repeat:no-repeat)
 {
-    @include desktop
+    @include screen(desktop)
     {
         background-image: $image;
         background-size: $size;
@@ -126,23 +50,22 @@ $default-border-radius: 4px;
 
 @mixin summary-fade-transition()
 {
-    @include desktop
+    @include screen(desktop)
     {
-        .csstransitions &
+        @include transition
         {
             transition-property: opacity;
             transition-delay: 0.0s;
             transition-timing-function: ease-out;
         }
 
-        &,
-        &.state-hidden
+        @include state(hidden, true)
         {
             opacity: 0.0;
             transition-duration: 0.5s;
         }
 
-        &.state-visible
+        @include state(visible)
         {
             opacity: 1.0;
             transition-duration: 2.0s;
@@ -152,11 +75,11 @@ $default-border-radius: 4px;
 
 @mixin dialog-fade-transition()
 {
-    @include desktop
+    @include screen(desktop)
     {
-        .csstransitions &
+        @include transition
         {
-            @extend .vs-animate;
+            @include hardware-acceleration;
 
             transition-property: bottom, opacity;
             transition-duration: 0.4s;
@@ -164,15 +87,14 @@ $default-border-radius: 4px;
             transition-timing-function: ease-out;
         }
 
-        &,
-        &.state-hidden
+        @include state(hidden, true)
         {
             bottom: -20px;
             opacity: 0.0;
             pointer-events: none;
         }
 
-        &.state-visible
+        @include state(visible)
         {
             bottom: 0px;
             opacity: 1.0;
@@ -183,9 +105,9 @@ $default-border-radius: 4px;
 
 @mixin button-fade-transition()
 {
-    @include desktop
+    @include screen(desktop)
     {
-        .csstransitions &
+        @include transition
         {
             opacity: 1.0;
             transition-property: bottom, opacity;
@@ -193,22 +115,21 @@ $default-border-radius: 4px;
             transition-timing-function: ease-out;
         }
 
-        &,
-        &.state-hidden
+        @include state(hidden, true)
         {
             transition-delay: 0.0s, 0.0s;
             bottom: -40px;
             pointer-events: none;
         }
 
-        &.state-visible
+        @include state(visible)
         {
             bottom: 40px;
             transition-delay: 0.6s, 0.0s;
             pointer-events: auto;
         }
 
-        &:hover
+        @include state(hover)
         {
             opacity: 0.6;
         }
@@ -217,7 +138,7 @@ $default-border-radius: 4px;
 
 @mixin link-fade-transition()
 {
-    .csstransitions &
+    @include transition
     {
         opacity: 1.0;
         transition-property: opacity;
@@ -225,7 +146,7 @@ $default-border-radius: 4px;
         transition-timing-function: ease-out;
     }
 
-    .no-touch &:hover
+    @include state(hover)
     {
         opacity: 0.6;
     }
@@ -233,11 +154,11 @@ $default-border-radius: 4px;
 
 @mixin background-fade-transition($duration:1s, $delay:0s)
 {
-    @include desktop
+    @include screen(desktop)
     {
-        .csstransitions &
+        @include transition
         {
-            @extend .vs-animate;
+            @include hardware-acceleration;
 
             transition-property: opacity;
             transition-duration: $duration;
@@ -245,13 +166,12 @@ $default-border-radius: 4px;
             transition-timing-function: ease-out;
         }
 
-        &,
-        &.state-hidden
+        @include state(hidden, true)
         {
             opacity: 0.0;
         }
 
-        &.state-visible
+        @include state(visible)
         {
             opacity: 1.0;
         }
@@ -260,11 +180,11 @@ $default-border-radius: 4px;
 
 @mixin background-zoom-transition($duration:0.4s, $delay:0s)
 {
-    @include desktop
+    @include screen(desktop)
     {
-        .csstransitions &
+        @include transition
         {
-            @extend .vs-animate;
+            @include hardware-acceleration;
 
             transition-property: opacity, transform;
             transition-duration: $duration;
@@ -272,14 +192,13 @@ $default-border-radius: 4px;
             transition-timing-function: ease-out;
         }
 
-        &,
-        &.state-hidden
+        @include state(hidden, true)
         {
             opacity: 0.0;
             transform: scale(1.2);
         }
 
-        &.state-visible
+        @include state(visible)
         {
             opacity: 1.0;
             transform: scale(1.0);
@@ -289,11 +208,11 @@ $default-border-radius: 4px;
 
 @mixin background-nudge-transition($x:0px, $y:0px, $duration:1s, $delay:0s)
 {
-    @include desktop
+    @include screen(desktop)
     {
-        .csstransitions &
+        @include transition
         {
-            @extend .vs-animate;
+            @include hardware-acceleration;
 
             transition-property: transform, opacity;
             transition-duration: $duration;
@@ -301,14 +220,13 @@ $default-border-radius: 4px;
             transition-timing-function: ease-out;
         }
 
-        &,
-        &.state-hidden
+        @include state(hidden, true)
         {
             transform: translateX($x) translateY($y);
             opacity: 0.0;
         }
 
-        &.state-visible
+        @include state(visible)
         {
             transform: translateX(0px) translateY(0px);
             opacity: 1.0;

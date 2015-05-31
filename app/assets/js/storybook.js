@@ -87,7 +87,7 @@ Main.prototype._onPreloadComplete = function(event)
 
         var dynamicBackground;
 
-        if (utils.isMobileVersion())
+        if (utils.isMobileVersion() && utils.isTouchDevice())
         {
             self.children.dynamicBackground.remove();
         }

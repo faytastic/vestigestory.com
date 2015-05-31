@@ -47,7 +47,7 @@ HeaderController.prototype.update = function(dirtyTypes)
 {
     if (this.updateDelegate.isDirty(vars.DirtyType.POSITION))
     {
-        if (!utils.isMobileVersion())
+        if ($(window).innerWidth() >= 768)
         {
             var autoHide = $(this.element).hasClass('auto-hide');
             var viewportRect = vars.getViewportRect();

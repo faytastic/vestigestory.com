@@ -18,13 +18,13 @@ main.about
             height: 100%;
             display: inline-block;
 
-            @media only screen and (min-width: 768px)
+            @include screen(tablet)
             {
                 padding: 0px 20px;
                 width: 344px;
             }
 
-            @media only screen and (min-width: 900px)
+            @include screen(desktop)
             {
                 padding: 0px 40px;
                 width: 370px;

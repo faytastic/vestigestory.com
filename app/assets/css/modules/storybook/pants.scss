@@ -3,7 +3,7 @@
  *  (c) Vestige <http://vestigestory.com>
  */
 
-@import '../../base/mixins';
+@import 'base/mixins';
 
 $base-path: '../../' !default;
 
@@ -49,7 +49,7 @@ main.story-book
                     }
                 }
 
-                @include mobile
+                @include screen(desktop, false, true)
                 {
                     left: 10%;
                     text-align: left;
@@ -64,7 +64,7 @@ main.story-book
                 bottom: 0px;
                 position: absolute;
 
-                @include mobile
+                @include screen(desktop, false, true)
                 {
                     display: none;
                 }

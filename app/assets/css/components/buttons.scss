@@ -3,8 +3,8 @@
  *  (c) Vestige <http://vestigestory.com>
  */
 
-@import '../base/mixins';
-@import '../base/typography';
+@import 'base/mixins';
+@import 'base/typography';
 
 $base-path: '../../' !default;
 
@@ -121,13 +121,13 @@ button.info
         content: '\2139';
     }
 
-    &.state-active
+    @include state(active)
     {
         border-color: #333;
         color: #333;
     }
 
-    .csstransitions &
+    @include transition
     {
         transition-property: color;
         transition-duration: 0.4s;
@@ -140,21 +140,18 @@ button.toggle-dialog
     width: $icon-toggles-width;
     height: $icon-toggles-height;
 
-    .csstransitions &
+    @include transition
     {
         opacity: 1.0;
         transition: opacity 0.3s linear;
     }
 
-    .no-touch &
+    @include state(hover)
     {
-        &:hover
-        {
-            opacity: 0.5;
-        }
+        opacity: 0.5;
     }
 
-    @include desktop
+    @include screen(desktop)
     {
         background: url($asset-icon-toggles) no-repeat;
         background-size: $icon-toggles-width*$icon-toggles-total;
@@ -162,7 +159,7 @@ button.toggle-dialog
         display: inline-block;
     }
 
-    @include mobile
+    @include screen(desktop, false, true)
     {
         background: none;
         display: none;
@@ -174,21 +171,18 @@ button.toggle-background
     width: $icon-toggles-width;
     height: $icon-toggles-height;
 
-    .csstransitions &
+    @include transition
     {
         opacity: 1.0;
         transition: opacity 0.3s linear;
     }
 
-    .no-touch &
+    @include state(hover)
     {
-        &:hover
-        {
-            opacity: 0.5;
-        }
+        opacity: 0.5;
     }
 
-    @include desktop
+    @include screen(desktop)
     {
         background: url($asset-icon-toggles) no-repeat;
         background-size: $icon-toggles-width*$icon-toggles-total;
@@ -196,7 +190,7 @@ button.toggle-background
         display: inline-block;
     }
 
-    @include mobile
+    @include screen(desktop, false, true)
     {
         background: none !important;
         display: none;
@@ -224,21 +218,18 @@ button.toggle-garment
         background-position: $garment-toggles-grey-position;
     }
 
-    .csstransitions &
+    @include transition
     {
         opacity: 1.0;
         transition: opacity 0.3s linear;
     }
 
-    .no-touch &
+    @include state(hover)
     {
-        &:hover
-        {
-            opacity: 0.5;
-        }
+        opacity: 0.5;
     }
 
-    @include desktop
+    @include screen(desktop)
     {
         background: url($asset-garment-toggles) no-repeat;
         background-size: $garment-toggles-width*$garment-toggles-total $garment-toggles-height;
@@ -246,7 +237,7 @@ button.toggle-garment
         display: inline-block;
     }
 
-    @include mobile
+    @include screen(desktop, false, true)
     {
         background: none;
         display: none;
@@ -263,18 +254,15 @@ button.toggle-video
     background-repeat: no-repeat;
     display: inline-block;
 
-    .csstransitions &
+    @include transition
     {
         opacity: 1.0;
         transition: opacity 0.3s linear;
     }
 
-    .no-touch &
+    @include state(hover)
     {
-        &:hover
-        {
-            opacity: 0.5;
-        }
+        opacity: 0.5;
     }
 }
 
@@ -305,16 +293,13 @@ button.dismiss
         content: 'close';
     }
 
-    .no-touch &
+    @include state(hover)
     {
-        &:hover
-        {
-            border-color: #666;
-            color: #666;
-        }
+        border-color: #666;
+        color: #666;
     }
 
-    .csstransitions &
+    @include transition
     {
         transition: all 0.2s ease-out;
     }
@@ -330,13 +315,12 @@ button.nav-node
     display: inline-block;
     position: relative;
 
-    .csstransitions &
+    @include transition
     {
         transition: all 0.4s ease-out;
     }
 
-    .no-touch &:hover,
-    &.state-active
+    @include state(hover active)
     {
         opacity: 1.0;
         background-color: #333;

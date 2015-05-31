@@ -3,7 +3,7 @@
  *  (c) Vestige <http://vestigestory.com>
  */
 
-@import '../../base/mixins';
+@import 'base/mixins';
 
 $base-path: '../../../' !default;
 
@@ -52,7 +52,7 @@ main.background
 
     & > section
     {
-        @extend .vs-fluid-block;
+        @include fluid-block;
         @include background-fade-transition();
 
         top: 0px;

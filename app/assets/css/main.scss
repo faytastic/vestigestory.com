@@ -5,6 +5,8 @@
 
 $base-path: '../' !default;
 
+@import 'vars/dist/sass/vars';
+
 @import 'base/normalize';
 @import 'base/typography';
 @import 'base/layout';
