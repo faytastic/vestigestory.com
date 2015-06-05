@@ -22,7 +22,6 @@ prose:
     rooturl: 'app'
     media: 'app/assets/images/journal'
     ignore:
-        -   style-guide.md
         -   index.html
         -   _data
         -   _includes
